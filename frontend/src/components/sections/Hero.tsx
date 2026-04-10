@@ -1,10 +1,10 @@
 "use client";
 
-import React from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Star } from 'lucide-react';
-import api from '@/lib/api';
+import React from "react";
+import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowLeft, ArrowRight, Star } from "lucide-react";
+import api from "@/lib/api";
 
 interface HeroSlide {
   _id: string;
@@ -14,115 +14,140 @@ interface HeroSlide {
   imageUrl: string;
 }
 
+const fallbackSlide: HeroSlide = {
+  _id: "fallback",
+  title: "Surgery Refined by Professionals",
+  subtitle:
+    "Enhance your confidence restore your youth and elevate your everyday.",
+  ctaText: "Read More",
+  imageUrl:
+    "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070&auto=format&fit=crop",
+};
+
 export const Hero = () => {
   const [slides, setSlides] = React.useState<HeroSlide[]>([]);
   const [index, setIndex] = React.useState(0);
+  const [paused, setPaused] = React.useState(false);
 
+  // FETCH DATA
   React.useEffect(() => {
     const fetchSlides = async () => {
       try {
-        const { data } = await api.get('/hero-slides');
-        setSlides(data);
+        const { data } = await api.get("/hero-slides");
+        setSlides(data || []);
       } catch {
         setSlides([]);
       }
     };
+
     fetchSlides();
   }, []);
 
+  const hasSlides = slides.length > 0;
+  const activeSlide = hasSlides ? slides[index] : fallbackSlide;
+
+  // AUTOPLAY (SYNC SAFE)
   React.useEffect(() => {
-    if (!slides.length) return;
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+    if (!hasSlides || paused) return;
+
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % slides.length);
     }, 5000);
-    return () => clearInterval(timer);
-  }, [slides.length]);
 
-  React.useEffect(() => {
-    if (!slides.length) {
-      setIndex(0);
-      return;
-    }
-    if (index >= slides.length) {
-      setIndex(0);
-    }
-  }, [index, slides.length]);
+    return () => clearInterval(interval);
+  }, [hasSlides, paused, slides.length]);
 
-  const currentSlide = slides[index];
-  const fallbackSlide: HeroSlide = {
-    _id: "fallback",
-    title: "Surgery Refined by Professionals",
-    subtitle: "Enhance your confidence restore your youth and elevate your everyday.",
-    ctaText: "Read More",
-    imageUrl: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070&auto=format&fit=crop",
+  const goNext = () => {
+    if (!hasSlides) return;
+    setIndex((prev) => (prev + 1) % slides.length);
   };
-  const activeSlide = currentSlide || fallbackSlide;
+
+  const goPrev = () => {
+    if (!hasSlides) return;
+    setIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  };
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-bone">
-      <div className="absolute inset-0">
-        <Image
-          src={activeSlide.imageUrl}
-          alt={activeSlide.title}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-linear-to-r from-secondary/80 via-secondary/45 to-secondary/20" />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center z-10 relative">
+    <section
+      className="relative min-h-screen overflow-hidden flex items-center bg-white/90"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      {/* SLIDE WRAPPER (SYNC POINT) */}
+      <AnimatePresence mode="wait">
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          key={activeSlide._id}
+          className="absolute inset-0 w-full h-full"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.6 }}
         >
-          <div className="flex items-center space-x-2 text-primary mb-6">
-            <div className="flex">
-              {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="w-4 h-4 fill-current" />)}
-            </div>
-            <span className="text-sm font-semibold tracking-tighter text-white/90">4.95 Google rating</span>
-          </div>
+          {/* IMAGE LAYER */}
+          <motion.div
+            className="absolute inset-0"
+            initial={{ scale: 1.15 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 6, ease: "linear" }}
+          >
+            <Image
+              src={activeSlide.imageUrl}
+              alt={activeSlide.title}
+              fill
+              priority
+              className="object-cover"
+            />
 
-          <h1 className="text-6xl lg:text-7xl font-serif text-white leading-[1.08] mb-8 max-w-xl">
-            {activeSlide.title}
-          </h1>
+            <div className="absolute inset-0 bg-black/55" />
+          </motion.div>
 
-          <p className="text-lg text-white/85 max-w-md leading-relaxed mb-10">
-            {activeSlide.subtitle}
-          </p>
+          {/* TEXT LAYER (SYNCED WITH SAME KEY) */}
+          <div className="relative z-10 max-w-7xl mx-auto px-6 h-full flex items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -70 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 70 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            >
+              {/* STARS */}
+              <div className="flex items-center gap-2 mb-6 text-white">
+                {[1, 2, 3, 4, 5].map((s) => (
+                  <Star key={s} className="w-4 h-4 fill-[#d1f007]" />
+                ))}
+                <span className="text-sm ml-2">4.95 Google rating</span>
+              </div>
 
-          <div className="flex items-center space-x-6">
-            <button className="bg-transparent border border-white/50 text-white px-10 py-4 rounded-none font-medium hover:bg-white/10 transition-all flex items-center space-x-3 group">
-              <span>{activeSlide.ctaText || "Read More"}</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
+              {/* TITLE */}
+              <h1 className="text-6xl lg:text-7xl font-serif text-white leading-tight max-w-2xl mb-6">
+                {activeSlide.title}
+              </h1>
+
+              {/* SUBTITLE */}
+              <p className="text-white/80 max-w-md mb-10">
+                {activeSlide.subtitle}
+              </p>
+
+              {/* CTA */}
+              <button className="border border-white text-white px-8 py-3 hover:bg-white hover:text-black transition">
+                {activeSlide.ctaText}
+              </button>
+            </motion.div>
           </div>
         </motion.div>
+      </AnimatePresence>
 
-        <div />
-      </div>
-
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-5 text-white/90 z-20">
-        <button
-          type="button"
-          onClick={() => setIndex((prev) => (prev === 0 ? (slides.length || 1) - 1 : prev - 1))}
-          className="hover:text-white transition-colors"
-          aria-label="Previous hero slide"
-        >
-          <ArrowLeft className="w-4 h-4" />
+      {/* CONTROLS */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-6 text-white z-20">
+        <button onClick={goPrev}>
+          <ArrowLeft />
         </button>
-        <span className="text-xs tracking-[0.2em]">
-          {String(index + 1).padStart(2, "0")} / {String((slides.length || 1)).padStart(2, "0")}
+
+        <span className="text-sm tracking-widest">
+          {index + 1} / {slides.length || 1}
         </span>
-        <button
-          type="button"
-          onClick={() => setIndex((prev) => (prev === (slides.length || 1) - 1 ? 0 : prev + 1))}
-          className="hover:text-white transition-colors"
-          aria-label="Next hero slide"
-        >
-          <ArrowRight className="w-4 h-4" />
+
+        <button onClick={goNext}>
+          <ArrowRight />
         </button>
       </div>
     </section>

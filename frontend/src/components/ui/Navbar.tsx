@@ -16,26 +16,32 @@ export const Navbar = () => {
   }, []);
 
   return (
-    <nav className={cn(
-      "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-      isScrolled ? "bg-white/90 backdrop-blur-md py-3 shadow-md border-b border-primary/10" : "bg-transparent py-5"
-    )}>
+    <nav
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+        isScrolled
+          ? "bg-white/90 backdrop-blur-md py-3 shadow-md border-b border-primary/10"
+          : "bg-transparent py-5",
+      )}
+    >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-3 group">
           <div className="relative w-12 h-12 transition-transform duration-500 group-hover:scale-110">
-            <Image 
-              src="/logo9.png" 
-              alt="Dr. Mostafa Badawy Logo" 
+            <Image
+              src="/logo9.png"
+              alt="Dr. Mostafa Badawy Logo"
               fill
               className="object-contain"
             />
           </div>
           <div className="flex flex-col">
-            <h1 className={cn(
-              "text-lg font-serif tracking-widest transition-colors",
-              isScrolled ? "text-secondary" : "text-secondary"
-            )}>
+            <h1
+              className={cn(
+                "text-lg font-serif tracking-widest transition-colors",
+                isScrolled ? "text-secondary" : "text-secondary",
+              )}
+            >
               DR.MOSTAFA BADAWY
             </h1>
             <p className="text-[8px] uppercase tracking-[0.4em] text-primary font-medium">
@@ -57,16 +63,21 @@ export const Navbar = () => {
         <div className="hidden lg:flex items-center space-x-8">
           <div className="flex items-center space-x-2 text-secondary/70 hover:text-primary transition-colors cursor-pointer group">
             <Phone className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-            <span className="text-sm font-medium tracking-wide">2-583-018-36-28</span>
+            <span className="text-sm font-medium tracking-wide">
+              2-583-018-36-28
+            </span>
           </div>
           <button className="bg-primary hover:bg-gold-dark text-white px-8 py-3 rounded-full text-sm font-medium transition-all transform hover:scale-105 shadow-lg shadow-primary/20 flex items-center space-x-2 group">
-            <span>Book now</span>
+            <a href="#contacts">
+              <span>Book now</span>
+            </a>
+
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
 
         {/* Mobile Toggle */}
-        <button 
+        <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className="lg:hidden text-secondary p-2"
         >
@@ -75,16 +86,53 @@ export const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={cn(
-        "fixed inset-0 bg-white z-40 flex flex-col items-center justify-center space-y-8 transition-transform duration-500 lg:hidden",
-        isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-      )}>
-        <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-8 right-8 text-secondary p-2"><X className="w-8 h-8" /></button>
-        <Link onClick={() => setIsMobileMenuOpen(false)} href="#home" className="text-3xl font-serif text-secondary">Home</Link>
-        <Link onClick={() => setIsMobileMenuOpen(false)} href="#about" className="text-3xl font-serif text-secondary">About</Link>
-        <Link onClick={() => setIsMobileMenuOpen(false)} href="#services" className="text-3xl font-serif text-secondary">Services</Link>
-        <Link onClick={() => setIsMobileMenuOpen(false)} href="#blog" className="text-3xl font-serif text-secondary">Blog</Link>
-        <Link onClick={() => setIsMobileMenuOpen(false)} href="#contacts" className="text-3xl font-serif text-secondary">Contacts</Link>
+      <div
+        className={cn(
+          "fixed inset-0 bg-white z-40 flex flex-col items-center justify-center space-y-8 transition-transform duration-500 lg:hidden",
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full",
+        )}
+      >
+        <button
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="absolute top-8 right-8 text-secondary p-2"
+        >
+          <X className="w-8 h-8" />
+        </button>
+        <Link
+          onClick={() => setIsMobileMenuOpen(false)}
+          href="#home"
+          className="text-3xl font-serif text-secondary"
+        >
+          Home
+        </Link>
+        <Link
+          onClick={() => setIsMobileMenuOpen(false)}
+          href="#about"
+          className="text-3xl font-serif text-secondary"
+        >
+          About
+        </Link>
+        <Link
+          onClick={() => setIsMobileMenuOpen(false)}
+          href="#services"
+          className="text-3xl font-serif text-secondary"
+        >
+          Services
+        </Link>
+        <Link
+          onClick={() => setIsMobileMenuOpen(false)}
+          href="#blog"
+          className="text-3xl font-serif text-secondary"
+        >
+          Blog
+        </Link>
+        <Link
+          onClick={() => setIsMobileMenuOpen(false)}
+          href="#contacts"
+          className="text-3xl font-serif text-secondary"
+        >
+          Contacts
+        </Link>
         <div className="flex items-center space-x-4 text-secondary/60 pt-8 border-t border-secondary/5 w-64 justify-center">
           <Phone className="w-5 h-5" />
           <span className="text-lg">2-583-018-36-28</span>
