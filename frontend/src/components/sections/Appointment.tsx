@@ -1,0 +1,191 @@
+"use client";
+
+import React, { useState } from 'react';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { Mail, Phone, Calendar } from 'lucide-react';
+import { GlassCard } from '../ui/GlassCard';
+import api from '@/lib/api';
+import { toast } from 'sonner';
+
+export const Appointment = () => {
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    procedure: '',
+    message: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onChange = (field: keyof typeof formData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      await api.post('/appointments', formData);
+      toast.success('Appointment request sent successfully');
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        procedure: '',
+        message: '',
+      });
+    } catch {
+      toast.error('Failed to send appointment request');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <section id="contacts" className="py-24 bg-white relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+        {/* Left Side: Decorative & Info */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="space-y-12"
+        >
+          <div className="relative aspect-square w-full max-w-sm mx-auto lg:mx-0 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-bone">
+             <Image 
+                src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=1974&auto=format&fit=crop" 
+                alt="Clinic Interior" 
+                fill 
+                className="object-cover"
+             />
+          </div>
+          
+          <div className="space-y-6">
+            <h2 className="text-4xl font-serif text-secondary">Make an Appointment</h2>
+            <p className="text-secondary/60 max-w-md">
+              Ready to begin your transformation? Schedule a private consultation with Dr. Badawy to discuss your personalized treatment plan.
+            </p>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <ContactInfo icon={Phone} label="Call Us" value="+2-583-018-36-28" />
+              <ContactInfo icon={Mail} label="Email Us" value="info@drbadawy.com" />
+              <ContactInfo icon={Calendar} label="Hours" value="Mon-Sat: 09:00 - 18:00" />
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Right Side: Simple Appointment Form Inspired by Screenshots */}
+        <motion.div
+           initial={{ opacity: 0, y: 30 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           transition={{ duration: 0.8 }}
+        >
+          <GlassCard className="p-10 border-none bg-bone/50 shadow-2xl">
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <FormInput
+                  label="Full Name"
+                  value={formData.fullName}
+                  onChange={(value) => onChange('fullName', value)}
+                  placeholder="Your name"
+                />
+                <FormInput
+                  label="Email Address"
+                  type="email"
+                  value={formData.email}
+                  onChange={(value) => onChange('email', value)}
+                  placeholder="email@example.com"
+                />
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <FormInput
+                  label="Phone Number"
+                  type="tel"
+                  value={formData.phone}
+                  onChange={(value) => onChange('phone', value)}
+                  placeholder="+1..."
+                />
+                <div className="space-y-2">
+                  <label className="text-[10px] uppercase font-bold tracking-widest text-secondary/40 ml-1">Preferred Procedure</label>
+                  <select
+                    required
+                    value={formData.procedure}
+                    onChange={(e) => onChange('procedure', e.target.value)}
+                    className="w-full bg-white border-b border-secondary/10 py-4 focus:outline-none focus:border-primary transition-colors text-secondary appearance-none"
+                  >
+                    <option value="">Select Procedure</option>
+                    <option value="Face Lifting">Face Lifting</option>
+                    <option value="Breast Augmentation">Breast Augmentation</option>
+                    <option value="Body Correction">Body Correction</option>
+                    <option value="Liposuction">Liposuction</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] uppercase font-bold tracking-widest text-secondary/40 ml-1">Message (Optional)</label>
+                <textarea 
+                  rows={4}
+                  value={formData.message}
+                  onChange={(e) => onChange('message', e.target.value)}
+                  placeholder="Tell us about your goals..."
+                  className="w-full bg-white border-b border-secondary/10 py-4 focus:outline-none focus:border-primary transition-colors resize-none text-secondary"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-secondary text-white py-5 rounded-full font-bold uppercase tracking-[0.2em] text-sm hover:bg-secondary/90 transition-all shadow-xl shadow-secondary/20 disabled:opacity-50"
+              >
+                {isSubmitting ? 'Sending...' : 'Send Request'}
+              </button>
+            </form>
+          </GlassCard>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+const ContactInfo = ({ icon: Icon, label, value }: { icon: React.ElementType, label: string, value: string }) => (
+  <div className="flex items-start space-x-4">
+    <div className="p-3 bg-primary/10 rounded-2xl text-primary">
+      <Icon className="w-5 h-5" />
+    </div>
+    <div>
+      <p className="text-[10px] uppercase font-bold tracking-widest text-secondary/40">{label}</p>
+      <p className="text-secondary font-serif">{value}</p>
+    </div>
+  </div>
+);
+
+const FormInput = ({
+  label,
+  type = "text",
+  placeholder,
+  value,
+  onChange,
+}: {
+  label: string;
+  type?: string;
+  placeholder: string;
+  value: string;
+  onChange: (value: string) => void;
+}) => (
+  <div className="space-y-2">
+    <label className="text-[10px] uppercase font-bold tracking-widest text-secondary/40 ml-1">{label}</label>
+    <input 
+      required
+      type={type}
+      placeholder={placeholder}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className="w-full bg-white border-b border-secondary/10 py-4 focus:outline-none focus:border-primary transition-colors text-secondary placeholder:text-secondary/20"
+    />
+  </div>
+);

@@ -1,0 +1,15 @@
+# Monorepo ignores
+backend/node_modules
+frontend/node_modules
+backend/.env
+backend/.env.*
+!backend/.env.example
+frontend/.env.local
+frontend/.env.*
+!frontend/.env.example
+frontend/.next
+backend/uploads
+
+/agent
+/.agent
+.agent
