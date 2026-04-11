@@ -49,6 +49,8 @@ app.use('/api/before-after', require('./routes/beforeAfterRoutes'));
 app.use('/api/hero-slides', require('./routes/heroSlideRoutes'));
 app.use('/api/appointments', require('./routes/appointmentRoutes'));
 app.use('/api/site-settings', require('./routes/siteSettingsRoutes'));
+app.use('/api/visits', require('./routes/visitRoutes'));
+app.use('/api/blog', require('./routes/blogRoutes'));
 
 // Start Server
 app.listen(PORT, () => {

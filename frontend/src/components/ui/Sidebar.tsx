@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Image as ImageIcon, MessageSquare, LogOut, Images, SlidersHorizontal, CalendarCheck2, Settings } from 'lucide-react';
+import { LayoutDashboard, Image as ImageIcon, MessageSquare, LogOut, Images, SlidersHorizontal, CalendarCheck2, Settings, Globe, Newspaper } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
 
@@ -11,10 +11,12 @@ const navItems = [
   { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Settings', href: '/dashboard/settings', icon: Settings },
   { name: 'Appointments', href: '/dashboard/appointments', icon: CalendarCheck2 },
+  { name: 'Visits', href: '/dashboard/visits', icon: Globe },
   { name: 'Hero Slider', href: '/dashboard/hero', icon: SlidersHorizontal },
   { name: 'Items', href: '/dashboard/items', icon: ImageIcon },
   { name: 'Before & After', href: '/dashboard/before-after', icon: Images },
   { name: 'Comments', href: '/dashboard/comments', icon: MessageSquare },
+  { name: 'Blog', href: '/dashboard/blog', icon: Newspaper },
 ];
 
 export const Sidebar = () => {

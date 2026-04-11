@@ -3,21 +3,27 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { StatCard } from '@/components/ui/StatCard';
-import { Image as ImageIcon, MessageSquare, Plus, Activity } from 'lucide-react';
+import { Image as ImageIcon, MessageSquare, Plus, Activity, Globe } from 'lucide-react';
 import api from '@/lib/api';
 import { GlassCard } from '@/components/ui/GlassCard';
 
 export default function DashboardHome() {
-  const [stats, setStats] = useState({ items: 0, comments: 0 });
+  const [stats, setStats] = useState({ items: 0, comments: 0, visits: 0, uniqueVisitors: 0 });
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [items, comments] = await Promise.all([
+        const [items, comments, visitStats] = await Promise.all([
           api.get('/items'),
-          api.get('/comments')
+          api.get('/comments'),
+          api.get('/visits/stats'),
         ]);
-        setStats({ items: items.data.length, comments: comments.data.length });
+        setStats({
+          items: items.data.length,
+          comments: comments.data.length,
+          visits: visitStats.data.total,
+          uniqueVisitors: visitStats.data.uniqueVisitors,
+        });
       } catch (error) {
         console.error('Failed to fetch stats');
         console.log(error);
@@ -41,14 +47,20 @@ export default function DashboardHome() {
         </div>
       </header>
 
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
           <StatCard label="Total Service Items" value={stats.items} icon={ImageIcon} />
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
           <StatCard label="Live Testimonials" value={stats.comments} icon={MessageSquare} color="primary" />
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+          <StatCard label="Site visits" value={stats.visits} icon={Globe} />
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
+          <StatCard label="Unique visitor IPs" value={stats.uniqueVisitors} icon={Globe} />
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="lg:col-span-4 md:col-span-2">
           <GlassCard className="p-6 bg-primary text-white border-none flex flex-col justify-between h-full group cursor-pointer">
             <div>
               <p className="text-xs uppercase tracking-widest text-white/70 mb-1">Quick Action</p>

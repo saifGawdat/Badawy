@@ -26,6 +26,7 @@ export const metadata: Metadata = {
 
 import { AuthProvider } from "@/context/AuthContext";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { VisitTracker } from "@/components/VisitTracker";
 
 export default function RootLayout({
   children,
@@ -40,6 +41,7 @@ export default function RootLayout({
       <body className="min-h-full bg-bone text-secondary selection:bg-primary/20">
         <AuthProvider>
           <LanguageProvider>
+            <VisitTracker />
             <Toaster position="top-right" richColors />
             {children}
           </LanguageProvider>

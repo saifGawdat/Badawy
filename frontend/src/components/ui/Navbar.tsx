@@ -1,3 +1,5 @@
+"use client";
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -57,7 +59,7 @@ export const Navbar = () => {
           <NavLink href="#home">{t('nav.home')}</NavLink>
           <NavLink href="#about">{t('nav.about')}</NavLink>
           <NavLink href="#services">{t('nav.services')}</NavLink>
-          <NavLink href="#blog">{t('nav.blog')}</NavLink>
+          <NavLink href="/blog">{t('nav.blog')}</NavLink>
           <NavLink href="#contacts">{t('nav.contacts')}</NavLink>
         </div>
 
@@ -130,7 +132,7 @@ export const Navbar = () => {
         </Link>
         <Link
           onClick={() => setIsMobileMenuOpen(false)}
-          href="#blog"
+          href="/blog"
           className="text-3xl font-serif text-secondary"
         >
           {t('nav.blog')}

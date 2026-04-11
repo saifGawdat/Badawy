@@ -145,19 +145,20 @@ export default function BeforeAfterPage() {
 
       <AnimatePresence>
         {isModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-6">
+          <div className="fixed inset-0 z-50 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-6 py-10">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsModalOpen(false)}
-              className="absolute inset-0 bg-secondary/80 backdrop-blur-sm"
+              className="fixed inset-0 bg-secondary/80 backdrop-blur-sm"
             />
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 16 }}
-              className="w-full max-w-xl z-10"
+              className="relative z-10 w-full max-w-xl max-h-[min(90vh,calc(100vh-5rem))] overflow-y-auto rounded-2xl"
             >
               <GlassCard className="p-8 bg-bone border-none shadow-2xl">
                 <div className="flex justify-between items-center mb-6">
@@ -204,6 +205,7 @@ export default function BeforeAfterPage() {
                 </form>
               </GlassCard>
             </motion.div>
+            </div>
           </div>
         )}
       </AnimatePresence>

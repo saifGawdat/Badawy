@@ -49,7 +49,7 @@ export const Footer = () => {
 
   const formatPhone = (num: string) => num.replace(/\D/g, "");
 
-  const displayPhone = phone || "+20 100 123 4567";
+  const displayPhone = whatsappPhone || "+20 100 123 4567";
   const displayWhatsapp = whatsappPhone || "+20 100 123 4567";
 
   return (
@@ -181,7 +181,7 @@ export const Footer = () => {
               {isArabic ? "الخدمات" : "Services"}
             </FooterLink>
             <FooterLink href="#about">{isArabic ? "عن" : "About"}</FooterLink>
-            <FooterLink href="#blog">
+            <FooterLink href="/blog">
               {isArabic ? "الأخبار" : "Blog"}
             </FooterLink>
           </FooterColumn>
