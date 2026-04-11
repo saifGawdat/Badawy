@@ -9,6 +9,10 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  descriptionAr: {
+    type: String,
+    default: ""
+  },
   profilePhoto: {
     type: String,
     required: true

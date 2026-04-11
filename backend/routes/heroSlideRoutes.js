@@ -42,7 +42,7 @@ router.get("/", async (req, res) => {
 
 // POST /api/hero-slides - Protected
 router.post("/", protect, upload.single("image"), async (req, res) => {
-  const { title, subtitle, ctaText } = req.body;
+  const { title, titleAr, subtitle, subtitleAr, ctaText, ctaTextAr } = req.body;
 
   if (!req.file) {
     return res.status(400).json({ message: "Please upload a hero image" });
@@ -51,8 +51,11 @@ router.post("/", protect, upload.single("image"), async (req, res) => {
   try {
     const slide = new HeroSlide({
       title,
+      titleAr: titleAr || "",
       subtitle,
+      subtitleAr: subtitleAr || "",
       ctaText: ctaText?.trim() || "Read More",
+      ctaTextAr: ctaTextAr?.trim() || "",
       imageUrl: req.file.path,
     });
 

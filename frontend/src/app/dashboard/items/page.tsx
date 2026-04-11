@@ -11,7 +11,9 @@ import { toast } from 'sonner';
 interface Item {
   _id: string;
   title: string;
+  titleAr?: string;
   description: string;
+  descriptionAr?: string;
   imageUrl: string;
 }
 
@@ -22,7 +24,9 @@ export default function ItemsPage() {
   
   // Form State
   const [title, setTitle] = useState('');
+  const [titleAr, setTitleAr] = useState('');
   const [description, setDescription] = useState('');
+  const [descriptionAr, setDescriptionAr] = useState('');
   const [file, setFile] = useState<File | null>(null);
 
   const fetchItems = async () => {
@@ -48,7 +52,9 @@ export default function ItemsPage() {
     setIsLoading(true);
     const formData = new FormData();
     formData.append('title', title);
+    formData.append('titleAr', titleAr);
     formData.append('description', description);
+    formData.append('descriptionAr', descriptionAr);
     formData.append('image', file);
 
     try {
@@ -56,7 +62,9 @@ export default function ItemsPage() {
       toast.success('Service item added successfully');
       setIsModalOpen(false);
       setTitle('');
+      setTitleAr('');
       setDescription('');
+      setDescriptionAr('');
       setFile(null);
       fetchItems();
     } catch {
@@ -164,9 +172,27 @@ export default function ItemsPage() {
                     />
                   </div>
                   <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Title (Arabic)</label>
+                    <input
+                      type="text"
+                      value={titleAr}
+                      onChange={(e) => setTitleAr(e.target.value)}
+                      className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    />
+                  </div>
+                  <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Description</label>
                     <textarea 
                       required value={description} onChange={(e) => setDescription(e.target.value)} rows={4}
+                      className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Description (Arabic)</label>
+                    <textarea
+                      value={descriptionAr}
+                      onChange={(e) => setDescriptionAr(e.target.value)}
+                      rows={4}
                       className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
                     />
                   </div>

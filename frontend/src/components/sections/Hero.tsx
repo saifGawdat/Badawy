@@ -5,12 +5,16 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Star } from "lucide-react";
 import api from "@/lib/api";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface HeroSlide {
   _id: string;
   title: string;
+  titleAr?: string;
   subtitle: string;
+  subtitleAr?: string;
   ctaText: string;
+  ctaTextAr?: string;
   imageUrl: string;
 }
 
@@ -25,6 +29,7 @@ const fallbackSlide: HeroSlide = {
 };
 
 export const Hero = () => {
+  const { isArabic } = useLanguage();
   const [slides, setSlides] = React.useState<HeroSlide[]>([]);
   const [index, setIndex] = React.useState(0);
   const [paused, setPaused] = React.useState(false);
@@ -44,7 +49,15 @@ export const Hero = () => {
   }, []);
 
   const hasSlides = slides.length > 0;
-  const activeSlide = hasSlides ? slides[index] : fallbackSlide;
+  const localizedFallbackSlide: HeroSlide = isArabic
+    ? {
+        ...fallbackSlide,
+        title: "جراحة متقنة بأيدي محترفين",
+        subtitle: "عززي ثقتك واستعيدي شبابك وارتقي بإطلالتك اليومية.",
+        ctaText: "اقرئي المزيد",
+      }
+    : fallbackSlide;
+  const activeSlide = hasSlides ? slides[index] : localizedFallbackSlide;
 
   // AUTOPLAY (SYNC SAFE)
   React.useEffect(() => {
@@ -114,22 +127,22 @@ export const Hero = () => {
                 {[1, 2, 3, 4, 5].map((s) => (
                   <Star key={s} className="w-4 h-4 fill-[#d1f007]" />
                 ))}
-                <span className="text-sm ml-2">4.95 Google rating</span>
+                <span className="text-sm ml-2">{isArabic ? "4.95 تقييم جوجل" : "4.95 Google rating"}</span>
               </div>
 
               {/* TITLE */}
               <h1 className="text-6xl lg:text-7xl font-serif text-white leading-tight max-w-2xl mb-6">
-                {activeSlide.title}
+                {isArabic && activeSlide.titleAr ? activeSlide.titleAr : activeSlide.title}
               </h1>
 
               {/* SUBTITLE */}
               <p className="text-white/80 max-w-md mb-10">
-                {activeSlide.subtitle}
+                {isArabic && activeSlide.subtitleAr ? activeSlide.subtitleAr : activeSlide.subtitle}
               </p>
 
               {/* CTA */}
               <button className="border border-white text-white px-8 py-3 hover:bg-white hover:text-black transition">
-                {activeSlide.ctaText}
+                {isArabic && activeSlide.ctaTextAr ? activeSlide.ctaTextAr : activeSlide.ctaText}
               </button>
             </motion.div>
           </div>

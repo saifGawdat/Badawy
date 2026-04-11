@@ -11,6 +11,7 @@ interface Comment {
   _id: string;
   username: string;
   description: string;
+  descriptionAr?: string;
   profilePhoto: string;
   createdAt: string;
 }
@@ -23,6 +24,7 @@ export default function CommentsPage() {
   // Form State
   const [username, setUsername] = useState('');
   const [description, setDescription] = useState('');
+  const [descriptionAr, setDescriptionAr] = useState('');
   const [profilePhotoFile, setProfilePhotoFile] = useState<File | null>(null);
 
   const fetchComments = async () => {
@@ -48,6 +50,7 @@ export default function CommentsPage() {
     const formData = new FormData();
     formData.append('username', username);
     formData.append('description', description);
+    formData.append('descriptionAr', descriptionAr);
     formData.append('profilePhoto', profilePhotoFile);
 
     try {
@@ -56,6 +59,7 @@ export default function CommentsPage() {
       setIsModalOpen(false);
       setUsername('');
       setDescription('');
+      setDescriptionAr('');
       setProfilePhotoFile(null);
       fetchComments();
     } catch {
@@ -171,6 +175,16 @@ export default function CommentsPage() {
                       required value={description} onChange={(e) => setDescription(e.target.value)} rows={4}
                       className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
                       placeholder="What did they say?"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Testimonial Content (Arabic)</label>
+                    <textarea
+                      value={descriptionAr}
+                      onChange={(e) => setDescriptionAr(e.target.value)}
+                      rows={4}
+                      className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      placeholder="ماذا قالوا؟"
                     />
                   </div>
                   <div className="space-y-2">

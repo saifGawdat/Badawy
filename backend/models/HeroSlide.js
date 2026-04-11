@@ -6,13 +6,26 @@ const heroSlideSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  titleAr: {
+    type: String,
+    default: "",
+    trim: true,
+  },
   subtitle: {
     type: String,
     required: true,
   },
+  subtitleAr: {
+    type: String,
+    default: "",
+  },
   ctaText: {
     type: String,
     default: "Read More",
+  },
+  ctaTextAr: {
+    type: String,
+    default: "",
   },
   imageUrl: {
     type: String,

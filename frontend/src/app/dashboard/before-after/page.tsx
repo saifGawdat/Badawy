@@ -11,6 +11,7 @@ import { GlassCard } from "@/components/ui/GlassCard";
 interface BeforeAfterCase {
   _id: string;
   title: string;
+  titleAr?: string;
   beforeImageUrl: string;
   afterImageUrl: string;
 }
@@ -21,6 +22,7 @@ export default function BeforeAfterPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [title, setTitle] = useState("");
+  const [titleAr, setTitleAr] = useState("");
   const [beforeFile, setBeforeFile] = useState<File | null>(null);
   const [afterFile, setAfterFile] = useState<File | null>(null);
 
@@ -39,6 +41,7 @@ export default function BeforeAfterPage() {
 
   const resetForm = () => {
     setTitle("");
+    setTitleAr("");
     setBeforeFile(null);
     setAfterFile(null);
   };
@@ -53,6 +56,7 @@ export default function BeforeAfterPage() {
     setIsLoading(true);
     const formData = new FormData();
     formData.append("title", title);
+    formData.append("titleAr", titleAr);
     formData.append("beforeImage", beforeFile);
     formData.append("afterImage", afterFile);
 
@@ -174,6 +178,16 @@ export default function BeforeAfterPage() {
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
                       placeholder="Ex: Rhinoplasty Case #1"
+                      className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Title (Arabic)</label>
+                    <input
+                      type="text"
+                      value={titleAr}
+                      onChange={(e) => setTitleAr(e.target.value)}
+                      placeholder="مثال: حالة تجميل أنف"
                       className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
                     />
                   </div>

@@ -3,11 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft, ArrowRight, Star } from 'lucide-react';
 import api from '@/lib/api';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface Comment {
   _id: string;
   username: string;
   description: string;
+  descriptionAr?: string;
   profilePhoto: string;
 }
 
@@ -15,6 +17,7 @@ export const Testimonials = () => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(1);
+  const { isArabic } = useLanguage();
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -55,7 +58,9 @@ export const Testimonials = () => {
     <section className="py-24 bg-[#f0efeb] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-14">
-          <h2 className="text-5xl font-serif tracking-tight text-secondary">What our Patients Say</h2>
+          <h2 className="text-5xl font-serif tracking-tight text-secondary">
+            {isArabic ? 'ماذا يقول مرضانا' : 'What our Patients Say'}
+          </h2>
         </div>
 
         <div className="overflow-hidden">
@@ -77,7 +82,7 @@ export const Testimonials = () => {
                       ))}
                     </div>
                     <p className="text-secondary/60 leading-relaxed italic">
-                      {comment.description}
+                      {isArabic && comment.descriptionAr ? comment.descriptionAr : comment.description}
                     </p>
                   </div>
 
@@ -94,7 +99,7 @@ export const Testimonials = () => {
                     </div>
                     <div>
                       <h4 className="text-lg text-secondary">{comment.username}</h4>
-                      <p className="text-secondary/35 text-xs">Patient</p>
+                      <p className="text-secondary/35 text-xs">{isArabic ? 'مريض' : 'Patient'}</p>
                     </div>
                   </div>
                 </article>

@@ -25,6 +25,7 @@ export const metadata: Metadata = {
 };
 
 import { AuthProvider } from "@/context/AuthContext";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 export default function RootLayout({
   children,
@@ -38,8 +39,10 @@ export default function RootLayout({
     >
       <body className="min-h-full bg-bone text-secondary selection:bg-primary/20">
         <AuthProvider>
-          <Toaster position="top-right" richColors />
-          {children}
+          <LanguageProvider>
+            <Toaster position="top-right" richColors />
+            {children}
+          </LanguageProvider>
         </AuthProvider>
       </body>
     </html>

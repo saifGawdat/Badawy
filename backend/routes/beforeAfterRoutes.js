@@ -49,7 +49,7 @@ router.post(
     { name: "afterImage", maxCount: 1 },
   ]),
   async (req, res) => {
-    const { title } = req.body;
+    const { title, titleAr } = req.body;
     const beforeImage = req.files?.beforeImage?.[0];
     const afterImage = req.files?.afterImage?.[0];
 
@@ -62,6 +62,7 @@ router.post(
     try {
       const newCase = new BeforeAfter({
         title: title?.trim() || "Before / After Case",
+        titleAr: titleAr?.trim() || "",
         beforeImageUrl: beforeImage.path,
         afterImageUrl: afterImage.path,
       });

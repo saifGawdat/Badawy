@@ -6,9 +6,18 @@ const itemSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  titleAr: {
+    type: String,
+    default: "",
+    trim: true,
+  },
   description: {
     type: String,
     required: true,
+  },
+  descriptionAr: {
+    type: String,
+    default: "",
   },
   imageUrl: {
     type: String,

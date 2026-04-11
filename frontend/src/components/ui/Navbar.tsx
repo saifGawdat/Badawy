@@ -3,9 +3,11 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Phone, ArrowRight, Menu, X } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { language, toggleLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,15 +54,22 @@ export const Navbar = () => {
 
         {/* Desktop Links */}
         <div className="hidden lg:flex items-center space-x-10">
-          <NavLink href="#home">Home</NavLink>
-          <NavLink href="#about">About</NavLink>
-          <NavLink href="#services">Services</NavLink>
-          <NavLink href="#blog">Blog</NavLink>
-          <NavLink href="#contacts">Contacts</NavLink>
+          <NavLink href="#home">{t('nav.home')}</NavLink>
+          <NavLink href="#about">{t('nav.about')}</NavLink>
+          <NavLink href="#services">{t('nav.services')}</NavLink>
+          <NavLink href="#blog">{t('nav.blog')}</NavLink>
+          <NavLink href="#contacts">{t('nav.contacts')}</NavLink>
         </div>
 
         {/* Right Actions */}
         <div className="hidden lg:flex items-center space-x-8">
+          <button
+            type="button"
+            onClick={toggleLanguage}
+            className="text-xs font-semibold tracking-widest border border-secondary/20 rounded-full px-3 py-1.5 hover:border-primary hover:text-primary transition-colors"
+          >
+            {language === 'en' ? 'AR' : 'EN'}
+          </button>
           <div className="flex items-center space-x-2 text-secondary/70 hover:text-primary transition-colors cursor-pointer group">
             <Phone className="w-4 h-4 group-hover:rotate-12 transition-transform" />
             <span className="text-sm font-medium tracking-wide">
@@ -69,7 +78,7 @@ export const Navbar = () => {
           </div>
           <button className="bg-primary hover:bg-gold-dark text-white px-8 py-3 rounded-full text-sm font-medium transition-all transform hover:scale-105 shadow-lg shadow-primary/20 flex items-center space-x-2 group">
             <a href="#contacts">
-              <span>Book now</span>
+              <span>{t('nav.bookNow')}</span>
             </a>
 
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -103,36 +112,43 @@ export const Navbar = () => {
           href="#home"
           className="text-3xl font-serif text-secondary"
         >
-          Home
+          {t('nav.home')}
         </Link>
         <Link
           onClick={() => setIsMobileMenuOpen(false)}
           href="#about"
           className="text-3xl font-serif text-secondary"
         >
-          About
+          {t('nav.about')}
         </Link>
         <Link
           onClick={() => setIsMobileMenuOpen(false)}
           href="#services"
           className="text-3xl font-serif text-secondary"
         >
-          Services
+          {t('nav.services')}
         </Link>
         <Link
           onClick={() => setIsMobileMenuOpen(false)}
           href="#blog"
           className="text-3xl font-serif text-secondary"
         >
-          Blog
+          {t('nav.blog')}
         </Link>
         <Link
           onClick={() => setIsMobileMenuOpen(false)}
           href="#contacts"
           className="text-3xl font-serif text-secondary"
         >
-          Contacts
+          {t('nav.contacts')}
         </Link>
+        <button
+          type="button"
+          onClick={toggleLanguage}
+          className="text-lg font-semibold tracking-wider border border-secondary/20 rounded-full px-6 py-2"
+        >
+          {language === 'en' ? 'AR' : 'EN'}
+        </button>
         <div className="flex items-center space-x-4 text-secondary/60 pt-8 border-t border-secondary/5 w-64 justify-center">
           <Phone className="w-5 h-5" />
           <span className="text-lg">2-583-018-36-28</span>

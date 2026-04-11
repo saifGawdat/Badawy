@@ -6,6 +6,11 @@ const beforeAfterSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  titleAr: {
+    type: String,
+    default: "",
+    trim: true,
+  },
   beforeImageUrl: {
     type: String,
     required: true,

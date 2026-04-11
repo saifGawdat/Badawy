@@ -7,8 +7,10 @@ import { Mail, Phone, Calendar } from 'lucide-react';
 import { GlassCard } from '../ui/GlassCard';
 import api from '@/lib/api';
 import { toast } from 'sonner';
+import { useLanguage } from '@/context/LanguageContext';
 
 export const Appointment = () => {
+  const { isArabic } = useLanguage();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -63,15 +65,19 @@ export const Appointment = () => {
           </div>
           
           <div className="space-y-6">
-            <h2 className="text-4xl font-serif text-secondary">Make an Appointment</h2>
+            <h2 className="text-4xl font-serif text-secondary">
+              {isArabic ? 'احجزي موعداً' : 'Make an Appointment'}
+            </h2>
             <p className="text-secondary/60 max-w-md">
-              Ready to begin your transformation? Schedule a private consultation with Dr. Badawy to discuss your personalized treatment plan.
+              {isArabic
+                ? 'جاهزة لبدء رحلتك؟ احجزي استشارة خاصة مع د. بدوي لمناقشة خطة علاجك المناسبة.'
+                : 'Ready to begin your transformation? Schedule a private consultation with Dr. Badawy to discuss your personalized treatment plan.'}
             </p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <ContactInfo icon={Phone} label="Call Us" value="+2-583-018-36-28" />
-              <ContactInfo icon={Mail} label="Email Us" value="info@drbadawy.com" />
-              <ContactInfo icon={Calendar} label="Hours" value="Mon-Sat: 09:00 - 18:00" />
+              <ContactInfo icon={Phone} label={isArabic ? 'اتصلي بنا' : 'Call Us'} value="+2-583-018-36-28" />
+              <ContactInfo icon={Mail} label={isArabic ? 'راسلينا' : 'Email Us'} value="info@drbadawy.com" />
+              <ContactInfo icon={Calendar} label={isArabic ? 'المواعيد' : 'Hours'} value={isArabic ? 'الإثنين-السبت: 09:00 - 18:00' : 'Mon-Sat: 09:00 - 18:00'} />
             </div>
           </div>
         </motion.div>
@@ -87,13 +93,13 @@ export const Appointment = () => {
             <form onSubmit={handleSubmit} className="space-y-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <FormInput
-                  label="Full Name"
+                  label={isArabic ? 'الاسم الكامل' : 'Full Name'}
                   value={formData.fullName}
                   onChange={(value) => onChange('fullName', value)}
-                  placeholder="Your name"
+                  placeholder={isArabic ? 'اسمك' : 'Your name'}
                 />
                 <FormInput
-                  label="Email Address"
+                  label={isArabic ? 'البريد الإلكتروني' : 'Email Address'}
                   type="email"
                   value={formData.email}
                   onChange={(value) => onChange('email', value)}
@@ -103,21 +109,23 @@ export const Appointment = () => {
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <FormInput
-                  label="Phone Number"
+                  label={isArabic ? 'رقم الهاتف' : 'Phone Number'}
                   type="tel"
                   value={formData.phone}
                   onChange={(value) => onChange('phone', value)}
                   placeholder="+1..."
                 />
                 <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-bold tracking-widest text-secondary/40 ml-1">Preferred Procedure</label>
+                  <label className="text-[10px] uppercase font-bold tracking-widest text-secondary/40 ml-1">
+                    {isArabic ? 'الإجراء المطلوب' : 'Preferred Procedure'}
+                  </label>
                   <select
                     required
                     value={formData.procedure}
                     onChange={(e) => onChange('procedure', e.target.value)}
                     className="w-full bg-white border-b border-secondary/10 py-4 focus:outline-none focus:border-primary transition-colors text-secondary appearance-none"
                   >
-                    <option value="">Select Procedure</option>
+                    <option value="">{isArabic ? 'اختاري الإجراء' : 'Select Procedure'}</option>
                     <option value="Face Lifting">Face Lifting</option>
                     <option value="Breast Augmentation">Breast Augmentation</option>
                     <option value="Body Correction">Body Correction</option>
@@ -127,12 +135,14 @@ export const Appointment = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] uppercase font-bold tracking-widest text-secondary/40 ml-1">Message (Optional)</label>
+                <label className="text-[10px] uppercase font-bold tracking-widest text-secondary/40 ml-1">
+                  {isArabic ? 'رسالة (اختياري)' : 'Message (Optional)'}
+                </label>
                 <textarea 
                   rows={4}
                   value={formData.message}
                   onChange={(e) => onChange('message', e.target.value)}
-                  placeholder="Tell us about your goals..."
+                  placeholder={isArabic ? 'أخبرينا عن أهدافك...' : 'Tell us about your goals...'}
                   className="w-full bg-white border-b border-secondary/10 py-4 focus:outline-none focus:border-primary transition-colors resize-none text-secondary"
                 />
               </div>
@@ -142,7 +152,7 @@ export const Appointment = () => {
                 disabled={isSubmitting}
                 className="w-full bg-secondary text-white py-5 rounded-full font-bold uppercase tracking-[0.2em] text-sm hover:bg-secondary/90 transition-all shadow-xl shadow-secondary/20 disabled:opacity-50"
               >
-                {isSubmitting ? 'Sending...' : 'Send Request'}
+                {isSubmitting ? (isArabic ? 'جارٍ الإرسال...' : 'Sending...') : (isArabic ? 'إرسال الطلب' : 'Send Request')}
               </button>
             </form>
           </GlassCard>

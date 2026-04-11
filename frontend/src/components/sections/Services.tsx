@@ -6,11 +6,14 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import api from '@/lib/api';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface Item {
   _id: string;
   title: string;
+  titleAr?: string;
   description: string;
+  descriptionAr?: string;
   imageUrl: string;
 }
 
@@ -18,6 +21,7 @@ export const Services = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(1);
+  const { isArabic } = useLanguage();
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -79,10 +83,19 @@ export const Services = () => {
     <section id="services" className="py-32 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
-          <p className="font-script text-primary text-4xl mb-4 italic">your beauty</p>
+          <p className="font-script text-primary text-4xl mb-4 italic">{isArabic ? 'جمالك' : 'your beauty'}</p>
           <h2 className="text-5xl font-serif text-secondary tracking-tight">
-            Designed for people with real goals, <br />
-            Our treatments help you feel like yourself.
+            {isArabic ? (
+              <>
+                صُممت للأشخاص أصحاب الأهداف الحقيقية، <br />
+                وعلاجاتنا تساعدك أن تشعري بأنك أنتِ.
+              </>
+            ) : (
+              <>
+                Designed for people with real goals, <br />
+                Our treatments help you feel like yourself.
+              </>
+            )}
           </h2>
         </div>
 
@@ -124,7 +137,7 @@ export const Services = () => {
                     <div className="relative aspect-3/4 rounded-3xl overflow-hidden mb-6 shadow-xl group-hover:shadow-primary/10 transition-shadow">
                       <Image
                         src={item.imageUrl}
-                        alt={item.title}
+                        alt={isArabic && item.titleAr ? item.titleAr : item.title}
                         fill
                         sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
                         className="object-cover group-hover:scale-110 transition-transform duration-1000"
@@ -135,12 +148,14 @@ export const Services = () => {
                           href={`/services/${item._id}`}
                           className="w-full bg-white/20 backdrop-blur-md text-white py-3 rounded-xl border border-white/20 hover:bg-white/40 transition-colors flex items-center justify-center space-x-2"
                         >
-                          <span>View Details</span>
+                          <span>{isArabic ? 'عرض التفاصيل' : 'View Details'}</span>
                           <ArrowRight className="w-4 h-4" />
                         </Link>
                       </div>
                     </div>
-                    <h3 className="text-xl font-serif text-secondary mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
+                    <h3 className="text-xl font-serif text-secondary mb-2 group-hover:text-primary transition-colors">
+                      {isArabic && item.titleAr ? item.titleAr : item.title}
+                    </h3>
                     <div className="w-8 h-[2px] bg-primary group-hover:w-full transition-all duration-500" />
                   </div>
                 </motion.div>

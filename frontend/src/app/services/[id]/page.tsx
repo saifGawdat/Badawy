@@ -8,15 +8,19 @@ import { ArrowLeft } from "lucide-react";
 import { Navbar } from "@/components/ui/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import api from "@/lib/api";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ServiceItem {
   _id: string;
   title: string;
+  titleAr?: string;
   description: string;
+  descriptionAr?: string;
   imageUrl: string;
 }
 
 export default function ServiceDetailsPage() {
+  const { isArabic } = useLanguage();
   const params = useParams<{ id: string }>();
   const [service, setService] = useState<ServiceItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -63,9 +67,9 @@ export default function ServiceDetailsPage() {
               className="inline-flex items-center gap-2 text-sm text-secondary/70 hover:text-primary transition-colors mb-8"
             >
               <ArrowLeft className="w-4 h-4" />
-              Back to Services
+            {isArabic ? "العودة للخدمات" : "Back to Services"}
             </Link>
-            <h1 className="text-3xl font-serif text-secondary">Service not found.</h1>
+            <h1 className="text-3xl font-serif text-secondary">{isArabic ? "الخدمة غير موجودة." : "Service not found."}</h1>
           </div>
         </main>
         <Footer />
@@ -83,7 +87,7 @@ export default function ServiceDetailsPage() {
             className="inline-flex items-center gap-2 text-sm text-secondary/70 hover:text-primary transition-colors mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Services
+            {isArabic ? "العودة للخدمات" : "Back to Services"}
           </Link>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
@@ -99,13 +103,13 @@ export default function ServiceDetailsPage() {
             </div>
 
             <div className="pt-2">
-              <p className="font-script text-primary text-3xl italic mb-3">service details</p>
+              <p className="font-script text-primary text-3xl italic mb-3">{isArabic ? "تفاصيل الخدمة" : "service details"}</p>
               <h1 className="text-4xl md:text-5xl font-serif text-secondary leading-tight mb-6">
-                {service.title}
+                {isArabic && service.titleAr ? service.titleAr : service.title}
               </h1>
               <div className="w-16 h-[2px] bg-primary mb-6" />
               <p className="text-secondary/80 text-lg leading-relaxed">
-                {service.description}
+                {isArabic && service.descriptionAr ? service.descriptionAr : service.description}
               </p>
             </div>
           </div>

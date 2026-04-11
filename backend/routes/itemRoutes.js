@@ -60,7 +60,7 @@ router.get("/:id", async (req, res) => {
 
 // POST /api/items - Protected
 router.post("/", protect, upload.single("image"), async (req, res) => {
-  const { title, description } = req.body;
+  const { title, titleAr, description, descriptionAr } = req.body;
 
   if (!req.file) {
     return res.status(400).json({ message: "Please upload an image" });
@@ -71,7 +71,9 @@ router.post("/", protect, upload.single("image"), async (req, res) => {
   try {
     const newItem = new Item({
       title,
+      titleAr: titleAr || "",
       description,
+      descriptionAr: descriptionAr || "",
       imageUrl,
     });
 
@@ -84,7 +86,7 @@ router.post("/", protect, upload.single("image"), async (req, res) => {
 
 // PUT /api/items/:id - Protected
 router.put("/:id", protect, upload.single("image"), async (req, res) => {
-  const { title, description } = req.body;
+  const { title, titleAr, description, descriptionAr } = req.body;
   const itemId = req.params.id;
 
   try {
@@ -92,7 +94,9 @@ router.put("/:id", protect, upload.single("image"), async (req, res) => {
     if (!item) return res.status(404).json({ message: "Item not found" });
 
     item.title = title || item.title;
+    item.titleAr = titleAr ?? item.titleAr;
     item.description = description || item.description;
+    item.descriptionAr = descriptionAr ?? item.descriptionAr;
 
     if (req.file) {
       item.imageUrl = req.file.path;

@@ -10,6 +10,7 @@ import { Footer } from '@/components/sections/Footer';
 import { Testimonials } from '@/components/sections/Testimonials';
 import { BeforeAfter } from '@/components/sections/BeforeAfter';
 import { SignatureMarquee } from '@/components/sections/SignatureMarquee';
+import { WhatsAppButton } from '@/components/ui/WhatsAppButton';
 
 export default function LandingPage() {
   return (
@@ -25,6 +26,7 @@ export default function LandingPage() {
         <BeforeAfter />
       </main>
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 }

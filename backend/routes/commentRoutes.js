@@ -42,7 +42,7 @@ router.get('/', async (req, res) => {
 
 // POST /api/comments - Protected (Admin only)
 router.post('/', protect, upload.single("profilePhoto"), async (req, res) => {
-  const { username, description, profilePhoto } = req.body;
+  const { username, description, descriptionAr, profilePhoto } = req.body;
   const profilePhotoUrl = req.file?.path || profilePhoto;
 
   if (!profilePhotoUrl) {
@@ -53,6 +53,7 @@ router.post('/', protect, upload.single("profilePhoto"), async (req, res) => {
     const newComment = new Comment({
       username,
       description,
+      descriptionAr: descriptionAr || "",
       profilePhoto: profilePhotoUrl
     });
 

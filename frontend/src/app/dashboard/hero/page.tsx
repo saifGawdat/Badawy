@@ -11,8 +11,11 @@ import { GlassCard } from "@/components/ui/GlassCard";
 interface HeroSlide {
   _id: string;
   title: string;
+  titleAr?: string;
   subtitle: string;
+  subtitleAr?: string;
   ctaText: string;
+  ctaTextAr?: string;
   imageUrl: string;
 }
 
@@ -21,8 +24,11 @@ export default function HeroPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [title, setTitle] = useState("");
+  const [titleAr, setTitleAr] = useState("");
   const [subtitle, setSubtitle] = useState("");
+  const [subtitleAr, setSubtitleAr] = useState("");
   const [ctaText, setCtaText] = useState("Read More");
+  const [ctaTextAr, setCtaTextAr] = useState("");
   const [file, setFile] = useState<File | null>(null);
 
   const fetchSlides = async () => {
@@ -40,8 +46,11 @@ export default function HeroPage() {
 
   const resetForm = () => {
     setTitle("");
+    setTitleAr("");
     setSubtitle("");
+    setSubtitleAr("");
     setCtaText("Read More");
+    setCtaTextAr("");
     setFile(null);
   };
 
@@ -56,8 +65,11 @@ export default function HeroPage() {
     setIsLoading(true);
     const formData = new FormData();
     formData.append("title", title);
+    formData.append("titleAr", titleAr);
     formData.append("subtitle", subtitle);
+    formData.append("subtitleAr", subtitleAr);
     formData.append("ctaText", ctaText);
+    formData.append("ctaTextAr", ctaTextAr);
     formData.append("image", file);
 
     try {
@@ -159,6 +171,15 @@ export default function HeroPage() {
                     />
                   </div>
                   <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Title (Arabic)</label>
+                    <input
+                      type="text"
+                      value={titleAr}
+                      onChange={(e) => setTitleAr(e.target.value)}
+                      className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    />
+                  </div>
+                  <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Subtitle</label>
                     <textarea
                       required
@@ -169,11 +190,29 @@ export default function HeroPage() {
                     />
                   </div>
                   <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Subtitle (Arabic)</label>
+                    <textarea
+                      rows={3}
+                      value={subtitleAr}
+                      onChange={(e) => setSubtitleAr(e.target.value)}
+                      className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    />
+                  </div>
+                  <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Button Text</label>
                     <input
                       type="text"
                       value={ctaText}
                       onChange={(e) => setCtaText(e.target.value)}
+                      className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Button Text (Arabic)</label>
+                    <input
+                      type="text"
+                      value={ctaTextAr}
+                      onChange={(e) => setCtaTextAr(e.target.value)}
                       className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
                     />
                   </div>
