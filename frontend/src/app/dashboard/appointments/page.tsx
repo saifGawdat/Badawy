@@ -30,7 +30,15 @@ export default function AppointmentsPage() {
   };
 
   useEffect(() => {
-    fetchAppointments();
+    const load = async () => {
+      try {
+        const { data } = await api.get("/appointments");
+        setAppointments(data);
+      } catch {
+        toast.error("Failed to load appointments");
+      }
+    };
+    load();
   }, []);
 
   const deleteAppointment = async (id: string) => {

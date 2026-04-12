@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { ArrowLeft, ArrowRight, Star } from 'lucide-react';
 import api from '@/lib/api';
 import { useLanguage } from '@/context/LanguageContext';
@@ -24,8 +25,7 @@ export const Testimonials = () => {
       try {
         const { data } = await api.get('/comments');
         setComments(data);
-      } catch (err) {
-        console.log(err)
+      } catch {
         console.error('Failed to fetch testimonials');
       }
     };
@@ -87,14 +87,13 @@ export const Testimonials = () => {
                   </div>
 
                   <div className="flex items-center space-x-4 mt-8">
-                    <div className="w-12 h-12 rounded-full overflow-hidden bg-bone border border-secondary/10">
-                      <img
+                    <div className="w-12 h-12 rounded-full overflow-hidden relative bg-bone border border-secondary/10">
+                      <Image
                         src={comment.profilePhoto || "https://api.dicebear.com/7.x/avataaars/svg?seed=fallback"}
                         alt={comment.username}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          e.currentTarget.src = "https://api.dicebear.com/7.x/avataaars/svg?seed=fallback";
-                        }}
+                        fill
+                        className="object-cover"
+                        unoptimized
                       />
                     </div>
                     <div>

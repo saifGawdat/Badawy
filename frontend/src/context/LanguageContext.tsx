@@ -38,14 +38,11 @@ interface LanguageContextValue {
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
-  const [language, setLanguage] = useState<Language>("en");
-
-  useEffect(() => {
-    const saved = localStorage.getItem("language") as Language | null;
-    if (saved === "ar" || saved === "en") {
-      setLanguage(saved);
-    }
-  }, []);
+  const [language, setLanguage] = useState<Language>(() => {
+    if (typeof window === "undefined") return "en";
+    const saved = localStorage.getItem("language");
+    return saved === "ar" || saved === "en" ? saved : "en";
+  });
 
   useEffect(() => {
     localStorage.setItem("language", language);

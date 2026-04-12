@@ -23,21 +23,22 @@ export default function VisitsPage() {
   const [visits, setVisits] = useState<Visit[]>([]);
   const [stats, setStats] = useState<VisitStats | null>(null);
 
-  const load = async () => {
-    try {
-      const [visitsRes, statsRes] = await Promise.all([
-        api.get<Visit[]>("/visits"),
-        api.get<VisitStats>("/visits/stats"),
-      ]);
-      setVisits(visitsRes.data);
-      setStats(statsRes.data);
-    } catch {
-      toast.error("Failed to load visits");
-    }
-  };
+
 
   useEffect(() => {
-    load();
+    const fetchData = async () => {
+      try {
+        const [visitsRes, statsRes] = await Promise.all([
+          api.get<Visit[]>("/visits"),
+          api.get<VisitStats>("/visits/stats"),
+        ]);
+        setVisits(visitsRes.data);
+        setStats(statsRes.data);
+      } catch {
+        toast.error("Failed to load visits");
+      }
+    };
+    fetchData();
   }, []);
 
   return (

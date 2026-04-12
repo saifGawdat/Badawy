@@ -58,25 +58,18 @@ export const Services = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const maxIndex = Math.max(items.length - cardsPerView, 0);
-    if (currentIndex > maxIndex) {
-      setCurrentIndex(maxIndex);
-    }
-  }, [cardsPerView, currentIndex, items.length]);
 
   const maxIndex = Math.max(items.length - cardsPerView, 0);
-  const canSlidePrev = currentIndex > 0;
-  const canSlideNext = currentIndex < maxIndex;
+  const safeIndex = Math.min(currentIndex, maxIndex);
+  const canSlidePrev = safeIndex > 0;
+  const canSlideNext = safeIndex < maxIndex;
 
   const goPrev = () => {
-    if (!canSlidePrev) return;
-    setCurrentIndex((prev) => prev - 1);
+    setCurrentIndex((prev) => Math.max(prev - 1, 0));
   };
 
   const goNext = () => {
-    if (!canSlideNext) return;
-    setCurrentIndex((prev) => prev + 1);
+    setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
   };
 
   return (
@@ -121,7 +114,7 @@ export const Services = () => {
           <div className="overflow-hidden">
             <div
               className="flex transition-transform duration-500 ease-out"
-              style={{ transform: `translateX(-${(100 / cardsPerView) * currentIndex}%)` }}
+              style={{ transform: `translateX(-${(100 / cardsPerView) * safeIndex}%)` }}
             >
               {items.map((item, index) => (
                 <motion.div

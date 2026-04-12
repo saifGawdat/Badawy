@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { Plus, Trash2, X } from 'lucide-react';
 import api from '@/lib/api';
 import { GlassCard } from '@/components/ui/GlassCard';
@@ -37,7 +38,15 @@ export default function CommentsPage() {
   };
 
   useEffect(() => {
-    fetchComments();
+    const load = async () => {
+      try {
+        const { data } = await api.get('/comments');
+        setComments(data);
+      } catch {
+        toast.error('Failed to load testimonials');
+      }
+    };
+    load();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -108,13 +117,12 @@ export default function CommentsPage() {
             >
               <GlassCard className="p-6 flex items-start space-x-6">
                 <div className="relative w-16 h-16 rounded-2xl overflow-hidden bg-bone border border-secondary/10">
-                  <img
+                  <Image
                     src={comment.profilePhoto || "https://api.dicebear.com/7.x/avataaars/svg?seed=fallback"}
                     alt={comment.username}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.src = "https://api.dicebear.com/7.x/avataaars/svg?seed=fallback";
-                    }}
+                    fill
+                    className="object-cover"
+                    unoptimized
                   />
                 </div>
                 <div className="flex-1">
