@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { MessageCircle } from "lucide-react";
 import api from "@/lib/api";
+import { WhatsAppBrandIcon } from "@/components/icons/WhatsAppBrandIcon";
 
 export const WhatsAppButton = () => {
   const [phone, setPhone] = useState("");
@@ -10,8 +10,13 @@ export const WhatsAppButton = () => {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const { data } = await api.get("/site-settings");
-        setPhone(data.whatsappPhone || "");
+        const { data } = await api.get<{
+          phone?: string;
+          whatsappPhone?: string;
+        }>("/site-settings");
+        setPhone(
+          (data.whatsappPhone || data.phone || "").trim()
+        );
       } catch {
         setPhone("");
       }
@@ -20,7 +25,7 @@ export const WhatsAppButton = () => {
   }, []);
 
   const whatsappHref = useMemo(() => {
-    const clean = phone.replace(/[^\d]/g, "");
+    const clean = phone.replace(/\D/g, "");
     if (!clean) return "";
     return `https://wa.me/${clean}`;
   }, [phone]);
@@ -33,9 +38,9 @@ export const WhatsAppButton = () => {
       target="_blank"
       rel="noreferrer"
       aria-label="Chat on WhatsApp"
-      className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-[#25D366] text-white shadow-xl flex items-center justify-center hover:scale-105 transition-transform"
+      className="fixed bottom-6 end-6 z-50 h-14 w-14 rounded-full bg-[#25D366] text-white shadow-xl flex items-center justify-center hover:scale-105 transition-transform"
     >
-      <MessageCircle className="w-7 h-7" />
+      <WhatsAppBrandIcon className="w-8 h-8" />
     </a>
   );
 };

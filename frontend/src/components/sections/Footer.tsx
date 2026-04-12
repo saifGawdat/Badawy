@@ -3,7 +3,6 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { MessageCircle, Camera, Share2, Play } from "lucide-react";
 import api from "@/lib/api";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -12,12 +11,19 @@ interface ServiceItem {
   title: string;
 }
 
+const DEFAULT_LOC_EN = "Tanta, El Bahr Street, near El-Galaa Mall";
+const DEFAULT_LOC_AR = "طنطا، شارع البحر، بجوار مول الجلاء";
+
 export const Footer = () => {
   const [services, setServices] = React.useState<ServiceItem[]>([]);
   const { isArabic } = useLanguage();
 
   const [phone, setPhone] = React.useState("");
   const [whatsappPhone, setWhatsappPhone] = React.useState("");
+  const [location, setLocation] = React.useState("");
+  const [locationAr, setLocationAr] = React.useState("");
+  const [facebookUrl, setFacebookUrl] = React.useState("");
+  const [instagramUrl, setInstagramUrl] = React.useState("");
 
   React.useEffect(() => {
     const fetchServices = async () => {
@@ -39,6 +45,10 @@ export const Footer = () => {
 
         setPhone(data.phone || "");
         setWhatsappPhone(data.whatsappPhone || "");
+        setLocation(data.location || "");
+        setLocationAr(data.locationAr || "");
+        setFacebookUrl(data.facebookUrl || "");
+        setInstagramUrl(data.instagramUrl || "");
       } catch {
         console.error("Failed to load settings");
       }
@@ -49,8 +59,11 @@ export const Footer = () => {
 
   const formatPhone = (num: string) => num.replace(/\D/g, "");
 
-  const displayPhone = whatsappPhone || "+20 100 123 4567";
-  const displayWhatsapp = whatsappPhone || "+20 100 123 4567";
+  const displayPhone = phone || whatsappPhone || "+20 100 123 4567";
+  const displayWhatsapp = whatsappPhone || phone || "+20 100 123 4567";
+  const displayLocation = isArabic
+    ? locationAr || location || DEFAULT_LOC_AR
+    : location || locationAr || DEFAULT_LOC_EN;
 
   return (
     <footer className="bg-bone pt-24 pb-12 overflow-hidden">
@@ -94,7 +107,7 @@ export const Footer = () => {
               </div>
 
               <a
-                href={`tel:${formatPhone(phone) || displayPhone}`}
+                href={`tel:${formatPhone(phone) || formatPhone(whatsappPhone) || formatPhone(displayPhone)}`}
                 className="bg-primary text-secondary px-4 py-2 rounded-full text-sm hover:bg-gold-light transition"
               >
                 {isArabic ? "اتصال" : "Call"}
@@ -113,7 +126,7 @@ export const Footer = () => {
               </div>
 
               <a
-                href={`https://wa.me/${formatPhone(whatsappPhone) || displayWhatsapp}`}
+                href={`https://wa.me/${formatPhone(whatsappPhone) || formatPhone(phone) || formatPhone(displayWhatsapp)}`}
                 target="_blank"
                 className="bg-green-500 text-white px-4 py-2 rounded-full text-sm hover:bg-green-400 transition"
               >
@@ -126,10 +139,8 @@ export const Footer = () => {
               <p className="text-white/40 text-xs uppercase tracking-widest mb-1">
                 {isArabic ? "العنوان" : "Location"}
               </p>
-              <p className="text-white text-sm leading-relaxed">
-                {isArabic
-                  ? "طنطا، شارع البحر، بجوار مول الجلاء"
-                  : "Tanta, El Bahr Street, near El-Galaa Mall"}
+              <p className="text-white text-sm leading-relaxed whitespace-pre-line">
+                {displayLocation}
               </p>
             </div>
 
@@ -166,10 +177,8 @@ export const Footer = () => {
             </p>
 
             <div className="flex space-x-4">
-              <SocialIcon icon={MessageCircle} />
-              <SocialIcon icon={Camera} />
-              <SocialIcon icon={Share2} />
-              <SocialIcon icon={Play} />
+              <SocialIcon icon={FacebookIcon} href={facebookUrl || undefined} />
+              <SocialIcon icon={InstagramIcon} href={instagramUrl || undefined} />
             </div>
           </div>
 
@@ -195,8 +204,8 @@ export const Footer = () => {
           </FooterColumn>
 
           <FooterColumn title={isArabic ? "التواصل" : "Contacts"}>
-            <p className="text-secondary/60 text-sm">
-              {isArabic ? "مركز التجميل - طنطا" : "Aesthetic Center - Tanta"}
+            <p className="text-secondary/60 text-sm whitespace-pre-line">
+              {displayLocation}
             </p>
             <p className="text-primary font-bold pt-2 hover:underline">
               {displayPhone}
@@ -226,10 +235,55 @@ export const Footer = () => {
   );
 };
 
-const SocialIcon = ({ icon: Icon }: { icon: React.ElementType }) => (
-  <div className="w-10 h-10 rounded-full border border-secondary/10 flex items-center justify-center text-secondary hover:bg-primary hover:text-white transition cursor-pointer">
-    <Icon className="w-4 h-4" />
-  </div>
+const SocialIcon = ({ icon: Icon, href }: { icon: React.ElementType; href?: string }) => {
+  const content = (
+    <div className="w-10 h-10 rounded-full border border-secondary/10 flex items-center justify-center text-secondary hover:bg-primary hover:text-white transition cursor-pointer">
+      <Icon className="w-4 h-4" />
+    </div>
+  );
+  return href ? (
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      {content}
+    </a>
+  ) : (
+    content
+  );
+};
+
+const FacebookIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
+
+const InstagramIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16.11 7.66 16.12 7.62" />
+    <path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+  </svg>
 );
 
 const FooterColumn = ({

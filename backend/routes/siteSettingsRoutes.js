@@ -23,11 +23,24 @@ router.get("/", async (req, res) => {
 
 // PATCH /api/site-settings - Protected
 router.patch("/", protect, async (req, res) => {
-  const { whatsappPhone } = req.body;
+  const { phone, whatsappPhone, location, locationAr, facebookUrl, instagramUrl } = req.body;
 
   try {
     const settings = await getOrCreateSettings();
-    settings.whatsappPhone = (whatsappPhone || "").trim();
+    if (phone !== undefined) settings.phone = String(phone || "").trim();
+    if (whatsappPhone !== undefined) {
+      settings.whatsappPhone = String(whatsappPhone || "").trim();
+    }
+    if (location !== undefined) settings.location = String(location || "").trim();
+    if (locationAr !== undefined) {
+      settings.locationAr = String(locationAr || "").trim();
+    }
+    if (facebookUrl !== undefined) {
+      settings.facebookUrl = String(facebookUrl || "").trim();
+    }
+    if (instagramUrl !== undefined) {
+      settings.instagramUrl = String(instagramUrl || "").trim();
+    }
     settings.updatedAt = new Date();
     const saved = await settings.save();
     res.json(saved);

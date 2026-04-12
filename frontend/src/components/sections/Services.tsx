@@ -99,7 +99,7 @@ export const Services = () => {
           </h2>
         </div>
 
-        <div className="relative">
+        <div className="relative" dir="ltr">
           <button
             type="button"
             onClick={goPrev}

@@ -7,13 +7,23 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import api from "@/lib/api";
 
 export default function SettingsPage() {
+  const [phone, setPhone] = useState("");
   const [whatsappPhone, setWhatsappPhone] = useState("");
+  const [location, setLocation] = useState("");
+  const [locationAr, setLocationAr] = useState("");
+  const [facebookUrl, setFacebookUrl] = useState("");
+  const [instagramUrl, setInstagramUrl] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
   const fetchSettings = async () => {
     try {
       const { data } = await api.get("/site-settings");
+      setPhone(data.phone || "");
       setWhatsappPhone(data.whatsappPhone || "");
+      setLocation(data.location || "");
+      setLocationAr(data.locationAr || "");
+      setFacebookUrl(data.facebookUrl || "");
+      setInstagramUrl(data.instagramUrl || "");
     } catch {
       toast.error("Failed to load settings");
     }
@@ -27,7 +37,7 @@ export default function SettingsPage() {
     e.preventDefault();
     setIsSaving(true);
     try {
-      await api.patch("/site-settings", { whatsappPhone });
+      await api.patch("/site-settings", { phone, whatsappPhone, location, locationAr, facebookUrl, instagramUrl });
       toast.success("Settings saved");
     } catch {
       toast.error("Failed to save settings");
@@ -49,6 +59,22 @@ export default function SettingsPage() {
         <form onSubmit={saveSettings} className="space-y-6">
           <div className="space-y-2">
             <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+              Phone number (navbar &amp; call link)
+            </label>
+            <input
+              type="text"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="e.g. +20 2 583 018 3628"
+              className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+            <p className="text-[11px] text-secondary/40">
+              Shown in the header and used for tel: links. Include country code.
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
               WhatsApp Phone Number
             </label>
             <input
@@ -61,6 +87,61 @@ export default function SettingsPage() {
             <p className="text-[11px] text-secondary/40">
               Include country code. Spaces and symbols are allowed.
             </p>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+              Location (English)
+            </label>
+            <textarea
+              rows={2}
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              placeholder="e.g. Tanta, El Bahr Street, near El-Galaa Mall"
+              className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+              Location (Arabic)
+            </label>
+            <textarea
+              rows={2}
+              value={locationAr}
+              onChange={(e) => setLocationAr(e.target.value)}
+              placeholder="مثال: طنطا، شارع البحر..."
+              className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+            <p className="text-[11px] text-secondary/40">
+              Shown in the footer and appointment section when Arabic is selected.
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+              Facebook URL
+            </label>
+            <input
+              type="url"
+              value={facebookUrl}
+              onChange={(e) => setFacebookUrl(e.target.value)}
+              placeholder="e.g. https://facebook.com/yourpage"
+              className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+              Instagram URL
+            </label>
+            <input
+              type="url"
+              value={instagramUrl}
+              onChange={(e) => setInstagramUrl(e.target.value)}
+              placeholder="e.g. https://instagram.com/yourpage"
+              className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
           </div>
 
           <button

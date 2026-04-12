@@ -1,16 +1,54 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Mail, Phone, Calendar } from 'lucide-react';
+import { Mail, Phone, Calendar, MapPin } from 'lucide-react';
 import { GlassCard } from '../ui/GlassCard';
 import api from '@/lib/api';
 import { toast } from 'sonner';
 import { useLanguage } from '@/context/LanguageContext';
 
+const DEFAULT_LOC_EN = 'Tanta, El Bahr Street, near El-Galaa Mall';
+const DEFAULT_LOC_AR = 'طنطا، شارع البحر، بجوار مول الجلاء';
+
+function digitsOnly(num: string) {
+  return num.replace(/\D/g, '');
+}
+
 export const Appointment = () => {
   const { isArabic } = useLanguage();
+  const [officePhone, setOfficePhone] = useState('');
+  const [locationLine, setLocationLine] = useState('');
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const { data } = await api.get<{
+          phone?: string;
+          whatsappPhone?: string;
+          location?: string;
+          locationAr?: string;
+        }>('/site-settings');
+        const p = (data.phone || data.whatsappPhone || '').trim();
+        setOfficePhone(p);
+        const loc = isArabic
+          ? (data.locationAr || data.location || '').trim()
+          : (data.location || data.locationAr || '').trim();
+        setLocationLine(loc);
+      } catch {
+        setOfficePhone('');
+        setLocationLine('');
+      }
+    };
+    load();
+  }, [isArabic]);
+
+  const phoneDisplay = officePhone || '+20 100 123 4567';
+  const phoneTel = digitsOnly(officePhone) || digitsOnly(phoneDisplay);
+  const locationDisplay =
+    locationLine || (isArabic ? DEFAULT_LOC_AR : DEFAULT_LOC_EN);
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -75,9 +113,19 @@ export const Appointment = () => {
             </p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <ContactInfo icon={Phone} label={isArabic ? 'اتصلي بنا' : 'Call Us'} value="+2-583-018-36-28" />
-              <ContactInfo icon={Mail} label={isArabic ? 'راسلينا' : 'Email Us'} value="info@drbadawy.com" />
+              <ContactInfo
+                icon={Phone}
+                label={isArabic ? 'اتصلي بنا' : 'Call Us'}
+                value={phoneDisplay}
+                href={phoneTel ? `tel:${phoneTel}` : undefined}
+              />
+              <ContactInfo icon={Mail} label={isArabic ? 'راسلينا' : 'Email Us'} value="info@drbadawy.com" href="mailto:info@drbadawy.com" />
               <ContactInfo icon={Calendar} label={isArabic ? 'المواعيد' : 'Hours'} value={isArabic ? 'الإثنين-السبت: 09:00 - 18:00' : 'Mon-Sat: 09:00 - 18:00'} />
+              <ContactInfo
+                icon={MapPin}
+                label={isArabic ? 'الموقع' : 'Location'}
+                value={locationDisplay}
+              />
             </div>
           </div>
         </motion.div>
@@ -162,14 +210,30 @@ export const Appointment = () => {
   );
 };
 
-const ContactInfo = ({ icon: Icon, label, value }: { icon: React.ElementType, label: string, value: string }) => (
-  <div className="flex items-start space-x-4">
-    <div className="p-3 bg-primary/10 rounded-2xl text-primary">
+const ContactInfo = ({
+  icon: Icon,
+  label,
+  value,
+  href,
+}: {
+  icon: React.ElementType;
+  label: string;
+  value: string;
+  href?: string;
+}) => (
+  <div className="flex items-start gap-4">
+    <div className="p-3 bg-primary/10 rounded-2xl text-primary shrink-0">
       <Icon className="w-5 h-5" />
     </div>
-    <div>
+    <div className="min-w-0">
       <p className="text-[10px] uppercase font-bold tracking-widest text-secondary/40">{label}</p>
-      <p className="text-secondary font-serif">{value}</p>
+      {href ? (
+        <a href={href} className="text-secondary font-serif hover:text-primary transition-colors whitespace-pre-line">
+          {value}
+        </a>
+      ) : (
+        <p className="text-secondary font-serif whitespace-pre-line">{value}</p>
+      )}
     </div>
   </div>
 );

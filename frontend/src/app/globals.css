@@ -1,15 +1,14 @@
 @import "tailwindcss" source(none);
 @source "../";
 
-
 :root {
-  --background: #FFFFFF;
-  --foreground: #0A0A0A;
-  --primary: #C5A028; /* Classic Gold */
-  --secondary: #0A0A0A; /* Black */
-  --bone: #FDFDFD;
-  --gold-light: #F4E7BD;
-  --gold-dark: #8C6F12;
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --primary: #c5a028; /* Classic Gold */
+  --secondary: #0a0a0a; /* Black */
+  --bone: #fdfdfd;
+  --gold-light: #f4e7bd;
+  --gold-dark: #8c6f12;
 }
 
 @theme {
@@ -46,6 +45,13 @@ body {
   animation: marquee 20s linear infinite;
 }
 
+/* Two equal-width strips so -50% === exactly one copy (seamless loop) */
+.marquee-segment {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+
 .marquee-item {
   flex-shrink: 0;
   margin-right: 40px;
@@ -53,9 +59,9 @@ body {
 
 @keyframes marquee {
   from {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }

@@ -207,22 +207,29 @@ export const BeforeAfter = () => {
           <p className="font-script text-4xl">{isArabic ? "بعد" : "after"}</p>
         </div>
 
-        {/* Controls */}
-        <div className="mt-8 flex items-center justify-center gap-6 text-white relative z-10">
+        {/* Controls — dir=ltr keeps arrows consistent in RTL */}
+        <div
+          dir="ltr"
+          className="mt-8 flex items-center justify-center gap-6 text-white relative z-10"
+        >
           <button
+            type="button"
             onClick={goPrev}
+            aria-label="Previous"
             className="inline-flex items-center justify-center h-10 w-10 rounded-full border border-[#C5A028]/50 text-[#E3C46A] hover:bg-[#C5A028]/10 transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
 
-          <span className="text-sm tracking-[0.25em] text-[#E3C46A]/90">
+          <span className="text-sm tracking-[0.25em] text-[#E3C46A]/90 tabular-nums">
             {String(activeSlide + 1).padStart(2, "0")} /{" "}
             {String(totalSlides).padStart(2, "0")}
           </span>
 
           <button
+            type="button"
             onClick={goNext}
+            aria-label="Next"
             className="inline-flex items-center justify-center h-10 w-10 rounded-full border border-[#C5A028]/50 text-[#E3C46A] hover:bg-[#C5A028]/10 transition-colors"
           >
             <ArrowRight className="w-5 h-5" />

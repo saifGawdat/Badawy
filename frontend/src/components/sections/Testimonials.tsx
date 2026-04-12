@@ -108,12 +108,16 @@ export const Testimonials = () => {
           </div>
         </div>
 
-        <div className="mt-10 flex items-center justify-center gap-3">
+        <div
+          dir="ltr"
+          className="mt-10 flex items-center justify-center gap-3"
+        >
           <button
             type="button"
             onClick={() => canSlidePrev && setCurrentIndex((prev) => prev - 1)}
             disabled={!canSlidePrev}
             className="h-12 w-12 rounded-full border border-secondary/15 text-secondary/40 flex items-center justify-center disabled:opacity-40"
+            aria-label="Previous"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
@@ -122,6 +126,7 @@ export const Testimonials = () => {
             onClick={() => canSlideNext && setCurrentIndex((prev) => prev + 1)}
             disabled={!canSlideNext}
             className="h-12 w-12 rounded-full border border-secondary/35 text-secondary flex items-center justify-center disabled:opacity-40"
+            aria-label="Next"
           >
             <ArrowRight className="w-5 h-5" />
           </button>

@@ -149,18 +149,21 @@ export const Hero = () => {
         </motion.div>
       </AnimatePresence>
 
-      {/* CONTROLS */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-6 text-white z-20">
-        <button onClick={goPrev}>
-          <ArrowLeft />
+      {/* CONTROLS — dir=ltr keeps prev/next arrows pointing outward in RTL layouts */}
+      <div
+        dir="ltr"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-6 text-white z-20"
+      >
+        <button type="button" onClick={goPrev} aria-label="Previous slide">
+          <ArrowLeft className="w-6 h-6" />
         </button>
 
-        <span className="text-sm tracking-widest">
+        <span className="text-sm tracking-widest tabular-nums">
           {index + 1} / {slides.length || 1}
         </span>
 
-        <button onClick={goNext}>
-          <ArrowRight />
+        <button type="button" onClick={goNext} aria-label="Next slide">
+          <ArrowRight className="w-6 h-6" />
         </button>
       </div>
     </section>
