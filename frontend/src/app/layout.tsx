@@ -20,8 +20,11 @@ const pinyon = Pinyon_Script({
 });
 
 export const metadata: Metadata = {
-  title: "Badawy Admin Dashboard",
-  description: "Premium Admin Management System",
+  title: "DR. MOSTAFA BADAWY | Plastic Surgeon",
+  description: "Premium Aesthetic Surgery & Cosmetic Procedures by Dr. Mostafa Badawy.",
+  icons: {
+    icon: "/logo9.png",
+  },
 };
 
 import { AuthProvider } from "@/context/AuthContext";

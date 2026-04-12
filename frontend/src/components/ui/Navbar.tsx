@@ -96,7 +96,7 @@ export const Navbar = () => {
 
         {/* Desktop Links */}
         <div className="hidden lg:flex items-center space-x-10">
-          <NavLink href="#home" light={lightNav}>{t('nav.home')}</NavLink>
+          <NavLink href="/" light={lightNav}>{t('nav.home')}</NavLink>
           <NavLink href="#about" light={lightNav}>{t('nav.about')}</NavLink>
           <NavLink href="#services" light={lightNav}>{t('nav.services')}</NavLink>
           <NavLink href="/blog" light={lightNav}>{t('nav.blog')}</NavLink>
