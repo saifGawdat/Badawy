@@ -6,23 +6,12 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || "http://localhost:3000")
-  .split(",")
-  .map((origin) => origin.trim())
-  .filter(Boolean);
-
 app.disable("x-powered-by");
 
 // Middleware
 app.use(
   cors({
-    origin(origin, callback) {
-      // Allow non-browser tools and same-origin requests without an Origin header.
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) return callback(null, true);
-      return callback(new Error("Not allowed by CORS"));
-    },
-    credentials: true,
+    origin: "*",
   })
 );
 app.use(express.json());

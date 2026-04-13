@@ -235,7 +235,7 @@ export const Footer = () => {
   );
 };
 
-const SocialIcon = ({ icon: Icon, href }: { icon: React.ElementType; href?: string }) => {
+const SocialIcon = ({ icon: Icon, href }: { icon: React.ComponentType<{ className?: string }>; href?: string }) => {
   const content = (
     <div className="w-10 h-10 rounded-full border border-secondary/10 flex items-center justify-center text-secondary hover:bg-primary hover:text-white transition cursor-pointer">
       <Icon className="w-4 h-4" />
