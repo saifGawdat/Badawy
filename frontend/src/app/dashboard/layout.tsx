@@ -12,14 +12,19 @@ export default function DashboardLayout({
 }) {
   const { token, isLoading } = useAuth();
   const router = useRouter();
+  const [mounted, setMounted] = React.useState(false);
 
   useEffect(() => {
-    if (!isLoading && !token) {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted && !isLoading && !token) {
       router.push('/login');
     }
-  }, [token, isLoading, router]);
+  }, [token, isLoading, router, mounted]);
 
-  if (isLoading || !token) {
+  if (!mounted || isLoading || !token) {
     return (
       <div className="h-screen w-screen flex items-center justify-center bg-bone">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>

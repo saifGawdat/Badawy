@@ -1,34 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
-
-if (
-  typeof process.env.CLOUDINARY_URL === "string" &&
-  !process.env.CLOUDINARY_URL.startsWith("cloudinary://")
-) {
-  delete process.env.CLOUDINARY_URL;
-}
-
-const cloudinary = require("cloudinary").v2;
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const { createUpload, getImageUrl } = require("../config/cloudinary");
 const BeforeAfter = require("../models/BeforeAfter");
 const { protect } = require("../middleware/auth");
 
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET,
-});
-
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: "badawy_before_after",
-    allowed_formats: ["jpg", "png", "jpeg", "webp"],
-  },
-});
-
-const upload = multer({ storage });
+const upload = createUpload("badawy_before_after");
 
 // GET /api/before-after - Public
 router.get("/", async (req, res) => {
@@ -63,8 +39,8 @@ router.post(
       const newCase = new BeforeAfter({
         title: title?.trim() || "Before / After Case",
         titleAr: titleAr?.trim() || "",
-        beforeImageUrl: beforeImage.path,
-        afterImageUrl: afterImage.path,
+        beforeImageUrl: getImageUrl(beforeImage, "badawy_before_after"),
+        afterImageUrl: getImageUrl(afterImage, "badawy_before_after"),
       });
 
       const savedCase = await newCase.save();

@@ -1,44 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
-
-if (
-  typeof process.env.CLOUDINARY_URL === "string" &&
-  !process.env.CLOUDINARY_URL.startsWith("cloudinary://")
-) {
-  delete process.env.CLOUDINARY_URL;
-}
-
-const cloudinary = require("cloudinary").v2;
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const { createUpload, getImageUrl } = require("../config/cloudinary");
 const mongoose = require("mongoose");
 const BlogPost = require("../models/BlogPost");
 const { protect } = require("../middleware/auth");
 
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET,
-});
-
-const featuredStorage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: "badawy_blog_featured",
-    allowed_formats: ["jpg", "png", "jpeg", "webp"],
-  },
-});
-
-const inlineStorage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: "badawy_blog_inline",
-    allowed_formats: ["jpg", "png", "jpeg", "webp", "gif"],
-  },
-});
-
-const uploadFeatured = multer({ storage: featuredStorage });
-const uploadInline = multer({ storage: inlineStorage });
+const uploadFeatured = createUpload("badawy_blog_featured");
+const uploadInline = createUpload("badawy_blog_inline", ["jpg", "png", "jpeg", "webp", "gif"]);
 
 function slugify(input) {
   return String(input || "")
@@ -68,10 +36,10 @@ router.post(
   protect,
   uploadInline.single("image"),
   async (req, res) => {
-    if (!req.file?.path) {
+    if (!req.file) {
       return res.status(400).json({ message: "Please upload an image" });
     }
-    res.json({ url: req.file.path });
+    res.json({ url: getImageUrl(req.file, "badawy_blog_inline") });
   }
 );
 
@@ -182,7 +150,7 @@ router.post("/", protect, uploadFeatured.single("featuredImage"), async (req, re
       excerptAr: (excerptAr || "").trim(),
       content,
       contentAr: contentAr || "",
-      featuredImage: req.file.path,
+      featuredImage: getImageUrl(req.file, "badawy_blog_featured"),
       published: isPublished,
       publishedAt: isPublished ? new Date() : undefined,
       metaTitle: (metaTitle || "").trim(),
@@ -243,7 +211,7 @@ router.put("/:id", protect, uploadFeatured.single("featuredImage"), async (req, 
       post.published = next;
     }
 
-    if (req.file?.path) post.featuredImage = req.file.path;
+    if (req.file) post.featuredImage = getImageUrl(req.file, "badawy_blog_featured");
 
     await post.save();
     res.json(post);

@@ -1,37 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
-
-// Cloudinary throws during import when CLOUDINARY_URL exists but is malformed.
-// Fall back to explicit credentials in that case so the server can boot.
-if (
-  typeof process.env.CLOUDINARY_URL === "string" &&
-  !process.env.CLOUDINARY_URL.startsWith("cloudinary://")
-) {
-  delete process.env.CLOUDINARY_URL;
-}
-
-const cloudinary = require("cloudinary").v2;
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const { createUpload, getImageUrl } = require("../config/cloudinary");
 const Item = require("../models/Item");
 const { protect } = require("../middleware/auth");
 
-// Cloudinary Configuration
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET,
-});
-
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: "badawy_items",
-    allowed_formats: ["jpg", "png", "jpeg", "webp"],
-  },
-});
-
-const upload = multer({ storage: storage });
+const upload = createUpload("badawy_items");
 
 // GET /api/items - Public
 router.get("/", async (req, res) => {
@@ -39,6 +12,7 @@ router.get("/", async (req, res) => {
     const items = await Item.find().sort({ createdAt: -1 });
     res.json(items);
   } catch (error) {
+    console.error("GET /api/items error:", error.stack || error);
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -54,6 +28,10 @@ router.get("/:id", async (req, res) => {
 
     res.json(item);
   } catch (error) {
+    console.error("GET /api/items/:id error:", error.stack || error);
+    if (error.name === "CastError") {
+      return res.status(400).json({ message: "Invalid ID format" });
+    }
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -66,7 +44,7 @@ router.post("/", protect, upload.single("image"), async (req, res) => {
     return res.status(400).json({ message: "Please upload an image" });
   }
 
-  const imageUrl = req.file.path;
+  const imageUrl = getImageUrl(req.file, "badawy_items");
 
   try {
     const newItem = new Item({
@@ -80,6 +58,7 @@ router.post("/", protect, upload.single("image"), async (req, res) => {
     const savedItem = await newItem.save();
     res.status(201).json(savedItem);  
   } catch (error) {
+    console.error("GET /api/items error:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -99,12 +78,16 @@ router.put("/:id", protect, upload.single("image"), async (req, res) => {
     item.descriptionAr = descriptionAr ?? item.descriptionAr;
 
     if (req.file) {
-      item.imageUrl = req.file.path;
+      item.imageUrl = getImageUrl(req.file);
     }
 
     const updatedItem = await item.save();
     res.json(updatedItem);
   } catch (error) {
+    console.error("PUT /api/items/:id error:", error.stack || error);
+    if (error.name === "CastError") {
+      return res.status(400).json({ message: "Invalid ID format" });
+    }
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -118,6 +101,10 @@ router.delete("/:id", protect, async (req, res) => {
     await Item.deleteOne({ _id: req.params.id });
     res.json({ message: "Item removed" });
   } catch (error) {
+    console.error("DELETE /api/items/:id error:", error.stack || error);
+    if (error.name === "CastError") {
+      return res.status(400).json({ message: "Invalid ID format" });
+    }
     res.status(500).json({ message: "Server error" });
   }
 });

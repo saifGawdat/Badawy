@@ -1,34 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
-
-if (
-  typeof process.env.CLOUDINARY_URL === "string" &&
-  !process.env.CLOUDINARY_URL.startsWith("cloudinary://")
-) {
-  delete process.env.CLOUDINARY_URL;
-}
-
-const cloudinary = require("cloudinary").v2;
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const { createUpload, getImageUrl } = require("../config/cloudinary");
 const HeroSlide = require("../models/HeroSlide");
 const { protect } = require("../middleware/auth");
 
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET,
-});
-
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: "badawy_hero_slides",
-    allowed_formats: ["jpg", "png", "jpeg", "webp"],
-  },
-});
-
-const upload = multer({ storage });
+const upload = createUpload("badawy_hero_slides");
 
 // GET /api/hero-slides - Public
 router.get("/", async (req, res) => {
@@ -56,7 +32,7 @@ router.post("/", protect, upload.single("image"), async (req, res) => {
       subtitleAr: subtitleAr || "",
       ctaText: ctaText?.trim() || "Read More",
       ctaTextAr: ctaTextAr?.trim() || "",
-      imageUrl: req.file.path,
+      imageUrl: getImageUrl(req.file, "badawy_hero_slides"),
     });
 
     const savedSlide = await slide.save();
