@@ -81,7 +81,7 @@ export const Navbar = () => {
                 lightNav ? 'text-white' : 'text-secondary',
               )}
             >
-              DR.MOSTAFA BADAWY
+              DR.MOSTAFA BADAWI
             </h1>
             <p
               className={cn(

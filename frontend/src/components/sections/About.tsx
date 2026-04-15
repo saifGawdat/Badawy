@@ -50,7 +50,7 @@ export const About = () => {
                   className="object-contain"
                 />
               </div>
-              <h3 className="text-xl font-serif tracking-tight">Dr. Mostafa Badawy</h3>
+              <h3 className="text-xl font-serif tracking-tight">Dr. Mostafa Badawi</h3>
               <p className="text-primary text-xs uppercase tracking-widest mt-1">
                 {isArabic ? 'جراح تجميل مؤسس' : 'Founding Plastic Surgeon'}
               </p>

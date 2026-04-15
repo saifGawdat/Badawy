@@ -27,7 +27,7 @@ export const Sidebar = () => {
     <aside className="w-64 h-full bg-secondary text-white flex flex-col shadow-2xl">
       <div className="p-8">
         <h1 className="text-2xl font-serif tracking-widest text-primary drop-shadow-sm">
-          BADAWY
+          BADAWI
         </h1>
         <p className="text-[10px] uppercase tracking-[0.2em] text-white/50 mt-1">
           Admin Portal

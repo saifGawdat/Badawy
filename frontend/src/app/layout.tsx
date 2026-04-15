@@ -20,8 +20,8 @@ const pinyon = Pinyon_Script({
 });
 
 export const metadata: Metadata = {
-  title: "DR. MOSTAFA BADAWY | Plastic Surgeon",
-  description: "Premium Aesthetic Surgery & Cosmetic Procedures by Dr. Mostafa Badawy.",
+  title: "DR. MOSTAFA BADAWI | Plastic Surgeon",
+  description: "Premium Aesthetic Surgery & Cosmetic Procedures by Dr. Mostafa Badawi.",
   icons: {
     icon: "/logo9.png",
   },
