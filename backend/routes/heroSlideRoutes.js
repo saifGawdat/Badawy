@@ -1,60 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const { createUpload, getImageUrl } = require("../config/cloudinary");
-const HeroSlide = require("../models/HeroSlide");
+const { createUpload } = require("../config/cloudinary");
 const { protect } = require("../middleware/auth");
+const { getSlides, createSlide, deleteSlide } = require("../controllers/heroSlideController");
 
 const upload = createUpload("badawy_hero_slides");
 
-// GET /api/hero-slides - Public
-router.get("/", async (req, res) => {
-  try {
-    const slides = await HeroSlide.find().sort({ createdAt: -1 });
-    res.json(slides);
-  } catch (error) {
-    res.status(500).json({ message: "Server error" });
-  }
-});
+router.route("/")
+  .get(getSlides)
+  .post(protect, upload.single("image"), createSlide);
 
-// POST /api/hero-slides - Protected
-router.post("/", protect, upload.single("image"), async (req, res) => {
-  const { title, titleAr, subtitle, subtitleAr, ctaText, ctaTextAr } = req.body;
-
-  if (!req.file) {
-    return res.status(400).json({ message: "Please upload a hero image" });
-  }
-
-  try {
-    const slide = new HeroSlide({
-      title,
-      titleAr: titleAr || "",
-      subtitle,
-      subtitleAr: subtitleAr || "",
-      ctaText: ctaText?.trim() || "Read More",
-      ctaTextAr: ctaTextAr?.trim() || "",
-      imageUrl: getImageUrl(req.file, "badawy_hero_slides"),
-    });
-
-    const savedSlide = await slide.save();
-    res.status(201).json(savedSlide);
-  } catch (error) {
-    res.status(500).json({ message: "Server error" });
-  }
-});
-
-// DELETE /api/hero-slides/:id - Protected
-router.delete("/:id", protect, async (req, res) => {
-  try {
-    const slide = await HeroSlide.findById(req.params.id);
-    if (!slide) {
-      return res.status(404).json({ message: "Slide not found" });
-    }
-
-    await HeroSlide.deleteOne({ _id: req.params.id });
-    res.json({ message: "Slide removed" });
-  } catch (error) {
-    res.status(500).json({ message: "Server error" });
-  }
-});
+router.route("/:id")
+  .delete(protect, deleteSlide);
 
 module.exports = router;
