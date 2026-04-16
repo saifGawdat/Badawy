@@ -15,6 +15,7 @@ export default function DashboardLayout({
   const [mounted, setMounted] = React.useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 

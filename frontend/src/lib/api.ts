@@ -13,4 +13,14 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+/**
+ * Extracts a user-friendly error message from an Axios error response.
+ */
+export const getErrorMessage = (error: unknown, fallback: string = 'An unexpected error occurred'): string => {
+  if (axios.isAxiosError(error)) {
+    return error.response?.data?.message || error.response?.data?.error || error.message || fallback;
+  }
+  return error instanceof Error ? error.message : fallback;
+};
+
 export default api;

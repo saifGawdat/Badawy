@@ -4,8 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { StatCard } from '@/components/ui/StatCard';
 import { Image as ImageIcon, MessageSquare, Plus, Activity, Globe } from 'lucide-react';
-import api from '@/lib/api';
+import api, { getErrorMessage } from '@/lib/api';
 import { GlassCard } from '@/components/ui/GlassCard';
+import { toast } from 'sonner';
 
 export default function DashboardHome() {
   const [stats, setStats] = useState({ items: 0, comments: 0, visits: 0, uniqueVisitors: 0 });
@@ -25,8 +26,7 @@ export default function DashboardHome() {
           uniqueVisitors: visitStats.data.uniqueVisitors,
         });
       } catch (error) {
-        console.error('Failed to fetch stats');
-        console.log(error);
+        toast.error(getErrorMessage(error, 'Failed to fetch dashboard stats'));
       }
     };
     fetchStats();
@@ -37,7 +37,9 @@ export default function DashboardHome() {
       <header className="flex justify-between items-end">
         <div>
           <h1 className="text-4xl font-serif text-secondary mb-2">Welcome Home</h1>
-          <p className="text-secondary/50 font-medium tracking-tight">Here&apos;s what&apos;s happening at Dr. Badawy&apos;s clinic today.</p>
+          <p className="text-secondary/50 font-medium tracking-tight">
+            Here&apos;s what&apos;s happening at Dr. Badawi&apos;s clinic today.
+          </p>
         </div>
         <div className="flex space-x-4">
           <button className="flex items-center space-x-2 bg-secondary text-white px-5 py-2.5 rounded-xl hover:bg-secondary/90 transition-all font-medium text-sm">

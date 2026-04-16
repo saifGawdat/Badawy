@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
-import api from '@/lib/api';
+import api, { getErrorMessage } from '@/lib/api';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { toast } from 'sonner';
 
@@ -22,8 +22,7 @@ export default function LoginPage() {
       login(data.token, data);
       toast.success('Welcome back, Admin');
     } catch (error) {
-      console.log(error);
-      toast.error('Login failed');
+      toast.error(getErrorMessage(error, 'Login failed'));
     } finally {
       setIsLoading(false);
     }

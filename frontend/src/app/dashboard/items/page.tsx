@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Plus, Trash2, Edit3, Image as ImageIcon, X } from 'lucide-react';
 import Image from 'next/image';
-import api from '@/lib/api';
+import api, { getErrorMessage } from '@/lib/api';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
@@ -33,8 +33,8 @@ export default function ItemsPage() {
     try {
       const { data } = await api.get('/items');
       setItems(data);
-    } catch {
-      toast.error('Failed to load items');
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to load items'));
     }
   };
 
@@ -67,8 +67,8 @@ export default function ItemsPage() {
       setDescriptionAr('');
       setFile(null);
       fetchItems();
-    } catch {
-      toast.error('Failed to add item');
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to add item'));
     } finally {
       setIsLoading(false);
     }
@@ -80,8 +80,8 @@ export default function ItemsPage() {
       await api.delete(`/items/${id}`);
       toast.success('Item removed');
       fetchItems();
-    } catch {
-      toast.error('Failed to delete item');
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to delete item'));
     }
   };
 

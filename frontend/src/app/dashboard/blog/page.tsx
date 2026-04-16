@@ -12,7 +12,7 @@ import {
   ExternalLink,
   Copy,
 } from "lucide-react";
-import api from "@/lib/api";
+import api, { getErrorMessage } from "@/lib/api";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
@@ -64,8 +64,8 @@ export default function DashboardBlogPage() {
     try {
       const { data } = await api.get<BlogPostMeta[]>("/blog/manage");
       setPosts(data);
-    } catch {
-      toast.error("Failed to load blog posts");
+    } catch (error) {
+      toast.error(getErrorMessage(error, "Failed to load blog posts"));
     }
   };
 
@@ -98,8 +98,8 @@ export default function DashboardBlogPage() {
       });
       setFeaturedFile(null);
       setIsModalOpen(true);
-    } catch {
-      toast.error("Failed to load article");
+    } catch (error) {
+      toast.error(getErrorMessage(error, "Failed to load article"));
     }
   };
 
@@ -141,8 +141,8 @@ export default function DashboardBlogPage() {
       }
       closeModal();
       fetchPosts();
-    } catch {
-      toast.error(editingId ? "Failed to update article" : "Failed to create article");
+    } catch (error) {
+      toast.error(getErrorMessage(error, editingId ? "Failed to update article" : "Failed to create article"));
     } finally {
       setIsLoading(false);
     }
@@ -154,8 +154,8 @@ export default function DashboardBlogPage() {
       await api.delete(`/blog/${id}`);
       toast.success("Article removed");
       fetchPosts();
-    } catch {
-      toast.error("Failed to delete article");
+    } catch (error) {
+      toast.error(getErrorMessage(error, "Failed to delete article"));
     }
   };
 
@@ -169,8 +169,8 @@ export default function DashboardBlogPage() {
       const md = `![${file.name.replace(/\.[^.]+$/, "")}](${data.url})`;
       await navigator.clipboard.writeText(md);
       toast.success("Markdown image copied — paste into content");
-    } catch {
-      toast.error("Image upload failed");
+    } catch (error) {
+      toast.error(getErrorMessage(error, "Image upload failed"));
     } finally {
       setInlineUploading(false);
     }

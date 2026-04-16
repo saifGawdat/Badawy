@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Plus, Trash2, X } from 'lucide-react';
-import api from '@/lib/api';
+import api, { getErrorMessage } from '@/lib/api';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
@@ -32,21 +32,13 @@ export default function CommentsPage() {
     try {
       const { data } = await api.get('/comments');
       setComments(data);
-    } catch {
-      toast.error('Failed to load testimonials');
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to load testimonials'));
     }
   };
 
   useEffect(() => {
-    const load = async () => {
-      try {
-        const { data } = await api.get('/comments');
-        setComments(data);
-      } catch {
-        toast.error('Failed to load testimonials');
-      }
-    };
-    load();
+    fetchComments();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -71,8 +63,8 @@ export default function CommentsPage() {
       setDescriptionAr('');
       setProfilePhotoFile(null);
       fetchComments();
-    } catch {
-      toast.error('Failed to add testimonial');
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to add testimonial'));
     } finally {
       setIsLoading(false);
     }
@@ -84,8 +76,8 @@ export default function CommentsPage() {
       await api.delete(`/comments/${id}`);
       toast.success('Comment removed');
       fetchComments();
-    } catch {
-      toast.error('Failed to delete comment');
+    } catch (error) {
+      toast.error(getErrorMessage(error, 'Failed to delete comment'));
     }
   };
 
