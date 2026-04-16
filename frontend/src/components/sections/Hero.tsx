@@ -101,14 +101,14 @@ export const Hero = () => {
             className="absolute inset-0"
             initial={{ scale: 1.15 }}
             animate={{ scale: 1 }}
-            transition={{ duration: 6, ease: "linear" }}
+            transition={{ duration: 3, ease: "linear" }}
           >
             <Image
               src={activeSlide.imageUrl}
               alt={activeSlide.title}
               fill
               priority
-              className="object-cover"
+              className="object-cover "
             />
 
             <div className="absolute inset-0 bg-black/55" />

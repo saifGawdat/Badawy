@@ -13,6 +13,7 @@ import {
   Copy,
 } from "lucide-react";
 import api, { getErrorMessage } from "@/lib/api";
+import { compressImage } from "@/lib/compressImage";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
@@ -129,7 +130,15 @@ export default function DashboardBlogPage() {
     fd.append("metaTitle", form.metaTitle);
     fd.append("metaDescription", form.metaDescription);
     fd.append("published", form.published ? "true" : "false");
-    if (featuredFile) fd.append("featuredImage", featuredFile);
+    if (featuredFile) {
+      try {
+        fd.append("featuredImage", await compressImage(featuredFile));
+      } catch {
+        toast.error("Image compression failed");
+        setIsLoading(false);
+        return;
+      }
+    }
 
     try {
       if (editingId) {
@@ -163,7 +172,13 @@ export default function DashboardBlogPage() {
     if (!file) return;
     setInlineUploading(true);
     const fd = new FormData();
-    fd.append("image", file);
+    try {
+      fd.append("image", await compressImage(file));
+    } catch {
+      toast.error("Image compression failed");
+      setInlineUploading(false);
+      return;
+    }
     try {
       const { data } = await api.post<{ url: string }>("/blog/upload-image", fd);
       const md = `![${file.name.replace(/\.[^.]+$/, "")}](${data.url})`;

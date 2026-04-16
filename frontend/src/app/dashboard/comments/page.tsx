@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Plus, Trash2, X } from 'lucide-react';
 import api, { getErrorMessage } from '@/lib/api';
+import { compressImage } from '@/lib/compressImage';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
@@ -48,11 +49,19 @@ export default function CommentsPage() {
       return;
     }
     setIsLoading(true);
+    let photoFile: File;
+    try {
+      photoFile = await compressImage(profilePhotoFile);
+    } catch {
+      toast.error('Image compression failed');
+      setIsLoading(false);
+      return;
+    }
     const formData = new FormData();
     formData.append('username', username);
     formData.append('description', description);
     formData.append('descriptionAr', descriptionAr);
-    formData.append('profilePhoto', profilePhotoFile);
+    formData.append('profilePhoto', photoFile);
 
     try {
       await api.post('/comments', formData);

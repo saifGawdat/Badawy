@@ -6,6 +6,7 @@ import { Plus, Trash2, X, Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
 import api from "@/lib/api";
+import { compressImage } from "@/lib/compressImage";
 import { GlassCard } from "@/components/ui/GlassCard";
 
 interface HeroSlide {
@@ -63,6 +64,14 @@ export default function HeroPage() {
     }
 
     setIsLoading(true);
+    let imageFile: File;
+    try {
+      imageFile = await compressImage(file);
+    } catch {
+      toast.error("Image compression failed");
+      setIsLoading(false);
+      return;
+    }
     const formData = new FormData();
     formData.append("title", title);
     formData.append("titleAr", titleAr);
@@ -70,7 +79,7 @@ export default function HeroPage() {
     formData.append("subtitleAr", subtitleAr);
     formData.append("ctaText", ctaText);
     formData.append("ctaTextAr", ctaTextAr);
-    formData.append("image", file);
+    formData.append("image", imageFile);
 
     try {
       await api.post("/hero-slides", formData);

@@ -6,6 +6,7 @@ import { Plus, Trash2, Image as ImageIcon, X } from "lucide-react";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
 import api from "@/lib/api";
+import { compressImage } from "@/lib/compressImage";
 import { GlassCard } from "@/components/ui/GlassCard";
 
 interface BeforeAfterCase {
@@ -54,11 +55,23 @@ export default function BeforeAfterPage() {
     }
 
     setIsLoading(true);
+    let compressedBefore: File;
+    let compressedAfter: File;
+    try {
+      [compressedBefore, compressedAfter] = await Promise.all([
+        compressImage(beforeFile),
+        compressImage(afterFile),
+      ]);
+    } catch {
+      toast.error("Image compression failed");
+      setIsLoading(false);
+      return;
+    }
     const formData = new FormData();
     formData.append("title", title);
     formData.append("titleAr", titleAr);
-    formData.append("beforeImage", beforeFile);
-    formData.append("afterImage", afterFile);
+    formData.append("beforeImage", compressedBefore);
+    formData.append("afterImage", compressedAfter);
 
     try {
       await api.post("/before-after", formData);

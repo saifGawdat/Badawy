@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Plus, Trash2, Edit3, Image as ImageIcon, X } from 'lucide-react';
 import Image from 'next/image';
 import api, { getErrorMessage } from '@/lib/api';
+import { compressImage } from '@/lib/compressImage';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
@@ -50,12 +51,20 @@ export default function ItemsPage() {
     }
 
     setIsLoading(true);
+    let imageFile: File;
+    try {
+      imageFile = await compressImage(file);
+    } catch {
+      toast.error('Image compression failed');
+      setIsLoading(false);
+      return;
+    }
     const formData = new FormData();
     formData.append('title', title);
     formData.append('titleAr', titleAr);
     formData.append('description', description);
     formData.append('descriptionAr', descriptionAr);
-    formData.append('image', file);
+    formData.append('image', imageFile);
 
     try {
       await api.post('/items', formData);

@@ -13,6 +13,20 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Add interceptor to unwrap response envelope { success: true, data: [...] }
+api.interceptors.response.use((response) => {
+  // Check if response.data follows the standard our refactored backend uses
+  if (
+    response.data &&
+    typeof response.data === 'object' &&
+    response.data.success === true &&
+    response.data.data !== undefined
+  ) {
+    return { ...response, data: response.data.data };
+  }
+  return response;
+});
+
 /**
  * Extracts a user-friendly error message from an Axios error response.
  */
