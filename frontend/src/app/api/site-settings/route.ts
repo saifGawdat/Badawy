@@ -24,7 +24,7 @@ export const PATCH = withAuth(
     const body = await req.json();
     const { phone, whatsappPhone, location, locationAr, facebookUrl, instagramUrl } = body;
 
-    const updateData: any = {};
+    const updateData: Record<string, string> = {};
     if (phone !== undefined) updateData.phone = String(phone || "").trim();
     if (whatsappPhone !== undefined) updateData.whatsappPhone = String(whatsappPhone || "").trim();
     if (location !== undefined) updateData.location = String(location || "").trim();

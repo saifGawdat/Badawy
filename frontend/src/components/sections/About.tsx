@@ -6,9 +6,26 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
 import api from '@/lib/api';
 
+interface AboutData {
+  id: string;
+  imageUrl?: string;
+  quoteEn?: string;
+  quoteAr?: string;
+  drNameEn?: string;
+  drNameAr?: string;
+  drTitleEn?: string;
+  drTitleAr?: string;
+  stat1Value?: string;
+  stat1LabelEn?: string;
+  stat1LabelAr?: string;
+  stat2Value?: string;
+  stat2LabelEn?: string;
+  stat2LabelAr?: string;
+}
+
 export const About = () => {
   const { isArabic } = useLanguage();
-  const [aboutData, setAboutData] = useState<any>(null);
+  const [aboutData, setAboutData] = useState<AboutData | null>(null);
 
   useEffect(() => {
     const fetchAbout = async () => {

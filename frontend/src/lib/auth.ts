@@ -38,14 +38,14 @@ function getToken(req: NextRequest): string | null {
 
 export type AuthUser = { id: string; username: string };
 
-type AuthedHandler = (
+type AuthedHandler<P = Record<string, string>> = (
   req: NextRequest,
-  ctx: { params: Promise<any> },
+  ctx: { params: Promise<P> },
   user: AuthUser
 ) => Promise<NextResponse>;
 
-export function withAuth(handler: AuthedHandler) {
-  return async (req: NextRequest, ctx: { params: Promise<any> }) => {
+export function withAuth<P = Record<string, string>>(handler: AuthedHandler<P>) {
+  return async (req: NextRequest, ctx: { params: Promise<P> }) => {
     const token = getToken(req);
     if (!token) {
       return NextResponse.json({ success: false, error: 'Not authorized' }, { status: 401 });

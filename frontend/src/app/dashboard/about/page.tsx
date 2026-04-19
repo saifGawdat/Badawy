@@ -117,7 +117,7 @@ export default function AboutManagementPage() {
       <header>
         <h1 className="text-3xl font-serif text-secondary">About Section Management</h1>
         <p className="text-secondary/50 font-medium">
-          Modify the "About Dr. Badawi" section on the landing page.
+          Modify the &quot;About Dr. Badawi&quot; section on the landing page.
         </p>
       </header>
 

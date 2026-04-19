@@ -25,7 +25,7 @@ export type BlogPostListItem = Omit<
 >;
 
 // Helper to convert Date to string if needed for hydration
-const serializeDates = (obj: any) => {
+const serializeDates = <T>(obj: T): T => {
   if (!obj) return obj;
   return JSON.parse(JSON.stringify(obj));
 };

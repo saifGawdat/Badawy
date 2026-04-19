@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { withAuth } from '@/lib/auth';
-import { withErrorHandler, apiError } from '@/lib/api-error';
+import { withErrorHandler } from '@/lib/api-error';
 
 // GET /api/about - Public fetch of about section
 export const GET = withErrorHandler(async () => {
@@ -14,7 +14,7 @@ export const PATCH = withAuth(
   withErrorHandler(async (req: NextRequest) => {
     const formData = await req.formData();
     
-    const body: any = {};
+    const body: Record<string, string> = {};
     const textFields = [
       'quoteEn', 'quoteAr', 
       'drNameEn', 'drNameAr', 

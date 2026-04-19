@@ -1,10 +1,10 @@
-import { NextResponse } from 'next/server';
-import { withAuth } from '@/lib/auth';
+import { NextRequest, NextResponse } from 'next/server';
+import { withAuth, AuthUser } from '@/lib/auth';
 import { withErrorHandler } from '@/lib/api-error';
 
 // GET /api/auth/me - Verify session and return user info
 export const GET = withAuth(
-  withErrorHandler(async (req: any, ctx: any, user: { id: string; username: string }) => {
+  withErrorHandler(async (req: NextRequest, ctx: { params: Promise<Record<string, string>> }, user: AuthUser) => {
     return NextResponse.json({
       success: true,
       data: {

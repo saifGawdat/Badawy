@@ -25,7 +25,7 @@ export const PUT = withAuth(
     const publishedRaw = formData.get('published');
     const file = formData.get('featuredImage') as File | null;
 
-    const updateData: any = {};
+    const updateData: Record<string, unknown> = {};
     if (title !== null) updateData.title = title.trim();
     if (titleAr !== null) updateData.titleAr = titleAr.trim();
     if (excerpt !== null) updateData.excerpt = excerpt.trim();

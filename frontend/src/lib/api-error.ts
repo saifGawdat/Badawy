@@ -4,27 +4,33 @@ export function apiError(message: string, status = 500) {
   return NextResponse.json({ success: false, error: message }, { status });
 }
 
-export function withErrorHandler(handler: Function) {
-  return async (...args: unknown[]) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Handler<T extends any[]> = (...args: T) => Promise<NextResponse>;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function withErrorHandler<T extends any[]>(handler: Handler<T>) {
+  return async (...args: T) => {
     try {
       return await handler(...args);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('🔥 API Error:', err);
 
+      const error = err as { code?: string; message?: string; statusCode?: number; meta?: { target?: string[] } };
+
       // Prisma unique constraint
-      if (err.code === 'P2002') {
-        return apiError(`Duplicate value: ${err.meta?.target?.join(', ')}`, 400);
+      if (error.code === 'P2002') {
+        return apiError(`Duplicate value: ${error.meta?.target?.join(', ')}`, 400);
       }
       // Prisma record not found
-      if (err.code === 'P2025') {
+      if (error.code === 'P2025') {
         return apiError('Record not found', 404);
       }
       // Prisma invalid ID format
-      if (err.code === 'P2023') {
+      if (error.code === 'P2023') {
         return apiError('Invalid ID format', 400);
       }
 
-      return apiError(err.message || 'Server error', err.statusCode || 500);
+      return apiError(error.message || 'Server error', error.statusCode || 500);
     }
   };
 }

@@ -42,7 +42,7 @@ export const PUT = withAuth(
     const descriptionAr = formData.get('descriptionAr') as string | null;
     const file = formData.get('image') as File | null;
 
-    const updateData: any = {};
+    const updateData: Record<string, unknown> = {};
     if (title !== null) updateData.title = title;
     if (titleAr !== null) updateData.titleAr = titleAr;
     if (description !== null) updateData.description = description;
