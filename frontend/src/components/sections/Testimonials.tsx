@@ -7,7 +7,7 @@ import api from '@/lib/api';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface Comment {
-  _id: string;
+  id: string;
   username: string;
   description: string;
   descriptionAr?: string;
@@ -70,7 +70,7 @@ export const Testimonials = () => {
           >
             {comments.map((comment) => (
               <div
-                key={comment._id}
+                key={comment.id}
                 className="shrink-0 px-3"
                 style={{ width: `${100 / cardsPerView}%` }}
               >

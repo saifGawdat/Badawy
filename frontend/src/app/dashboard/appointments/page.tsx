@@ -7,7 +7,7 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import api from "@/lib/api";
 
 interface Appointment {
-  _id: string;
+  id: string;
   fullName: string;
   email: string;
   phone: string;
@@ -55,7 +55,7 @@ export default function AppointmentsPage() {
   const toggleStatus = async (appointment: Appointment) => {
     const nextStatus = appointment.status === "new" ? "contacted" : "new";
     try {
-      await api.patch(`/appointments/${appointment._id}/status`, { status: nextStatus });
+      await api.patch(`/appointments/${appointment.id}/status`, { status: nextStatus });
       toast.success(nextStatus === "contacted" ? "Marked as contacted" : "Marked as new");
       fetchAppointments();
     } catch {
@@ -74,7 +74,7 @@ export default function AppointmentsPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {appointments.map((appointment) => (
-          <GlassCard key={appointment._id} className="p-6">
+          <GlassCard key={appointment.id} className="p-6">
             <div className="flex justify-between items-start gap-4">
               <div>
                 <h3 className="text-xl font-serif text-secondary">{appointment.fullName}</h3>
@@ -103,7 +103,7 @@ export default function AppointmentsPage() {
                   {appointment.status === "contacted" ? "Mark New" : "Mark Contacted"}
                 </button>
                 <button
-                  onClick={() => deleteAppointment(appointment._id)}
+                  onClick={() => deleteAppointment(appointment.id)}
                   className="text-secondary/30 hover:text-red-600 transition-colors"
                   aria-label="Delete appointment"
                 >

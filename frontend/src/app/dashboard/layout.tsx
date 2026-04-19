@@ -10,22 +10,21 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { token, isLoading } = useAuth();
+  const { user, isLoading } = useAuth();
   const router = useRouter();
   const [mounted, setMounted] = React.useState(false);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
   useEffect(() => {
-    if (mounted && !isLoading && !token) {
+    if (mounted && !isLoading && !user) {
       router.push('/login');
     }
-  }, [token, isLoading, router, mounted]);
+  }, [user, isLoading, router, mounted]);
 
-  if (!mounted || isLoading || !token) {
+  if (!mounted || isLoading || !user) {
     return (
       <div className="h-screen w-screen flex items-center justify-center bg-bone">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>

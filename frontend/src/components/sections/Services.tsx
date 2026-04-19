@@ -9,7 +9,7 @@ import api from '@/lib/api';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface Item {
-  _id: string;
+  id: string;
   title: string;
   titleAr?: string;
   description: string;
@@ -118,7 +118,7 @@ export const Services = () => {
             >
               {items.map((item, index) => (
                 <motion.div
-                  key={item._id}
+                  key={item.id}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -138,7 +138,7 @@ export const Services = () => {
                       <div className="absolute inset-0 bg-linear-to-t from-secondary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 overflow-hidden" />
                       <div className="absolute bottom-6 left-6 right-6 translate-y-0 opacity-100 md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500">
                         <Link
-                          href={`/services/${item._id}`}
+                          href={`/services/${item.id}`}
                           className="w-full bg-white/20 backdrop-blur-md text-white py-3 rounded-xl border border-white/20 hover:bg-white/40 transition-colors flex items-center justify-center space-x-2"
                         >
                           <span>{isArabic ? 'عرض التفاصيل' : 'View Details'}</span>

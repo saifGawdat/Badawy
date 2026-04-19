@@ -11,7 +11,7 @@ import api from "@/lib/api";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface ServiceItem {
-  _id: string;
+  id: string;
   title: string;
   titleAr?: string;
   description: string;

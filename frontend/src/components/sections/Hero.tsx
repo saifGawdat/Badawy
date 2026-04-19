@@ -8,7 +8,7 @@ import api from "@/lib/api";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface HeroSlide {
-  _id: string;
+  id: string;
   title: string;
   titleAr?: string;
   subtitle: string;
@@ -19,7 +19,7 @@ interface HeroSlide {
 }
 
 const fallbackSlide: HeroSlide = {
-  _id: "fallback",
+  id: "fallback",
   title: "Surgery Refined by Professionals",
   subtitle:
     "Enhance your confidence restore your youth and elevate your everyday.",
@@ -89,7 +89,7 @@ export const Hero = () => {
       {/* SLIDE WRAPPER (SYNC POINT) */}
       <AnimatePresence mode="wait">
         <motion.div
-          key={activeSlide._id}
+          key={activeSlide.id}
           className="absolute inset-0 w-full h-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

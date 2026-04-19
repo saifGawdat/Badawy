@@ -10,7 +10,7 @@ import { compressImage } from "@/lib/compressImage";
 import { GlassCard } from "@/components/ui/GlassCard";
 
 interface BeforeAfterCase {
-  _id: string;
+  id: string;
   title: string;
   titleAr?: string;
   beforeImageUrl: string;
@@ -119,7 +119,7 @@ export default function BeforeAfterPage() {
         <AnimatePresence>
           {cases.map((entry, index) => (
             <motion.div
-              key={entry._id}
+              key={entry.id}
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
@@ -143,7 +143,7 @@ export default function BeforeAfterPage() {
                 <div className="p-5 flex justify-between items-center">
                   <h3 className="text-lg font-serif text-secondary">{entry.title}</h3>
                   <button
-                    onClick={() => deleteCase(entry._id)}
+                    onClick={() => deleteCase(entry.id)}
                     className="p-2 rounded-lg text-red-600 hover:bg-red-50 transition-colors"
                     aria-label="Delete before and after case"
                   >

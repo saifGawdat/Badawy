@@ -10,7 +10,7 @@ import { compressImage } from "@/lib/compressImage";
 import { GlassCard } from "@/components/ui/GlassCard";
 
 interface HeroSlide {
-  _id: string;
+  id: string;
   title: string;
   titleAr?: string;
   subtitle: string;
@@ -123,7 +123,7 @@ export default function HeroPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {slides.map((slide) => (
-          <GlassCard key={slide._id} className="overflow-hidden">
+          <GlassCard key={slide.id} className="overflow-hidden">
             <div className="relative aspect-video">
               <Image src={slide.imageUrl} alt={slide.title} fill className="object-cover" />
             </div>
@@ -133,7 +133,7 @@ export default function HeroPage() {
               <div className="mt-4 flex items-center justify-between">
                 <span className="text-xs uppercase tracking-widest text-primary">{slide.ctaText}</span>
                 <button
-                  onClick={() => deleteSlide(slide._id)}
+                  onClick={() => deleteSlide(slide.id)}
                   className="p-2 rounded-lg text-red-600 hover:bg-red-50 transition-colors"
                   aria-label="Delete hero slide"
                 >

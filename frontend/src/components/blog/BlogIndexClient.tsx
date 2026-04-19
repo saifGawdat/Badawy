@@ -40,7 +40,7 @@ export function BlogIndexClient({ posts }: { posts: BlogPostListItem[] }) {
 
             return (
               <motion.article
-                key={post._id}
+                key={post.id}
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.06 }}

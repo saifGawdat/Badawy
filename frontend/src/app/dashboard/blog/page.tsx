@@ -19,7 +19,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 
 interface BlogPostMeta {
-  _id: string;
+  id: string;
   title: string;
   titleAr?: string;
   slug: string;
@@ -212,7 +212,7 @@ export default function DashboardBlogPage() {
 
       <div className="grid grid-cols-1 gap-4">
         {posts.map((post) => (
-          <GlassCard key={post._id} className="p-6 flex flex-col sm:flex-row gap-6">
+          <GlassCard key={post.id} className="p-6 flex flex-col sm:flex-row gap-6">
             <div className="relative w-full sm:w-40 h-28 rounded-xl overflow-hidden shrink-0 border border-secondary/10">
               <Image
                 src={post.featuredImage}
@@ -252,7 +252,7 @@ export default function DashboardBlogPage() {
               ) : null}
               <button
                 type="button"
-                onClick={() => openEdit(post._id)}
+                onClick={() => openEdit(post.id)}
                 className="p-2 rounded-lg text-secondary/60 hover:bg-secondary/5 transition-colors"
                 aria-label="Edit"
               >
@@ -260,7 +260,7 @@ export default function DashboardBlogPage() {
               </button>
               <button
                 type="button"
-                onClick={() => deletePost(post._id)}
+                onClick={() => deletePost(post.id)}
                 className="p-2 rounded-lg text-red-600/70 hover:bg-red-50 transition-colors"
                 aria-label="Delete"
               >

@@ -1,0 +1,123 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Auth ───────────────────────────────────────────────────────────────
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String   // bcrypt hash
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Blog ────────────────────────────────────────────────────────────────
+model BlogPost {
+  id                 String    @id @default(cuid())
+  title              String
+  titleAr            String    @default("")
+  slug               String    @unique
+  excerpt            String
+  excerptAr          String    @default("")
+  content            String    @db.Text
+  contentAr          String    @default("") @db.Text
+  featuredImage      String
+  published          Boolean   @default(false)
+  publishedAt        DateTime?
+  metaTitle          String    @default("")
+  metaDescription    String    @default("")
+  readingTimeMinutes Int       @default(1)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  @@index([published])
+  @@index([slug])
+}
+
+// ─── Services/Items ──────────────────────────────────────────────────────
+model Item {
+  id            String   @id @default(cuid())
+  title         String
+  titleAr       String   @default("")
+  description   String   @db.Text
+  descriptionAr String   @default("") @db.Text
+  imageUrl      String
+  createdAt     DateTime @default(now())
+}
+
+// ─── Before/After ────────────────────────────────────────────────────────
+model BeforeAfter {
+  id             String   @id @default(cuid())
+  title          String
+  titleAr        String   @default("")
+  beforeImageUrl String
+  afterImageUrl  String
+  createdAt      DateTime @default(now())
+}
+
+// ─── Comments/Testimonials ───────────────────────────────────────────────
+model Comment {
+  id            String   @id @default(cuid())
+  username      String
+  description   String
+  descriptionAr String   @default("")
+  profilePhoto  String
+  createdAt     DateTime @default(now())
+}
+
+// ─── Hero Slides ─────────────────────────────────────────────────────────
+model HeroSlide {
+  id         String   @id @default(cuid())
+  title      String
+  titleAr    String   @default("")
+  subtitle   String
+  subtitleAr String   @default("")
+  ctaText    String   @default("Read More")
+  ctaTextAr  String   @default("")
+  imageUrl   String
+  createdAt  DateTime @default(now())
+}
+
+// ─── Appointments ────────────────────────────────────────────────────────
+model Appointment {
+  id        String            @id @default(cuid())
+  fullName  String
+  email     String
+  phone     String
+  procedure String
+  message   String            @default("")
+  status    AppointmentStatus @default(new)
+  createdAt DateTime          @default(now())
+}
+
+enum AppointmentStatus {
+  new
+  contacted
+}
+
+// ─── Site Settings (singleton row) ───────────────────────────────────────
+model SiteSettings {
+  id            String   @id @default(cuid())
+  phone         String   @default("")
+  whatsappPhone String   @default("")
+  location      String   @default("")
+  locationAr    String   @default("")
+  facebookUrl   String   @default("")
+  instagramUrl  String   @default("")
+  updatedAt     DateTime @updatedAt
+}
+
+// ─── Visits / Analytics ──────────────────────────────────────────────────
+model Visit {
+  id        String   @id @default(cuid())
+  ip        String
+  userAgent String   @default("")
+  path      String   @default("/")
+  createdAt DateTime @default(now())
+
+  @@index([ip])
+}

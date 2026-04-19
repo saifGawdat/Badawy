@@ -7,7 +7,7 @@ import api from "@/lib/api";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface ServiceItem {
-  _id: string;
+  id: string;
   title: string;
 }
 
@@ -197,7 +197,7 @@ export const Footer = () => {
 
           <FooterColumn title={isArabic ? "الخدمات" : "Services"}>
             {services.slice(0, 6).map((service) => (
-              <FooterLink key={service._id} href={`/services/${service._id}`}>
+              <FooterLink key={service.id} href={`/services/${service.id}`}>
                 {service.title}
               </FooterLink>
             ))}

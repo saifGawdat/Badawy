@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 
 interface Comment {
-  _id: string;
+  id: string;
   username: string;
   description: string;
   descriptionAr?: string;
@@ -110,7 +110,7 @@ export default function CommentsPage() {
         <AnimatePresence>
           {comments.map((comment, index) => (
             <motion.div
-              key={comment._id}
+              key={comment.id}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
@@ -130,7 +130,7 @@ export default function CommentsPage() {
                   <div className="flex justify-between items-start">
                     <h3 className="text-xl font-serif text-secondary">{comment.username}</h3>
                     <button 
-                      onClick={() => deleteComment(comment._id)}
+                      onClick={() => deleteComment(comment.id)}
                       className="text-secondary/20 hover:text-red-500 transition-colors"
                     >
                       <Trash2 className="w-5 h-5" />

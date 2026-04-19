@@ -7,7 +7,7 @@ import api from "@/lib/api";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface BeforeAfterItem {
-  _id: string;
+  id: string;
   title: string;
   titleAr?: string;
   beforeImageUrl: string;

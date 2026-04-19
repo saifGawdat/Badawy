@@ -29,8 +29,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       url,
       type: "article",
-      publishedTime: published,
-      modifiedTime: modified,
+      publishedTime: published instanceof Date ? published.toISOString() : (typeof published === 'string' ? published : undefined),
+      modifiedTime: modified instanceof Date ? modified.toISOString() : (typeof modified === 'string' ? modified : undefined),
       images: post.featuredImage
         ? [{ url: post.featuredImage, width: 1200, height: 630, alt: title }]
         : undefined,
@@ -65,8 +65,10 @@ export default async function BlogArticlePage({ params }: Props) {
     headline,
     description: desc,
     image: post.featuredImage ? [post.featuredImage] : undefined,
-    datePublished: post.publishedAt || post.createdAt,
-    dateModified: post.updatedAt,
+    datePublished: (post.publishedAt || post.createdAt) instanceof Date 
+      ? (post.publishedAt || post.createdAt).toISOString() 
+      : (post.publishedAt || post.createdAt),
+    dateModified: post.updatedAt instanceof Date ? post.updatedAt.toISOString() : post.updatedAt,
     author: {
       "@type": "Person",
       name: "Dr. Mostafa Badawy",

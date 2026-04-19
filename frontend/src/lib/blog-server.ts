@@ -1,11 +1,7 @@
-const getApiBase = () =>
-  (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api").replace(
-    /\/$/,
-    ""
-  );
+import { db } from './db';
 
 export type BlogPostPublic = {
-  _id: string;
+  id: string;
   title: string;
   titleAr?: string;
   slug: string;
@@ -15,9 +11,9 @@ export type BlogPostPublic = {
   contentAr?: string;
   featuredImage: string;
   published: boolean;
-  publishedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  publishedAt?: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
   metaTitle?: string;
   metaDescription?: string;
   readingTimeMinutes?: number;
@@ -28,14 +24,41 @@ export type BlogPostListItem = Omit<
   "content" | "contentAr"
 >;
 
+// Helper to convert Date to string if needed for hydration
+const serializeDates = (obj: any) => {
+  if (!obj) return obj;
+  return JSON.parse(JSON.stringify(obj));
+};
+
 export async function fetchPublishedBlogPosts(): Promise<BlogPostListItem[]> {
   try {
-    const res = await fetch(`${getApiBase()}/blog`, {
-      next: { revalidate: 120 },
+    const posts = await db.blogPost.findMany({
+      where: { published: true },
+      select: {
+        id: true,
+        title: true,
+        titleAr: true,
+        slug: true,
+        excerpt: true,
+        excerptAr: true,
+        featuredImage: true,
+        published: true,
+        publishedAt: true,
+        createdAt: true,
+        updatedAt: true,
+        metaTitle: true,
+        metaDescription: true,
+        readingTimeMinutes: true,
+      },
+      orderBy: [
+        { publishedAt: 'desc' },
+        { createdAt: 'desc' },
+      ],
     });
-    if (!res.ok) return [];
-    return res.json();
-  } catch {
+    
+    return serializeDates(posts);
+  } catch (error) {
+    console.error('Error fetching blog posts:', error);
     return [];
   }
 }
@@ -44,14 +67,17 @@ export async function fetchBlogPostBySlug(
   slug: string
 ): Promise<BlogPostPublic | null> {
   try {
-    const res = await fetch(
-      `${getApiBase()}/blog/slug/${encodeURIComponent(slug)}`,
-      { next: { revalidate: 120 } }
-    );
-    if (res.status === 404) return null;
-    if (!res.ok) return null;
-    return res.json();
-  } catch {
+    const post = await db.blogPost.findFirst({
+      where: {
+        slug: slug,
+        published: true,
+      },
+    });
+    
+    if (!post) return null;
+    return serializeDates(post);
+  } catch (error) {
+    console.error(`Error fetching blog post by slug ${slug}:`, error);
     return null;
   }
 }

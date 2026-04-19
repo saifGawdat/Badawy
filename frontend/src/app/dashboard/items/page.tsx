@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 
 interface Item {
-  _id: string;
+  id: string;
   title: string;
   titleAr?: string;
   description: string;
@@ -114,7 +114,7 @@ export default function ItemsPage() {
         <AnimatePresence>
           {items.map((item, index) => (
             <motion.div
-              key={item._id}
+              key={item.id}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
@@ -135,7 +135,7 @@ export default function ItemsPage() {
                       <Edit3 className="w-5 h-5" />
                     </button>
                     <button 
-                      onClick={() => deleteItem(item._id)}
+                      onClick={() => deleteItem(item.id)}
                       className="p-3 bg-red-500/20 backdrop-blur-md rounded-full text-white hover:bg-red-500/40 transition-colors"
                     >
                       <Trash2 className="w-5 h-5" />

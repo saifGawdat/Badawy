@@ -7,7 +7,7 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import api from "@/lib/api";
 
 interface Visit {
-  _id: string;
+  id: string;
   ip: string;
   path: string;
   userAgent: string;
@@ -79,7 +79,7 @@ export default function VisitsPage() {
         ) : (
           <div className="space-y-3">
             {visits.map((v) => (
-              <GlassCard key={v._id} className="p-5">
+              <GlassCard key={v.id} className="p-5">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <span className="font-mono text-sm text-secondary">
                     {v.ip}
