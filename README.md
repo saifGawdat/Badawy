@@ -23,11 +23,12 @@ A high-end, premium medical portfolio and admin dashboard for plastic surgery cl
 1. **Clone the repository**:
    ```bash
    git clone <repository-url>
-   cd Badawy/frontend
+   cd Badawy
    ```
 
-2. **Install dependencies**:
+2. **Navigate to frontend and install dependencies**:
    ```bash
+   cd frontend
    npm install
    ```
 
@@ -67,11 +68,13 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 
 ## 📁 Architecture
 
-- `src/app/api`: Serverless API routes with centralized error handling and auth HOCs. See [API Documentation](docs/api.md) for details.
-- `src/components/sections`: Landing page modular sections.
-- `src/components/ui`: Reusable high-end UI components (Glass cards, Sidebars, etc.).
-- `src/context`: Auth, Language, and Global state management.
-- `src/lib`: Core utilities (Prisma client, Cloudinary helper, compression logic).
+The core application logic resides in the `frontend` directory:
+
+- `frontend/src/app/api`: Serverless API routes. See [API Documentation](frontend/docs/api.md) for details.
+- `frontend/src/components/sections`: Landing page modular sections.
+- `frontend/src/components/ui`: Reusable high-end UI components.
+- `frontend/src/context`: Auth, Language, and Global state management.
+- `frontend/src/lib`: Core utilities (Prisma client, Cloudinary helper, compression logic).
 
 ## 📄 License
 
