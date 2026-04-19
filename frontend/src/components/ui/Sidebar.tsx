@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 const navItems = [
   { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Settings', href: '/dashboard/settings', icon: Settings },
+  { name: 'About Section', href: '/dashboard/about', icon: ImageIcon },
   { name: 'Appointments', href: '/dashboard/appointments', icon: CalendarCheck2 },
   { name: 'Visits', href: '/dashboard/visits', icon: Globe },
   { name: 'Hero Slider', href: '/dashboard/hero', icon: SlidersHorizontal },

@@ -121,3 +121,22 @@ model Visit {
 
   @@index([ip])
 }
+
+// ─── About Section (singleton row) ───────────────────────────────────────
+model AboutSection {
+  id              String   @id @default(cuid())
+  imageUrl        String   @default("")
+  quoteEn         String   @default("") @db.Text
+  quoteAr         String   @default("") @db.Text
+  drNameEn        String   @default("")
+  drNameAr        String   @default("")
+  drTitleEn       String   @default("")
+  drTitleAr       String   @default("")
+  stat1Value      String   @default("")
+  stat1LabelEn    String   @default("")
+  stat1LabelAr    String   @default("")
+  stat2Value      String   @default("")
+  stat2LabelEn    String   @default("")
+  stat2LabelAr    String   @default("")
+  updatedAt       DateTime @updatedAt
+}
