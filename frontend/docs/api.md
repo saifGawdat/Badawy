@@ -162,7 +162,11 @@ Create a new blog post.
 ### `/hero-slides`
 - **GET**: List all hero slides.
 - **POST**: Create a new hero slide (Auth required | FormData: `title`, `subtitle`, `ctaText`, `image`).
-- **DELETE `/[id]`**: Delete a slide (Auth required).
+
+### `/hero-slides/[id]`
+- **GET**: Get a single slide.
+- **PATCH**: Update a slide (Auth required | FormData: optional fields + `image`).
+- **DELETE**: Delete a slide (Auth required).
 
 ### `/items` (Services/Procedures)
 - **GET**: List all service items.

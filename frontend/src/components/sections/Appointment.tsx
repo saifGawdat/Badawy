@@ -49,6 +49,7 @@ export const Appointment = () => {
   const locationDisplay =
     locationLine || (isArabic ? DEFAULT_LOC_AR : DEFAULT_LOC_EN);
 
+  const [services, setServices] = useState<{ id: string; title: string; titleAr: string }[]>([]);
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -57,6 +58,18 @@ export const Appointment = () => {
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const { data } = await api.get('/items');
+        setServices(data);
+      } catch (error) {
+        console.error('Failed to fetch services:', error);
+      }
+    };
+    fetchServices();
+  }, []);
 
   const onChange = (field: keyof typeof formData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -67,7 +80,7 @@ export const Appointment = () => {
     setIsSubmitting(true);
     try {
       await api.post('/appointments', formData);
-      toast.success('Appointment request sent successfully');
+      toast.success(isArabic ? 'تم إرسال طلب الموعد بنجاح' : 'Appointment request sent successfully');
       setFormData({
         fullName: '',
         email: '',
@@ -76,7 +89,7 @@ export const Appointment = () => {
         message: '',
       });
     } catch {
-      toast.error('Failed to send appointment request');
+      toast.error(isArabic ? 'فشل إرسال الطلب' : 'Failed to send appointment request');
     } finally {
       setIsSubmitting(false);
     }
@@ -161,7 +174,7 @@ export const Appointment = () => {
                   type="tel"
                   value={formData.phone}
                   onChange={(value) => onChange('phone', value)}
-                  placeholder="+1..."
+                  placeholder="+20..."
                 />
                 <div className="space-y-2">
                   <label className="text-[10px] uppercase font-bold tracking-widest text-secondary/40 ml-1">
@@ -171,13 +184,17 @@ export const Appointment = () => {
                     required
                     value={formData.procedure}
                     onChange={(e) => onChange('procedure', e.target.value)}
-                    className="w-full bg-white border-b border-secondary/10 py-4 focus:outline-none focus:border-primary transition-colors text-secondary appearance-none"
+                    className="w-full bg-white border-b border-secondary/10 py-4 focus:outline-none focus:border-primary transition-colors text-secondary appearance-none cursor-pointer"
                   >
                     <option value="">{isArabic ? 'اختاري الإجراء' : 'Select Procedure'}</option>
-                    <option value="Face Lifting">Face Lifting</option>
-                    <option value="Breast Augmentation">Breast Augmentation</option>
-                    <option value="Body Correction">Body Correction</option>
-                    <option value="Liposuction">Liposuction</option>
+                    <option value="Consultation">
+                      {isArabic ? 'استشارة عامة' : 'General Consultation'}
+                    </option>
+                    {services.map((service) => (
+                      <option key={service.id} value={service.title}>
+                        {isArabic ? service.titleAr || service.title : service.title}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>

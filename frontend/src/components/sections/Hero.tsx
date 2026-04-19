@@ -24,8 +24,7 @@ const fallbackSlide: HeroSlide = {
   subtitle:
     "Enhance your confidence restore your youth and elevate your everyday.",
   ctaText: "Read More",
-  imageUrl:
-    "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070&auto=format&fit=crop",
+  imageUrl: "https://res.cloudinary.com/dydw5y96g/image/upload/v1745153730/badawy_hero_slides/1745153729941.jpg",
 };
 
 export const Hero = () => {

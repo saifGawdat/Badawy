@@ -12,17 +12,17 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  const exportPath = path.join(__dirname, '../../backend/scripts/export.json');
-  if (!fs.existsSync(exportPath)) {
-    console.error('❌ export.json not found. Run backend export script first.');
+  const seedDataPath = path.join(__dirname, 'seed-data.json');
+  if (!fs.existsSync(seedDataPath)) {
+    console.error('❌ seed-data.json not found. Run export script first or ensure the file is in prisma directory.');
     return;
   }
 
-  const data = JSON.parse(fs.readFileSync(exportPath, 'utf8'));
+  const data = JSON.parse(fs.readFileSync(seedDataPath, 'utf8'));
 
-  console.log('🌱 Seeding PostgreSQL via Adapter...');
+  console.log('🌱 Mirroring Production Data to Local DB...');
 
-  // Users
+  // 1. Users (Upsert to keep passwords)
   for (const u of data.users) {
     await prisma.user.upsert({
       where: { username: u.username },
@@ -30,12 +30,96 @@ async function main() {
       create: { username: u.username, password: u.password, createdAt: new Date(u.createdAt) },
     });
   }
-  console.log(`✅ Seeded ${data.users.length} users`);
+  console.log(`✅ Synced ${data.users.length} users`);
 
-  // BlogPosts
+  // 2. Clear collection-based tables to ensure exact mirror
+  console.log('🧹 Clearing existing collections...');
+  await prisma.blogPost.deleteMany();
+  await prisma.appointment.deleteMany();
+  await prisma.beforeAfter.deleteMany();
+  await prisma.comment.deleteMany();
+  await prisma.heroSlide.deleteMany();
+  await prisma.item.deleteMany();
+  await prisma.aboutSection.deleteMany();
+
+  // 3. HeroSlides
+  for (const h of data.heroSlides) {
+    await prisma.heroSlide.create({
+      data: {
+        id: h.id, // Keep IDs for consistency across team
+        title: h.title,
+        titleAr: h.titleAr || '',
+        subtitle: h.subtitle,
+        subtitleAr: h.subtitleAr || '',
+        ctaText: h.ctaText || 'Read More',
+        ctaTextAr: h.ctaTextAr || '',
+        imageUrl: h.imageUrl,
+        createdAt: new Date(h.createdAt),
+      }
+    });
+  }
+  console.log(`✅ Seeded ${data.heroSlides.length} hero slides`);
+
+  // 4. AboutSections
+  for (const ab of data.aboutSections) {
+    await prisma.aboutSection.create({
+      data: {
+        id: ab.id,
+        imageUrl: ab.imageUrl,
+        quoteEn: ab.quoteEn || '',
+        quoteAr: ab.quoteAr || '',
+        drNameEn: ab.drNameEn || '',
+        drNameAr: ab.drNameAr || '',
+        drTitleEn: ab.drTitleEn || '',
+        drTitleAr: ab.drTitleAr || '',
+        stat1Value: ab.stat1Value || '',
+        stat1LabelEn: ab.stat1LabelEn || '',
+        stat1LabelAr: ab.stat1LabelAr || '',
+        stat2Value: ab.stat2Value || '',
+        stat2LabelEn: ab.stat2LabelEn || '',
+        stat2LabelAr: ab.stat2LabelAr || '',
+        updatedAt: new Date(ab.updatedAt),
+      }
+    });
+  }
+  console.log(`✅ Seeded ${data.aboutSections.length} about sections`);
+
+  // 5. Items (Services)
+  for (const i of data.items) {
+    await prisma.item.create({
+      data: {
+        id: i.id,
+        title: i.title,
+        titleAr: i.titleAr || '',
+        description: i.description,
+        descriptionAr: i.descriptionAr || '',
+        imageUrl: i.imageUrl,
+        createdAt: new Date(i.createdAt),
+      }
+    });
+  }
+  console.log(`✅ Seeded ${data.items.length} items`);
+
+  // 6. BeforeAfters
+  for (const ba of data.beforeAfters) {
+    await prisma.beforeAfter.create({
+      data: {
+        id: ba.id,
+        title: ba.title,
+        titleAr: ba.titleAr || '',
+        beforeImageUrl: ba.beforeImageUrl,
+        afterImageUrl: ba.afterImageUrl,
+        createdAt: new Date(ba.createdAt),
+      }
+    });
+  }
+  console.log(`✅ Seeded ${data.beforeAfters.length} before/after entries`);
+
+  // 7. BlogPosts
   for (const p of data.blogPosts) {
     await prisma.blogPost.create({
       data: {
+        id: p.id,
         title: p.title,
         titleAr: p.titleAr || '',
         slug: p.slug,
@@ -53,85 +137,9 @@ async function main() {
       }
     });
   }
-  console.log(`✅ Seeded ${data.blogPosts.length} blog posts`);
+  if (data.blogPosts.length > 0) console.log(`✅ Seeded ${data.blogPosts.length} blog posts`);
 
-  // Appointments
-  for (const a of data.appointments) {
-    await prisma.appointment.create({
-      data: {
-        fullName: a.fullName,
-        email: a.email,
-        phone: a.phone,
-        procedure: a.procedure,
-        message: a.message || '',
-        status: a.status || 'new',
-        createdAt: new Date(a.createdAt),
-      }
-    });
-  }
-  console.log(`✅ Seeded ${data.appointments.length} appointments`);
-
-  // BeforeAfters
-  for (const ba of data.beforeAfters) {
-    await prisma.beforeAfter.create({
-      data: {
-        title: ba.title,
-        titleAr: ba.titleAr || '',
-        beforeImageUrl: ba.beforeImageUrl,
-        afterImageUrl: ba.afterImageUrl,
-        createdAt: new Date(ba.createdAt),
-      }
-    });
-  }
-  console.log(`✅ Seeded ${data.beforeAfters.length} before/after entries`);
-
-  // Comments
-  for (const c of data.comments) {
-    await prisma.comment.create({
-      data: {
-        username: c.username,
-        description: c.description,
-        descriptionAr: c.descriptionAr || '',
-        profilePhoto: c.profilePhoto,
-        createdAt: new Date(c.createdAt),
-      }
-    });
-  }
-  console.log(`✅ Seeded ${data.comments.length} comments`);
-
-  // HeroSlides
-  for (const h of data.heroSlides) {
-    await prisma.heroSlide.create({
-      data: {
-        title: h.title,
-        titleAr: h.titleAr || '',
-        subtitle: h.subtitle,
-        subtitleAr: h.subtitleAr || '',
-        ctaText: h.ctaText || 'Read More',
-        ctaTextAr: h.ctaTextAr || '',
-        imageUrl: h.imageUrl,
-        createdAt: new Date(h.createdAt),
-      }
-    });
-  }
-  console.log(`✅ Seeded ${data.heroSlides.length} hero slides`);
-
-  // Items
-  for (const i of data.items) {
-    await prisma.item.create({
-      data: {
-        title: i.title,
-        titleAr: i.titleAr || '',
-        description: i.description,
-        descriptionAr: i.descriptionAr || '',
-        imageUrl: i.imageUrl,
-        createdAt: new Date(i.createdAt),
-      }
-    });
-  }
-  console.log(`✅ Seeded ${data.items.length} items`);
-
-  // SiteSettings
+  // 8. SiteSettings
   if (data.siteSettings.length > 0) {
     const s = data.siteSettings[0];
     await prisma.siteSettings.upsert({
@@ -154,23 +162,38 @@ async function main() {
         instagramUrl: s.instagramUrl,
       }
     });
-    console.log(`✅ Seeded site settings`);
+    console.log(`✅ Synced site settings`);
   }
 
-  // Visits
-  for (const v of data.visits) {
-    await prisma.visit.create({
+  // 9. Comments & Appointments (Optional but included for full mirror)
+  for (const c of data.comments) {
+    await prisma.comment.create({
       data: {
-        ip: v.ip,
-        userAgent: v.userAgent || '',
-        path: v.path || '/',
-        createdAt: new Date(v.createdAt),
+        id: c.id,
+        username: c.username,
+        description: c.description,
+        descriptionAr: c.descriptionAr || '',
+        profilePhoto: c.profilePhoto,
+        createdAt: new Date(c.createdAt),
       }
     });
   }
-  console.log(`✅ Seeded ${data.visits.length} visits`);
+  for (const a of data.appointments) {
+    await prisma.appointment.create({
+      data: {
+        id: a.id,
+        fullName: a.fullName,
+        email: a.email,
+        phone: a.phone,
+        procedure: a.procedure,
+        message: a.message || '',
+        status: a.status || 'new',
+        createdAt: new Date(a.createdAt),
+      }
+    });
+  }
 
-  console.log('🚀 Seeding complete.');
+  console.log('🚀 Exact mirror seeding complete.');
 }
 
 main()

@@ -1,0 +1,231 @@
+{
+  "users": [
+    {
+      "id": "cmo52gf7l0000ekvzfqgdloi8",
+      "username": "admin",
+      "password": "$2b$10$y2I8oy/QaQz1r7lzaqk12e4M4rvnXL26W8Z6Zc2qvsLmty1wz/4wi",
+      "createdAt": "2026-04-15T12:45:50.569Z",
+      "updatedAt": "2026-04-19T01:07:22.499Z"
+    }
+  ],
+  "blogPosts": [],
+  "appointments": [
+    {
+      "id": "cmo52gf9p0001ekvznd4slbmt",
+      "fullName": "saif gawdat",
+      "email": "seafgawdat@gmail.com",
+      "phone": "+201227512603",
+      "procedure": "Face Lifting",
+      "message": "dasdasd",
+      "status": "new",
+      "createdAt": "2026-04-15T15:53:03.649Z"
+    }
+  ],
+  "beforeAfters": [
+    {
+      "id": "cmo67d89j0004ckvzlnmqyc4o",
+      "title": "Forehead reduction case ",
+      "titleAr": "حالة تصغير الجبهه",
+      "beforeImageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776629556/badawy_before_after/vku8if858yofkl7izbl1.jpg",
+      "afterImageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776629556/badawy_before_after/oxnlmrshrvfkcvufcmk0.jpg",
+      "createdAt": "2026-04-19T20:12:37.783Z"
+    },
+    {
+      "id": "cmo67sh340006ckvzhfto585n",
+      "title": "Arm lift case ",
+      "titleAr": "حالة شد الذراع",
+      "beforeImageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776630268/badawy_before_after/jsfsjawqsbooey1ge0tz.jpg",
+      "afterImageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776630268/badawy_before_after/qu05upzqmktaftkedbls.jpg",
+      "createdAt": "2026-04-19T20:24:29.056Z"
+    }
+  ],
+  "comments": [
+    {
+      "id": "cmo52gf9z0003ekvzr4m0lygk",
+      "username": "Sarah M.",
+      "description": "Dr. Badawy completely transformed my confidence. The results are beyond what I imagined!",
+      "descriptionAr": "",
+      "profilePhoto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+      "createdAt": "2026-04-15T12:45:50.724Z"
+    },
+    {
+      "id": "cmo52gfa10004ekvzmeu8ovws",
+      "username": "Ahmed K.",
+      "description": "Professional care from consultation to recovery. Highly recommend for anyone considering surgery.",
+      "descriptionAr": "",
+      "profilePhoto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Ahmed",
+      "createdAt": "2026-04-15T12:45:50.724Z"
+    },
+    {
+      "id": "cmo52gfa40005ekvzoihbsedg",
+      "username": "Mariam H.",
+      "description": "The entire staff was wonderful. Dr. Badawy made me feel comfortable throughout the whole process.",
+      "descriptionAr": "",
+      "profilePhoto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Mariam",
+      "createdAt": "2026-04-15T12:45:50.724Z"
+    },
+    {
+      "id": "cmo52gfa50006ekvzk2qq87e2",
+      "username": "John D.",
+      "description": "Excellent results with minimal downtime. I was back to work in just a few days.",
+      "descriptionAr": "",
+      "profilePhoto": "https://api.dicebear.com/7.x/avataaars/svg?seed=John",
+      "createdAt": "2026-04-15T12:45:50.724Z"
+    },
+    {
+      "id": "cmo52gfa70007ekvz5g0q2nqr",
+      "username": "Layla A.",
+      "description": "I researched extensively before choosing Dr. Badawy and I am so glad I did. Outstanding work!",
+      "descriptionAr": "",
+      "profilePhoto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Layla",
+      "createdAt": "2026-04-15T12:45:50.724Z"
+    }
+  ],
+  "heroSlides": [
+    {
+      "id": "cmo66ocxp0001ckvzzz3mxqxu",
+      "title": "Dr.Mostafa Badawi",
+      "titleAr": "د.مصطفي بدوي",
+      "subtitle": "Plastic Surgery Specialist\r\nMember Of The Royal College Of Surgeons (London) 🇬🇧",
+      "subtitleAr": "اخصائي جراحات التجميل \r\nزميل كلية الجراحين الملكية بانجلترا ",
+      "ctaText": "Read More",
+      "ctaTextAr": "اقرا المزيد",
+      "imageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776628395/badawy_hero_slides/e8jdprynftfsekgiciea.png",
+      "createdAt": "2026-04-19T19:53:17.437Z"
+    },
+    {
+      "id": "cmo66q8f80002ckvz54h8y3bb",
+      "title": "Dr.Mostafa Badawi",
+      "titleAr": "د.مصطفي بدوي ",
+      "subtitle": "Plastic Surgery Specialist\r\nMember Of The Royal College Of Surgeons (London) 🇬🇧",
+      "subtitleAr": "اخصائي جراحات التجميل \r\nزميل كلية الجراحين الملكية بانجلترا ",
+      "ctaText": "Read More",
+      "ctaTextAr": "اقرا المزيد",
+      "imageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776628483/badawy_hero_slides/oaxkmoe7pbfjeszv0nam.jpg",
+      "createdAt": "2026-04-19T19:54:44.900Z"
+    }
+  ],
+  "items": [
+    {
+      "id": "cmo673m3p0003ckvzhakekc1g",
+      "title": "Forehead reduction",
+      "titleAr": "تصغير الجبهه",
+      "description": "Forehead reduction surgery, also known as hairline lowering, is a specialized cosmetic procedure designed to create a more balanced and harmonious facial appearance. This procedure involves carefully advancing the scalp forward to reduce the height of the forehead, resulting in improved facial proportions and enhanced confidence.\r\n\r\nPerformed with precision and attention to detail, forehead reduction is ideal for individuals with a naturally high hairline or those seeking a more youthful, aesthetically pleasing look. The surgery is tailored to each patient’s unique facial structure, ensuring natural-looking results with minimal visible scarring.\r\n\r\nOur approach prioritizes safety, artistry, and patient satisfaction—combining advanced surgical techniques with personalized care to achieve refined, elegant outcomes.",
+      "descriptionAr": "عملية تصغير الجبهة، والمعروفة أيضًا بخفض خط الشعر، هي إجراء تجميلي متطور يهدف إلى تحسين تناسق ملامح الوجه ومنح مظهر أكثر توازنًا وجاذبية. تعتمد هذه العملية على تحريك فروة الرأس للأمام بشكل دقيق لتقليل ارتفاع الجبهة وتحقيق تناسب أفضل بين مكونات الوجه.\r\nتُعد هذه العملية مثالية للأشخاص الذين يعانون من ارتفاع طبيعي في خط الشعر أو يرغبون في الحصول على مظهر أكثر شبابًا وجمالًا. يتم تصميم الإجراء بما يتناسب مع ملامح كل مريض لضمان نتائج طبيعية مع تقليل ظهور الندبات إلى الحد الأدنى.\r\nنحرص على تقديم أعلى معايير الأمان والدقة، مع التركيز على الجانب الجمالي لتحقيق نتائج راقية تُعزز الثقة بالنفس وتُبرز جمال الملامح بشكل طبيعي.",
+      "imageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776629108/badawy_items/ajjwdz6n2rpqkbacyphm.jpg",
+      "createdAt": "2026-04-19T20:05:09.157Z"
+    },
+    {
+      "id": "cmo67qsya0005ckvz913nzjg2",
+      "title": "Arm lift ",
+      "titleAr": "شد الذراع",
+      "description": "Arm lift surgery (brachioplasty) is a cosmetic procedure designed to reshape and contour the upper arms by removing excess skin and fat. It is especially beneficial for individuals who have experienced significant weight loss or natural skin laxity due to aging, resulting in a sagging or “bat wing” appearance.\r\n\r\nDuring the procedure, excess tissue is carefully removed, and the remaining skin is tightened to create a smoother, firmer, and more toned arm contour. The technique is customized to each patient’s anatomy and goals, ensuring balanced, natural-looking results.\r\n\r\nAn arm lift can significantly enhance the overall silhouette, allowing patients to feel more confident in wearing fitted or sleeveless clothing. Our approach combines advanced surgical techniques with meticulous care to achieve safe, refined, and long-lasting outcomes.",
+      "descriptionAr": "شد الذراعين (Brachioplasty) هو إجراء تجميلي يهدف إلى تحسين شكل الذراعين من خلال إزالة الجلد والدهون الزائدة، خاصة في الجزء العلوي من الذراع. يُعد هذا الإجراء مناسبًا للأشخاص الذين فقدوا وزنًا كبيرًا أو يعانون من ترهل الجلد نتيجة التقدم في العمر، مما يؤدي إلى مظهر غير مشدود يُعرف بـ “أجنحة الخفاش”.\r\n\r\nخلال العملية، يتم إزالة الأنسجة الزائدة وشد الجلد المتبقي للحصول على مظهر أكثر نعومة وتناسقًا وشدًا. يتم تصميم الإجراء وفقًا لاحتياجات كل مريض لضمان نتائج طبيعية ومتوازنة.\r\n\r\nيساهم شد الذراعين في تحسين المظهر العام للجسم ويمنح المريض ثقة أكبر عند ارتداء الملابس الضيقة أو بدون أكمام. نحرص على استخدام أحدث التقنيات الجراحية مع أعلى معايير العناية لتحقيق نتائج آمنة ومميزة تدوم لفترة طويلة.",
+      "imageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776630190/badawy_items/nwebrslo9cwpuev3drtx.jpg",
+      "createdAt": "2026-04-19T20:23:11.123Z"
+    }
+  ],
+  "siteSettings": [
+    {
+      "id": "singleton-settings",
+      "phone": "+201093243293",
+      "whatsappPhone": "+201093243293",
+      "location": "Cairo, Egypt\nTanta, Egypt",
+      "locationAr": "القاهرة, مصر\nطنطا, مصر",
+      "facebookUrl": "https://www.facebook.com/dr.moustafabadawi/",
+      "instagramUrl": "https://www.instagram.com/dr.moustafa_badawi",
+      "updatedAt": "2026-04-19T19:38:57.884Z"
+    }
+  ],
+  "aboutSections": [
+    {
+      "id": "cmo66arfe0000ckvztd5a6rr0",
+      "imageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776627761/badawy_about/p8iyvacsomnljojgfncg.jpg",
+      "quoteEn": "",
+      "quoteAr": "",
+      "drNameEn": "",
+      "drNameAr": "",
+      "drTitleEn": "",
+      "drTitleAr": "",
+      "stat1Value": "",
+      "stat1LabelEn": "",
+      "stat1LabelAr": "",
+      "stat2Value": "",
+      "stat2LabelEn": "",
+      "stat2LabelAr": "",
+      "updatedAt": "2026-04-19T19:42:55.303Z"
+    }
+  ],
+  "visits": [
+    {
+      "id": "cmo52gfay000eekvz11f4ddwe",
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+      "path": "/",
+      "createdAt": "2026-04-15T14:31:18.659Z"
+    },
+    {
+      "id": "cmo52gfb2000fekvzgnrp2oea",
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+      "path": "/",
+      "createdAt": "2026-04-15T14:41:38.853Z"
+    },
+    {
+      "id": "cmo52gfb3000gekvzbr95ld58",
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+      "path": "/",
+      "createdAt": "2026-04-15T14:45:00.521Z"
+    },
+    {
+      "id": "cmo52gfb5000hekvzmxqz35e6",
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+      "path": "/",
+      "createdAt": "2026-04-15T15:02:24.034Z"
+    },
+    {
+      "id": "cmo52gfb6000iekvzgi9eu9g1",
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+      "path": "/",
+      "createdAt": "2026-04-15T15:11:15.998Z"
+    },
+    {
+      "id": "cmo52gfb7000jekvzzrpv2bxt",
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+      "path": "/",
+      "createdAt": "2026-04-15T15:11:29.054Z"
+    },
+    {
+      "id": "cmo52gfb8000kekvz18w7q5vn",
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+      "path": "/",
+      "createdAt": "2026-04-16T11:35:31.200Z"
+    },
+    {
+      "id": "cmo52gfba000lekvz76wereqg",
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+      "path": "/",
+      "createdAt": "2026-04-16T11:35:38.317Z"
+    },
+    {
+      "id": "cmo52gfbb000mekvzld5t4co3",
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+      "path": "/",
+      "createdAt": "2026-04-16T12:27:05.601Z"
+    },
+    {
+      "id": "cmo52gfbc000nekvz2u09j8ab",
+      "ip": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+      "path": "/",
+      "createdAt": "2026-04-16T13:41:19.117Z"
+    }
+  ]
+}
