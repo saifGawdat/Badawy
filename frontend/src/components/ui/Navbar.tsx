@@ -33,6 +33,18 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
   useEffect(() => {
     const loadPhone = async () => {
       try {
@@ -55,125 +67,127 @@ export const Navbar = () => {
     formatPhoneHref(phoneDisplay) || formatPhoneHref(FALLBACK_DISPLAY);
 
   return (
-    <nav
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        isScrolled
-          ? "bg-white/90 backdrop-blur-md py-3 shadow-md border-b border-primary/10"
-          : "bg-transparent py-5",
-      )}
-    >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center space-x-3 group">
-          <div className="relative w-12 h-12 transition-transform duration-500 group-hover:scale-110">
-            <Image
-              src="/logo9.png"
-              alt="Dr. Mostafa Badawy Logo"
-              fill
-              className={cn(
-                "object-contain transition-all duration-500",
-                lightNav && "brightness-0 invert",
-              )}
-            />
+    <>
+      <nav
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+          isScrolled
+            ? "bg-white/90 backdrop-blur-md py-3 shadow-md border-b border-primary/10"
+            : "bg-transparent py-5",
+        )}
+      >
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex items-center space-x-3 group">
+            <div className="relative w-12 h-12 transition-transform duration-500 group-hover:scale-110">
+              <Image
+                src="/logo9.png"
+                alt="Dr. Mostafa Badawy Logo"
+                fill
+                className={cn(
+                  "object-contain transition-all duration-500",
+                  lightNav && "brightness-0 invert",
+                )}
+              />
+            </div>
+            <div className="flex flex-col">
+              <h1
+                className={cn(
+                  "text-lg font-serif tracking-widest transition-colors",
+                  lightNav ? "text-white" : "text-secondary",
+                )}
+              >
+                DR.MOSTAFA BADAWI
+              </h1>
+              <p
+                className={cn(
+                  "text-[8px] uppercase tracking-[0.4em] font-medium transition-colors",
+                  lightNav ? "text-white/80" : "text-primary",
+                )}
+              >
+                Plastic Surgeon
+              </p>
+            </div>
+          </Link>
+
+          {/* Desktop Links */}
+          <div className="hidden lg:flex items-center space-x-10">
+            <NavLink href="/" light={lightNav}>
+              {t("nav.home")}
+            </NavLink>
+            <NavLink href="#about" light={lightNav}>
+              {t("nav.about")}
+            </NavLink>
+            <NavLink href="#services" light={lightNav}>
+              {t("nav.services")}
+            </NavLink>
+            <NavLink href="/blog" light={lightNav}>
+              {t("nav.blog")}
+            </NavLink>
+            <NavLink href="#contacts" light={lightNav}>
+              {t("nav.contacts")}
+            </NavLink>
           </div>
-          <div className="flex flex-col">
-            <h1
+
+          {/* Right Actions */}
+          <div className="hidden lg:flex items-center space-x-8">
+            <button
+              type="button"
+              onClick={toggleLanguage}
+              aria-label={
+                language === "en" ? "Switch to Arabic" : "Switch to English"
+              }
+              title={language === "en" ? "العربية" : "English"}
               className={cn(
-                "text-lg font-serif tracking-widest transition-colors",
-                lightNav ? "text-white" : "text-secondary",
+                "inline-flex items-center justify-center rounded-full p-2.5 transition-colors",
+                lightNav
+                  ? "border border-white/40 text-white hover:border-white hover:bg-white/10"
+                  : "border border-secondary/20 text-secondary/80 hover:border-primary hover:text-primary",
               )}
             >
-              DR.MOSTAFA BADAWI
-            </h1>
-            <p
+              <Languages className="w-5 h-5" strokeWidth={1.75} />
+            </button>
+            <a
+              href={`tel:${phoneForTel}`}
               className={cn(
-                "text-[8px] uppercase tracking-[0.4em] font-medium transition-colors",
-                lightNav ? "text-white/80" : "text-primary",
+                "flex items-center space-x-2 transition-colors group",
+                lightNav
+                  ? "text-white/90 hover:text-white"
+                  : "text-secondary/70 hover:text-primary",
               )}
             >
-              Plastic Surgeon
-            </p>
+              <Phone className="w-4 h-4 group-hover:rotate-12 transition-transform shrink-0" />
+              <span className="text-sm font-medium tracking-wide">
+                {phoneLabel}
+              </span>
+            </a>
+            <a
+              href="#contacts"
+              className="bg-primary hover:bg-gold-dark text-white px-8 py-3 rounded-full text-sm font-medium transition-all transform hover:scale-105 shadow-lg shadow-primary/20 inline-flex items-center gap-2 group"
+            >
+              <span>{t("nav.bookNow")}</span>
+              <ArrowRight className="w-4 h-4 rtl:rotate-180 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
+            </a>
           </div>
-        </Link>
 
-        {/* Desktop Links */}
-        <div className="hidden lg:flex items-center space-x-10">
-          <NavLink href="/" light={lightNav}>
-            {t("nav.home")}
-          </NavLink>
-          <NavLink href="#about" light={lightNav}>
-            {t("nav.about")}
-          </NavLink>
-          <NavLink href="#services" light={lightNav}>
-            {t("nav.services")}
-          </NavLink>
-          <NavLink href="/blog" light={lightNav}>
-            {t("nav.blog")}
-          </NavLink>
-          <NavLink href="#contacts" light={lightNav}>
-            {t("nav.contacts")}
-          </NavLink>
-        </div>
-
-        {/* Right Actions */}
-        <div className="hidden lg:flex items-center space-x-8">
+          {/* Mobile Toggle */}
           <button
             type="button"
-            onClick={toggleLanguage}
-            aria-label={
-              language === "en" ? "Switch to Arabic" : "Switch to English"
-            }
-            title={language === "en" ? "العربية" : "English"}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className={cn(
-              "inline-flex items-center justify-center rounded-full p-2.5 transition-colors",
-              lightNav
-                ? "border border-white/40 text-white hover:border-white hover:bg-white/10"
-                : "border border-secondary/20 text-secondary/80 hover:border-primary hover:text-primary",
+              "lg:hidden p-2 transition-colors",
+              lightNav ? "text-white" : "text-secondary",
             )}
           >
-            <Languages className="w-5 h-5" strokeWidth={1.75} />
+            {isMobileMenuOpen ? <X /> : <Menu />}
           </button>
-          <a
-            href={`tel:${phoneForTel}`}
-            className={cn(
-              "flex items-center space-x-2 transition-colors group",
-              lightNav
-                ? "text-white/90 hover:text-white"
-                : "text-secondary/70 hover:text-primary",
-            )}
-          >
-            <Phone className="w-4 h-4 group-hover:rotate-12 transition-transform shrink-0" />
-            <span className="text-sm font-medium tracking-wide">
-              {phoneLabel}
-            </span>
-          </a>
-          <a
-            href="#contacts"
-            className="bg-primary hover:bg-gold-dark text-white px-8 py-3 rounded-full text-sm font-medium transition-all transform hover:scale-105 shadow-lg shadow-primary/20 inline-flex items-center gap-2 group"
-          >
-            <span>{t("nav.bookNow")}</span>
-            <ArrowRight className="w-4 h-4 rtl:rotate-180 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
-          </a>
         </div>
+      </nav>
 
-        {/* Mobile Toggle */}
-        <button
-          type="button"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className={cn(
-            "lg:hidden p-2 transition-colors",
-            lightNav ? "text-white" : "text-secondary",
-          )}
-        >
-          {isMobileMenuOpen ? <X /> : <Menu />}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Outside nav to avoid backdrop-filter issues */}
       <div
         className={cn(
-          "fixed inset-0 bg-white z-40 flex flex-col items-center justify-center space-y-8 transition-transform duration-500 lg:hidden",
+          "fixed inset-0 h-[100dvh] bg-white z-[60] flex flex-col items-center justify-center space-y-8 transition-transform duration-500 lg:hidden",
           isMobileMenuOpen ? "translate-x-0" : "translate-x-full",
         )}
       >
@@ -236,7 +250,7 @@ export const Navbar = () => {
           <span className="text-lg">{phoneLabel}</span>
         </a>
       </div>
-    </nav>
+    </>
   );
 };
 
