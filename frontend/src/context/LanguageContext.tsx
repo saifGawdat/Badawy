@@ -76,7 +76,14 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (!context) {
-    throw new Error("useLanguage must be used within LanguageProvider");
+    // Fallback for build-time rendering or error states
+    return {
+      language: "en" as const,
+      isArabic: false,
+      setLanguage: () => {},
+      toggleLanguage: () => {},
+      t: (key: string) => key,
+    };
   }
   return context;
 };

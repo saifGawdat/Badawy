@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { BlogArticleClient } from "@/components/blog/BlogArticleClient";
 import { fetchBlogPostBySlug } from "@/lib/blog-server";
 
+export const dynamic = 'force-dynamic';
+
 type Props = { params: Promise<{ slug: string }> };
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
