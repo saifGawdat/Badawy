@@ -9,7 +9,7 @@
     "dev": "next dev",
     "postinstall": "prisma generate",
     "build": "prisma generate && NODE_ENV=production next build",
-    "start": "next start",
+    "start": "prisma migrate deploy && node prisma/seed-if-empty.js && next start",
     "lint": "eslint"
   },
   "dependencies": {
