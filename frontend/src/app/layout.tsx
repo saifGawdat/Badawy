@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import React from "react";
 import { Inter, Playfair_Display, Pinyon_Script } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
