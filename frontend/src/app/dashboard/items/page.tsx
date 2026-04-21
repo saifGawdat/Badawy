@@ -21,6 +21,7 @@ interface Item {
 export default function ItemsPage() {
   const [items, setItems] = useState<Item[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingItem, setEditingItem] = useState<Item | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   
   // Form State
@@ -43,41 +44,64 @@ export default function ItemsPage() {
     fetchItems();
   }, []);
 
+  const openAddModal = () => {
+    setEditingItem(null);
+    setTitle('');
+    setTitleAr('');
+    setDescription('');
+    setDescriptionAr('');
+    setFile(null);
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (item: Item) => {
+    setEditingItem(item);
+    setTitle(item.title);
+    setTitleAr(item.titleAr || '');
+    setDescription(item.description);
+    setDescriptionAr(item.descriptionAr || '');
+    setFile(null);
+    setIsModalOpen(true);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!file) {
+    if (!editingItem && !file) {
       toast.error('Please select an image');
       return;
     }
 
     setIsLoading(true);
-    let imageFile: File;
-    try {
-      imageFile = await compressImage(file);
-    } catch {
-      toast.error('Image compression failed');
-      setIsLoading(false);
-      return;
+    let imageFile: File | null = null;
+    if (file) {
+      try {
+        imageFile = await compressImage(file);
+      } catch {
+        toast.error('Image compression failed');
+        setIsLoading(false);
+        return;
+      }
     }
+
     const formData = new FormData();
     formData.append('title', title);
     formData.append('titleAr', titleAr);
     formData.append('description', description);
     formData.append('descriptionAr', descriptionAr);
-    formData.append('image', imageFile);
+    if (imageFile) formData.append('image', imageFile);
 
     try {
-      await api.post('/items', formData);
-      toast.success('Service item added successfully');
+      if (editingItem) {
+        await api.patch(`/items/${editingItem.id}`, formData);
+        toast.success('Service item updated successfully');
+      } else {
+        await api.post('/items', formData);
+        toast.success('Service item added successfully');
+      }
       setIsModalOpen(false);
-      setTitle('');
-      setTitleAr('');
-      setDescription('');
-      setDescriptionAr('');
-      setFile(null);
       fetchItems();
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to add item'));
+      toast.error(getErrorMessage(error, editingItem ? 'Failed to update item' : 'Failed to add item'));
     } finally {
       setIsLoading(false);
     }
@@ -102,7 +126,7 @@ export default function ItemsPage() {
           <p className="text-secondary/50 font-medium">Manage your clinical treatments and services.</p>
         </div>
         <button 
-          onClick={() => setIsModalOpen(true)}
+          onClick={openAddModal}
           className="bg-primary text-white px-6 py-3 rounded-xl flex items-center space-x-2 shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
         >
           <Plus className="w-5 h-5" />
@@ -120,18 +144,21 @@ export default function ItemsPage() {
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ delay: index * 0.1 }}
             >
-              <GlassCard className="group relative">
-                <div className="aspect-[4/3] relative overflow-hidden bg-bone">
+              <GlassCard className="group relative h-full flex flex-col">
+                <div className="aspect-[4/3] relative overflow-hidden bg-bone shrink-0">
                   <Image 
                     src={item.imageUrl} 
                     alt={item.title} 
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority={index === 0}
+                    priority={index < 3}
                     className="object-cover group-hover:scale-110 transition-transform duration-1000"
                   />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center space-x-4">
-                    <button className="p-3 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40 transition-colors">
+                    <button 
+                      onClick={() => openEditModal(item)}
+                      className="p-3 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40 transition-colors"
+                    >
                       <Edit3 className="w-5 h-5" />
                     </button>
                     <button 
@@ -142,9 +169,9 @@ export default function ItemsPage() {
                     </button>
                   </div>
                 </div>
-                <div className="p-6">
+                <div className="p-6 flex-1 flex flex-col">
                   <h3 className="text-xl font-serif text-secondary mb-2">{item.title}</h3>
-                  <p className="text-sm text-secondary/60 line-clamp-2">{item.description}</p>
+                  <p className="text-sm text-secondary/60 line-clamp-3">{item.description}</p>
                 </div>
               </GlassCard>
             </motion.div>
@@ -152,7 +179,7 @@ export default function ItemsPage() {
         </AnimatePresence>
       </div>
 
-      {/* Add Modal */}
+      {/* Add/Edit Modal */}
       <AnimatePresence>
         {isModalOpen && (
           <div className="fixed inset-0 z-50 overflow-y-auto">
@@ -170,7 +197,7 @@ export default function ItemsPage() {
             >
               <GlassCard className="p-8 bg-bone border-none shadow-2xl">
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl font-serif text-secondary">New Service Item</h2>
+                  <h2 className="text-2xl font-serif text-secondary">{editingItem ? 'Edit Service Item' : 'New Service Item'}</h2>
                   <button onClick={() => setIsModalOpen(false)} className="text-secondary/40 hover:text-secondary">
                     <X className="w-6 h-6" />
                   </button>
@@ -180,7 +207,7 @@ export default function ItemsPage() {
                     <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Title</label>
                     <input 
                       type="text" required value={title} onChange={(e) => setTitle(e.target.value)}
-                      className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20"
                     />
                   </div>
                   <div className="space-y-2">
@@ -189,14 +216,14 @@ export default function ItemsPage() {
                       type="text"
                       value={titleAr}
                       onChange={(e) => setTitleAr(e.target.value)}
-                      className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20"
                     />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Description</label>
                     <textarea 
                       required value={description} onChange={(e) => setDescription(e.target.value)} rows={4}
-                      className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20"
                     />
                   </div>
                   <div className="space-y-2">
@@ -205,19 +232,19 @@ export default function ItemsPage() {
                       value={descriptionAr}
                       onChange={(e) => setDescriptionAr(e.target.value)}
                       rows={4}
-                      className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Image</label>
+                    <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Image {editingItem && '(Optional)'}</label>
                     <div className="relative group">
                       <input 
-                        type="file" required onChange={(e) => setFile(e.target.files?.[0] || null)}
+                        type="file" required={!editingItem} onChange={(e) => setFile(e.target.files?.[0] || null)}
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                       />
                       <div className="bg-white/50 border border-dashed border-secondary/20 rounded-xl p-8 flex flex-col items-center justify-center text-secondary/40 group-hover:bg-white/80 transition-all">
                         <ImageIcon className="w-8 h-8 mb-2" />
-                        <span className="text-sm font-medium">{file ? file.name : "Select Image File"}</span>
+                        <span className="text-sm font-medium">{file ? file.name : editingItem ? "Leave empty to keep current" : "Select Image File"}</span>
                       </div>
                     </div>
                   </div>
@@ -225,7 +252,7 @@ export default function ItemsPage() {
                     disabled={isLoading}
                     className="w-full bg-primary text-white py-3 rounded-xl font-medium shadow-lg shadow-primary/20 active:scale-[0.98] transition-all disabled:opacity-50"
                   >
-                    {isLoading ? "Uploading..." : "Publish Item"}
+                    {isLoading ? "Saving..." : editingItem ? "Update Item" : "Publish Item"}
                   </button>
                 </form>
               </GlassCard>

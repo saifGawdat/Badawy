@@ -55,7 +55,7 @@ export default function AppointmentsPage() {
   const toggleStatus = async (appointment: Appointment) => {
     const nextStatus = appointment.status === "new" ? "contacted" : "new";
     try {
-      await api.patch(`/appointments/${appointment.id}/status`, { status: nextStatus });
+      await api.patch(`/appointments/${appointment.id}`, { status: nextStatus });
       toast.success(nextStatus === "contacted" ? "Marked as contacted" : "Marked as new");
       fetchAppointments();
     } catch {

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Plus, Trash2, X, Image as ImageIcon } from "lucide-react";
+import { Plus, Trash2, Edit3, X, Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
 import api from "@/lib/api";
@@ -23,6 +23,7 @@ interface HeroSlide {
 export default function HeroPage() {
   const [slides, setSlides] = useState<HeroSlide[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingSlide, setEditingSlide] = useState<HeroSlide | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [titleAr, setTitleAr] = useState("");
@@ -53,25 +54,46 @@ export default function HeroPage() {
     setCtaText("Read More");
     setCtaTextAr("");
     setFile(null);
+    setEditingSlide(null);
+  };
+
+  const openAddModal = () => {
+    resetForm();
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (slide: HeroSlide) => {
+    setEditingSlide(slide);
+    setTitle(slide.title);
+    setTitleAr(slide.titleAr || "");
+    setSubtitle(slide.subtitle);
+    setSubtitleAr(slide.subtitleAr || "");
+    setCtaText(slide.ctaText);
+    setCtaTextAr(slide.ctaTextAr || "");
+    setFile(null);
+    setIsModalOpen(true);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!file) {
+    if (!editingSlide && !file) {
       toast.error("Please upload an image");
       return;
     }
 
     setIsLoading(true);
-    let imageFile: File;
-    try {
-      imageFile = await compressImage(file);
-    } catch {
-      toast.error("Image compression failed");
-      setIsLoading(false);
-      return;
+    let imageFile: File | null = null;
+    if (file) {
+      try {
+        imageFile = await compressImage(file);
+      } catch {
+        toast.error("Image compression failed");
+        setIsLoading(false);
+        return;
+      }
     }
+
     const formData = new FormData();
     formData.append("title", title);
     formData.append("titleAr", titleAr);
@@ -79,16 +101,21 @@ export default function HeroPage() {
     formData.append("subtitleAr", subtitleAr);
     formData.append("ctaText", ctaText);
     formData.append("ctaTextAr", ctaTextAr);
-    formData.append("image", imageFile);
+    if (imageFile) formData.append("image", imageFile);
 
     try {
-      await api.post("/hero-slides", formData);
-      toast.success("Hero slide added");
+      if (editingSlide) {
+        await api.patch(`/hero-slides/${editingSlide.id}`, formData);
+        toast.success("Hero slide updated");
+      } else {
+        await api.post("/hero-slides", formData);
+        toast.success("Hero slide added");
+      }
       setIsModalOpen(false);
       resetForm();
       fetchSlides();
     } catch {
-      toast.error("Failed to add hero slide");
+      toast.error(editingSlide ? "Failed to update hero slide" : "Failed to add hero slide");
     } finally {
       setIsLoading(false);
     }
@@ -113,7 +140,7 @@ export default function HeroPage() {
           <p className="text-secondary/50 font-medium">Manage homepage hero slides and text.</p>
         </div>
         <button
-          onClick={() => setIsModalOpen(true)}
+          onClick={openAddModal}
           className="bg-primary text-white px-6 py-3 rounded-xl flex items-center space-x-2 shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
         >
           <Plus className="w-5 h-5" />
@@ -131,14 +158,21 @@ export default function HeroPage() {
               <h3 className="text-xl font-serif text-secondary">{slide.title}</h3>
               <p className="text-sm text-secondary/60 mt-2">{slide.subtitle}</p>
               <div className="mt-4 flex items-center justify-between">
-                <span className="text-xs uppercase tracking-widest text-primary">{slide.ctaText}</span>
-                <button
-                  onClick={() => deleteSlide(slide.id)}
-                  className="p-2 rounded-lg text-red-600 hover:bg-red-50 transition-colors"
-                  aria-label="Delete hero slide"
-                >
-                  <Trash2 className="w-5 h-5" />
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => openEditModal(slide)}
+                    className="p-2 rounded-lg text-primary hover:bg-primary/10 transition-colors"
+                  >
+                    <Edit3 className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={() => deleteSlide(slide.id)}
+                    className="p-2 rounded-lg text-red-600 hover:bg-red-50 transition-colors"
+                    aria-label="Delete hero slide"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
             </div>
           </GlassCard>
@@ -164,7 +198,9 @@ export default function HeroPage() {
             >
               <GlassCard className="p-8 bg-bone border-none shadow-2xl">
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl font-serif text-secondary">New Hero Slide</h2>
+                  <h2 className="text-2xl font-serif text-secondary">
+                    {editingSlide ? "Edit Hero Slide" : "New Hero Slide"}
+                  </h2>
                   <button onClick={() => setIsModalOpen(false)} className="text-secondary/40 hover:text-secondary">
                     <X className="w-6 h-6" />
                   </button>
@@ -237,7 +273,9 @@ export default function HeroPage() {
                       />
                       <div className="bg-white/50 border border-dashed border-secondary/20 rounded-xl p-6 flex flex-col items-center justify-center text-secondary/40 group-hover:bg-white/80 transition-all">
                         <ImageIcon className="w-7 h-7 mb-2" />
-                        <span className="text-sm font-medium">{file ? file.name : "Select Image File"}</span>
+                        <span className="text-sm font-medium">
+                          {file ? file.name : editingSlide ? "Keep existing image" : "Select Image File"}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -245,7 +283,7 @@ export default function HeroPage() {
                     disabled={isLoading}
                     className="w-full bg-primary text-white py-3 rounded-xl font-medium shadow-lg shadow-primary/20 active:scale-[0.98] transition-all disabled:opacity-50"
                   >
-                    {isLoading ? "Uploading..." : "Publish Slide"}
+                    {isLoading ? "Saving..." : editingSlide ? "Update Slide" : "Publish Slide"}
                   </button>
                 </form>
               </GlassCard>

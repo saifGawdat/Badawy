@@ -49,6 +49,6 @@ export const PATCH = withAuth(
       });
     }
     
-    return NextResponse.json(updated);
+    return NextResponse.json({ success: true, data: updated });
   })
 );

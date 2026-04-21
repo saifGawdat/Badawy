@@ -72,6 +72,9 @@ export const PUT = withAuth(
   })
 );
 
+// Alias PUT as PATCH for compatibility
+export const PATCH = PUT;
+
 // DELETE /api/blog/[id] - Delete post (Admin)
 export const DELETE = withAuth(
   withErrorHandler(async (req: NextRequest, { params }: { params: Promise<{ id: string }> }) => {

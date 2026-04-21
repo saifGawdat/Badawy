@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Plus, Trash2, X } from 'lucide-react';
+import { Plus, Trash2, Edit3, X } from 'lucide-react';
 import api, { getErrorMessage } from '@/lib/api';
 import { compressImage } from '@/lib/compressImage';
 import { GlassCard } from '@/components/ui/GlassCard';
@@ -21,6 +21,7 @@ interface Comment {
 export default function CommentsPage() {
   const [comments, setComments] = useState<Comment[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingComment, setEditingComment] = useState<Comment | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   
   // Form State
@@ -42,38 +43,66 @@ export default function CommentsPage() {
     fetchComments();
   }, []);
 
+  const resetForm = () => {
+    setUsername('');
+    setDescription('');
+    setDescriptionAr('');
+    setProfilePhotoFile(null);
+    setEditingComment(null);
+  };
+
+  const openAddModal = () => {
+    resetForm();
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (comment: Comment) => {
+    setEditingComment(comment);
+    setUsername(comment.username);
+    setDescription(comment.description);
+    setDescriptionAr(comment.descriptionAr || '');
+    setProfilePhotoFile(null);
+    setIsModalOpen(true);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!profilePhotoFile) {
+    if (!editingComment && !profilePhotoFile) {
       toast.error('Please upload a profile photo');
       return;
     }
+    
     setIsLoading(true);
-    let photoFile: File;
-    try {
-      photoFile = await compressImage(profilePhotoFile);
-    } catch {
-      toast.error('Image compression failed');
-      setIsLoading(false);
-      return;
+    let photoFile: File | null = null;
+    if (profilePhotoFile) {
+      try {
+        photoFile = await compressImage(profilePhotoFile);
+      } catch {
+        toast.error('Image compression failed');
+        setIsLoading(false);
+        return;
+      }
     }
+
     const formData = new FormData();
     formData.append('username', username);
     formData.append('description', description);
     formData.append('descriptionAr', descriptionAr);
-    formData.append('profilePhoto', photoFile);
+    if (photoFile) formData.append('image', photoFile);
 
     try {
-      await api.post('/comments', formData);
-      toast.success('Testimonial added');
+      if (editingComment) {
+        await api.patch(`/comments/${editingComment.id}`, formData);
+        toast.success('Testimonial updated');
+      } else {
+        await api.post('/comments', formData);
+        toast.success('Testimonial added');
+      }
       setIsModalOpen(false);
-      setUsername('');
-      setDescription('');
-      setDescriptionAr('');
-      setProfilePhotoFile(null);
+      resetForm();
       fetchComments();
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to add testimonial'));
+      toast.error(getErrorMessage(error, editingComment ? 'Failed to update testimonial' : 'Failed to add testimonial'));
     } finally {
       setIsLoading(false);
     }
@@ -98,7 +127,7 @@ export default function CommentsPage() {
           <p className="text-secondary/50 font-medium">Manage the &quot;fake&quot; reviews for your UI sections.</p>
         </div>
         <button 
-          onClick={() => setIsModalOpen(true)}
+          onClick={openAddModal}
           className="bg-primary text-white px-6 py-3 rounded-xl flex items-center space-x-2 shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
         >
           <Plus className="w-5 h-5" />
@@ -129,12 +158,20 @@ export default function CommentsPage() {
                 <div className="flex-1">
                   <div className="flex justify-between items-start">
                     <h3 className="text-xl font-serif text-secondary">{comment.username}</h3>
-                    <button 
-                      onClick={() => deleteComment(comment.id)}
-                      className="text-secondary/20 hover:text-red-500 transition-colors"
-                    >
-                      <Trash2 className="w-5 h-5" />
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => openEditModal(comment)}
+                        className="text-secondary/20 hover:text-primary transition-colors"
+                      >
+                        <Edit3 className="w-5 h-5" />
+                      </button>
+                      <button 
+                        onClick={() => deleteComment(comment.id)}
+                        className="text-secondary/20 hover:text-red-500 transition-colors"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </button>
+                    </div>
                   </div>
                   <p className="text-secondary/60 mt-1 italic">&ldquo;{comment.description}&rdquo;</p>
                   <p className="text-[10px] text-secondary/30 mt-3 uppercase tracking-widest">
@@ -165,7 +202,9 @@ export default function CommentsPage() {
             >
               <GlassCard className="p-8 bg-bone border-none shadow-2xl">
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl font-serif text-secondary">Add Testimonial</h2>
+                  <h2 className="text-2xl font-serif text-secondary">
+                    {editingComment ? "Edit Testimonial" : "Add Testimonial"}
+                  </h2>
                   <button onClick={() => setIsModalOpen(false)} className="text-secondary/40 hover:text-secondary">
                     <X className="w-6 h-6" />
                   </button>
@@ -198,18 +237,20 @@ export default function CommentsPage() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Profile Photo</label>
+                     <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+                      Profile Photo {editingComment && '(Optional)'}
+                    </label>
                     <div className="relative group">
                       <input
                         type="file"
-                        required
+                        required={!editingComment}
                         onChange={(e) => setProfilePhotoFile(e.target.files?.[0] || null)}
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                       />
                       <div className="bg-white/50 border border-dashed border-secondary/20 rounded-xl p-6 flex flex-col items-center justify-center text-secondary/40 group-hover:bg-white/80 transition-all">
                         <Plus className="w-6 h-6 mb-2" />
-                        <span className="text-sm font-medium">
-                          {profilePhotoFile ? profilePhotoFile.name : "Select Profile Image"}
+                         <span className="text-sm font-medium">
+                          {profilePhotoFile ? profilePhotoFile.name : editingComment ? "Keep current photo" : "Select Profile Image"}
                         </span>
                       </div>
                     </div>
@@ -218,7 +259,7 @@ export default function CommentsPage() {
                     disabled={isLoading}
                     className="w-full bg-primary text-white py-3 rounded-xl font-medium shadow-lg shadow-primary/20 active:scale-[0.98] transition-all disabled:opacity-50"
                   >
-                    {isLoading ? "Saving..." : "Add to Live Site"}
+                     {isLoading ? "Saving..." : editingComment ? "Update Testimonial" : "Add to Live Site"}
                   </button>
                 </form>
               </GlassCard>

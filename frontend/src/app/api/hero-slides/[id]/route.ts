@@ -46,14 +46,17 @@ export const PATCH = withAuth(
       updates.imageUrl = imageUrl;
     }
 
-    const updated = await db.heroSlide.update({
+    const updatedSlide = await db.heroSlide.update({
       where: { id },
       data: updates , // Type cast for simplicity with dynamic updates
     });
 
-    return NextResponse.json({ success: true, data: updated });
+    return NextResponse.json({ success: true, data: updatedSlide });
   })
 );
+
+// Alias PATCH as PUT for compatibility
+export const PUT = PATCH;
 
 // DELETE /api/hero-slides/[id] - Delete a slide (Admin)
 export const DELETE = withAuth(

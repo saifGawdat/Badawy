@@ -107,6 +107,7 @@ export const Hero = () => {
               alt={activeSlide.title}
               fill
               priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
               className="object-cover "
             />
 

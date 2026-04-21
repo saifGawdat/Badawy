@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Plus, Trash2, Image as ImageIcon, X } from "lucide-react";
+import { Plus, Trash2, Edit3, Image as ImageIcon, X } from "lucide-react";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
 import api from "@/lib/api";
@@ -20,6 +20,7 @@ interface BeforeAfterCase {
 export default function BeforeAfterPage() {
   const [cases, setCases] = useState<BeforeAfterCase[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingCase, setEditingCase] = useState<BeforeAfterCase | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const [title, setTitle] = useState("");
@@ -45,42 +46,63 @@ export default function BeforeAfterPage() {
     setTitleAr("");
     setBeforeFile(null);
     setAfterFile(null);
+    setEditingCase(null);
+  };
+
+  const openAddModal = () => {
+    resetForm();
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (entry: BeforeAfterCase) => {
+    setEditingCase(entry);
+    setTitle(entry.title);
+    setTitleAr(entry.titleAr || "");
+    setBeforeFile(null);
+    setAfterFile(null);
+    setIsModalOpen(true);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!beforeFile || !afterFile) {
+    if (!editingCase && (!beforeFile || !afterFile)) {
       toast.error("Please upload both before and after images");
       return;
     }
 
     setIsLoading(true);
-    let compressedBefore: File;
-    let compressedAfter: File;
+    
+    let processedBefore: File | null = null;
+    let processedAfter: File | null = null;
+
     try {
-      [compressedBefore, compressedAfter] = await Promise.all([
-        compressImage(beforeFile),
-        compressImage(afterFile),
-      ]);
+      if (beforeFile) processedBefore = await compressImage(beforeFile);
+      if (afterFile) processedAfter = await compressImage(afterFile);
     } catch {
-      toast.error("Image compression failed");
+      toast.error("Image processing failed");
       setIsLoading(false);
       return;
     }
+
     const formData = new FormData();
     formData.append("title", title);
     formData.append("titleAr", titleAr);
-    formData.append("beforeImage", compressedBefore);
-    formData.append("afterImage", compressedAfter);
+    if (processedBefore) formData.append("beforeImage", processedBefore);
+    if (processedAfter) formData.append("afterImage", processedAfter);
 
     try {
-      await api.post("/before-after", formData);
-      toast.success("Case added successfully");
+      if (editingCase) {
+        await api.patch(`/before-after/${editingCase.id}`, formData);
+        toast.success("Case updated successfully");
+      } else {
+        await api.post("/before-after", formData);
+        toast.success("Case added successfully");
+      }
       setIsModalOpen(false);
       resetForm();
       fetchCases();
     } catch {
-      toast.error("Failed to add case");
+      toast.error(editingCase ? "Failed to update case" : "Failed to add case");
     } finally {
       setIsLoading(false);
     }
@@ -107,7 +129,7 @@ export default function BeforeAfterPage() {
           </p>
         </div>
         <button
-          onClick={() => setIsModalOpen(true)}
+          onClick={openAddModal}
           className="bg-primary text-white px-6 py-3 rounded-xl flex items-center space-x-2 shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
         >
           <Plus className="w-5 h-5" />
@@ -142,13 +164,21 @@ export default function BeforeAfterPage() {
                 </div>
                 <div className="p-5 flex justify-between items-center">
                   <h3 className="text-lg font-serif text-secondary">{entry.title}</h3>
-                  <button
-                    onClick={() => deleteCase(entry.id)}
-                    className="p-2 rounded-lg text-red-600 hover:bg-red-50 transition-colors"
-                    aria-label="Delete before and after case"
-                  >
-                    <Trash2 className="w-5 h-5" />
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => openEditModal(entry)}
+                      className="p-2 rounded-lg text-primary hover:bg-primary/10 transition-colors"
+                    >
+                      <Edit3 className="w-5 h-5" />
+                    </button>
+                    <button
+                      onClick={() => deleteCase(entry.id)}
+                      className="p-2 rounded-lg text-red-600 hover:bg-red-50 transition-colors"
+                      aria-label="Delete before and after case"
+                    >
+                      <Trash2 className="w-5 h-5" />
+                    </button>
+                  </div>
                 </div>
               </GlassCard>
             </motion.div>
@@ -175,7 +205,9 @@ export default function BeforeAfterPage() {
             >
               <GlassCard className="p-8 bg-bone border-none shadow-2xl">
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl font-serif text-secondary">New Before / After Case</h2>
+                  <h2 className="text-2xl font-serif text-secondary">
+                    {editingCase ? "Edit Before / After Case" : "New Before / After Case"}
+                  </h2>
                   <button
                     onClick={() => setIsModalOpen(false)}
                     className="text-secondary/40 hover:text-secondary"
@@ -206,14 +238,14 @@ export default function BeforeAfterPage() {
                     />
                   </div>
 
-                  <UploadField label="Before Image" file={beforeFile} onSelect={setBeforeFile} />
-                  <UploadField label="After Image" file={afterFile} onSelect={setAfterFile} />
+                  <UploadField label={`Before Image ${editingCase ? '(Optional)' : ''}`} file={beforeFile} onSelect={setBeforeFile} editing={!!editingCase} />
+                  <UploadField label={`After Image ${editingCase ? '(Optional)' : ''}`} file={afterFile} onSelect={setAfterFile} editing={!!editingCase} />
 
                   <button
                     disabled={isLoading}
                     className="w-full bg-primary text-white py-3 rounded-xl font-medium shadow-lg shadow-primary/20 active:scale-[0.98] transition-all disabled:opacity-50"
                   >
-                    {isLoading ? "Uploading..." : "Publish Case"}
+                    {isLoading ? "Saving..." : editingCase ? "Update Case" : "Publish Case"}
                   </button>
                 </form>
               </GlassCard>
@@ -230,10 +262,12 @@ function UploadField({
   label,
   file,
   onSelect,
+  editing = false,
 }: {
   label: string;
   file: File | null;
   onSelect: (file: File | null) => void;
+  editing?: boolean;
 }) {
   return (
     <div className="space-y-2">
@@ -241,13 +275,15 @@ function UploadField({
       <div className="relative group">
         <input
           type="file"
-          required
+          required={!editing && !file}
           onChange={(e) => onSelect(e.target.files?.[0] || null)}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
         />
         <div className="bg-white/50 border border-dashed border-secondary/20 rounded-xl p-6 flex flex-col items-center justify-center text-secondary/40 group-hover:bg-white/80 transition-all">
           <ImageIcon className="w-7 h-7 mb-2" />
-          <span className="text-sm font-medium">{file ? file.name : "Select Image File"}</span>
+          <span className="text-sm font-medium">
+            {file ? file.name : editing ? "Keep current image" : "Select Image File"}
+          </span>
         </div>
       </div>
     </div>

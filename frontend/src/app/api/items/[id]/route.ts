@@ -65,6 +65,8 @@ export const PUT = withAuth(
   })
 );
 
+export const PATCH = PUT;
+
 // DELETE /api/items/[id] - Delete item (Admin)
 export const DELETE = withAuth(
   withErrorHandler(async (req: NextRequest, { params }: { params: Promise<{ id: string }> }) => {
