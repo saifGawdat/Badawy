@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import React from "react";
 import { Inter, Playfair_Display, Pinyon_Script } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "sonner";
+import { ClientLayout } from "@/components/layout/ClientLayout";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -30,7 +30,6 @@ export const metadata: Metadata = {
 
 import { AuthProvider } from "@/context/AuthContext";
 import { LanguageProvider } from "@/context/LanguageContext";
-import { VisitTracker } from "@/components/VisitTracker";
 
 export default function RootLayout({
   children,
@@ -45,9 +44,8 @@ export default function RootLayout({
       <body className="min-h-full bg-bone text-secondary selection:bg-primary/20">
         <AuthProvider>
           <LanguageProvider>
-            <VisitTracker />
-            <Toaster position="top-right" richColors />
             {children}
+            <ClientLayout />
           </LanguageProvider>
         </AuthProvider>
       </body>
