@@ -17,15 +17,16 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  // Use User table as sentinel — if any user exists, DB is already seeded
-  const userCount = await prisma.user.count();
+  // Check for critical site content as sentinels
+  const heroCount = await prisma.heroSlide.count();
+  const itemCount = await prisma.item.count();
 
-  if (userCount > 0) {
-    console.log(`✅ Database already seeded (${userCount} user(s) found). Skipping seed.`);
+  if (heroCount > 0 || itemCount > 0) {
+    console.log(`✅ Database already has content (${heroCount} slides, ${itemCount} items). Skipping seed.`);
     return;
   }
 
-  console.log('🌱 Empty database detected. Running initial seed...');
+  console.log('🌱 No core content detected. Running initial seed...');
 
   // Delegate to the full seed script
   const { execSync } = require('child_process');
