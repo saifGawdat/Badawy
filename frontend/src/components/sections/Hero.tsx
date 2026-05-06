@@ -28,11 +28,35 @@ const fallbackSlide: HeroSlide = {
   imageUrl: "https://res.cloudinary.com/dydw5y96g/image/upload/v1745153730/badawy_hero_slides/1745153729941.jpg",
 };
 
+const mobileSlides: HeroSlide[] = [
+  {
+    id: "mobile-1",
+    title: "Surgery Refined by Professionals",
+    titleAr: "جراحة متقنة بأيدي محترفين",
+    subtitle: "Enhance your confidence restore your youth and elevate your everyday.",
+    subtitleAr: "عززي ثقتك واستعيدي شبابك وارتقي بإطلالتك اليومية.",
+    ctaText: "Read More",
+    ctaTextAr: "اقرئي المزيد",
+    imageUrl: "/soraBelTool.jpg",
+  },
+  {
+    id: "mobile-3",
+    title: "Surgery Refined by Professionals",
+    titleAr: "جراحة متقنة بأيدي محترفين",
+    subtitle: "Enhance your confidence restore your youth and elevate your everyday.",
+    subtitleAr: "عززي ثقتك واستعيدي شبابك وارتقي بإطلالتك اليومية.",
+    ctaText: "Read More",
+    ctaTextAr: "اقرئي المزيد",
+    imageUrl: "/soraBelTool3.jpg",
+  },
+];
+
 export const Hero = () => {
   const { isArabic } = useLanguage();
   const [slides, setSlides] = React.useState<HeroSlide[]>([]);
   const [index, setIndex] = React.useState(0);
   const [paused, setPaused] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(false);
 
   // FETCH DATA
   React.useEffect(() => {
@@ -46,9 +70,17 @@ export const Hero = () => {
     };
 
     fetchSlides();
+
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const hasSlides = slides.length > 0;
+  const activeSlides = isMobile ? mobileSlides : slides;
+  const hasSlides = activeSlides.length > 0;
   const localizedFallbackSlide: HeroSlide = isArabic
     ? {
         ...fallbackSlide,
@@ -57,27 +89,27 @@ export const Hero = () => {
         ctaText: "اقرئي المزيد",
       }
     : fallbackSlide;
-  const activeSlide = hasSlides ? slides[index] : localizedFallbackSlide;
+  const activeSlide = hasSlides ? activeSlides[index] : localizedFallbackSlide;
 
   // AUTOPLAY (SYNC SAFE)
   React.useEffect(() => {
     if (!hasSlides || paused) return;
 
     const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % slides.length);
+      setIndex((prev) => (prev + 1) % activeSlides.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [hasSlides, paused, slides.length]);
+  }, [hasSlides, paused, activeSlides.length]);
 
   const goNext = () => {
     if (!hasSlides) return;
-    setIndex((prev) => (prev + 1) % slides.length);
+    setIndex((prev) => (prev + 1) % activeSlides.length);
   };
 
   const goPrev = () => {
     if (!hasSlides) return;
-    setIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+    setIndex((prev) => (prev === 0 ? activeSlides.length - 1 : prev - 1));
   };
 
   return (
@@ -125,7 +157,7 @@ export const Hero = () => {
               </div>
 
               {/* TITLE */}
-              <h1 className="text-6xl lg:text-7xl font-serif text-white leading-tight max-w-2xl mb-6">
+              <h1 className="text-3xl md:text-6xl lg:text-7xl font-serif text-white leading-tight max-w-2xl mb-6">
                 {isArabic && activeSlide.titleAr ? activeSlide.titleAr : activeSlide.title}
               </h1>
 
@@ -153,7 +185,7 @@ export const Hero = () => {
         </button>
 
         <span className="text-sm tracking-widest tabular-nums">
-          {index + 1} / {slides.length || 1}
+          {index + 1} / {activeSlides.length || 1}
         </span>
 
         <button type="button" onClick={goNext} aria-label="Next slide">

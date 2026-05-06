@@ -104,9 +104,9 @@ export const Appointment = () => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="space-y-12"
+          className="space-y-12 text-center lg:text-start"
         >
-          <div className="relative aspect-square w-full max-w-sm mx-auto lg:mx-0 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-bone">
+          <div className="relative aspect-square w-full max-w-sm mx-auto lg:mx-0 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border-4 md:border-8 border-bone">
              <Image 
                 src="/Gemini_Generated_Image_jvtzrbjvtzrbjvtz.png" 
                 alt="Clinic Interior" 
@@ -125,7 +125,7 @@ export const Appointment = () => {
                 : 'Ready to begin your transformation? Schedule a private consultation with Dr. Badawy to discuss your personalized treatment plan.'}
             </p>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 justify-items-center lg:justify-items-start">
               <ContactInfo
                 icon={Phone}
                 label={isArabic ? 'اتصلي بنا' : 'Call Us'}
@@ -150,7 +150,7 @@ export const Appointment = () => {
            viewport={{ once: true }}
            transition={{ duration: 0.8 }}
         >
-          <GlassCard className="p-10 border-none bg-bone/50 shadow-2xl">
+          <GlassCard className="p-6 md:p-10 border-none bg-bone/50 shadow-2xl">
             <form onSubmit={handleSubmit} className="space-y-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <FormInput
@@ -238,7 +238,7 @@ const ContactInfo = ({
   value: string;
   href?: string;
 }) => (
-  <div className="flex items-start gap-4">
+  <div className="flex flex-col items-center text-center lg:flex-row lg:items-start lg:text-start gap-4">
     <div className="p-3 bg-primary/10 rounded-2xl text-primary shrink-0">
       <Icon className="w-5 h-5" />
     </div>

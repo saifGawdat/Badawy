@@ -58,12 +58,12 @@ export const Testimonials = () => {
     <section className="py-24 bg-[#f0efeb] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-14">
-          <h2 className="text-5xl font-serif tracking-tight text-secondary">
+          <h2 className="text-3xl md:text-5xl font-serif tracking-tight text-secondary">
             {isArabic ? 'ماذا يقول مرضانا' : 'What our Patients Say'}
           </h2>
         </div>
 
-        <div className="overflow-hidden">
+        <div className="overflow-hidden" dir="ltr">
           <div
             className="flex transition-transform duration-500 ease-out"
             style={{ transform: `translateX(-${(100 / cardsPerView) * currentIndex}%)` }}

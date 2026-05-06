@@ -76,8 +76,8 @@ export const Services = () => {
     <section id="services" className="py-32 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
-          <p className="font-script text-primary text-4xl mb-4 italic">{isArabic ? 'جمالك' : 'your beauty'}</p>
-          <h2 className="text-5xl font-serif text-secondary tracking-tight">
+          <p className="font-script text-primary text-2xl md:text-4xl mb-4 italic">{isArabic ? 'جمالك' : 'your beauty'}</p>
+          <h2 className="text-3xl md:text-5xl font-serif text-secondary tracking-tight">
             {isArabic ? (
               <>
                 صُممت للأشخاص أصحاب الأهداف الحقيقية، <br />
@@ -126,7 +126,7 @@ export const Services = () => {
                   className="shrink-0 px-3"
                   style={{ width: `${100 / cardsPerView}%` }}
                 >
-                  <div className="group cursor-pointer">
+                  <div className="group cursor-pointer text-center md:text-start">
                     <div className="relative aspect-3/4 rounded-3xl overflow-hidden mb-6 shadow-xl group-hover:shadow-primary/10 transition-shadow">
                       <Image
                         src={item.imageUrl}

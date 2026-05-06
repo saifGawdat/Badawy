@@ -159,8 +159,8 @@ export const Footer = () => {
         </div>
 
         {/* Footer Navigation */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 pb-20 border-b border-secondary/5">
-          <div className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 pb-20 border-b border-secondary/5 text-center md:text-start">
+          <div className="space-y-6 flex flex-col items-center md:items-start">
             <div className="relative w-20 h-20">
               <Image
                 src="/logo9.png"
@@ -204,12 +204,14 @@ export const Footer = () => {
           </FooterColumn>
 
           <FooterColumn title={isArabic ? "التواصل" : "Contacts"}>
-            <p className="text-secondary/60 text-sm whitespace-pre-line">
-              {displayLocation}
-            </p>
-            <p className="text-primary font-bold pt-2 hover:underline" dir="ltr">
-              {displayPhone}
-            </p>
+            <div className="flex flex-col items-center md:items-start">
+              <p className="text-secondary/60 text-sm whitespace-pre-line">
+                {displayLocation}
+              </p>
+              <p className="text-primary font-bold pt-2 hover:underline" dir="ltr">
+                {displayPhone}
+              </p>
+            </div>
           </FooterColumn>
         </div>
 

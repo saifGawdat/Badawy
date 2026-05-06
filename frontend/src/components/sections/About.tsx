@@ -78,16 +78,16 @@ export const About = () => {
          whileInView={{ opacity: 1, x: 0 }}
          viewport={{ once: true }}
          transition={{ duration: 0.8 }}
-         className="space-y-8"
+         className="space-y-8 text-center md:text-start"
         >
-          <div className="bg-secondary p-12 rounded-[3rem] text-white shadow-2xl relative overflow-hidden group">
+          <div className="bg-secondary p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] text-white shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 -translate-y-1/2 translate-x-1/2 rounded-full blur-3xl transition-all group-hover:bg-primary/40" />
             
-            <p className="text-2xl font-serif italic leading-relaxed mb-8 relative z-10">
+            <p className="text-lg md:text-2xl font-serif italic leading-relaxed mb-8 relative z-10">
               {content.quote}
             </p>
             
-            <div className="relative z-10">
+            <div className="relative z-10 flex flex-col items-center md:items-start">
               <div className="relative h-16 w-48 invert mb-2">
                 <Image 
                   src="/signature2.png" 
@@ -103,16 +103,16 @@ export const About = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 pt-4">
+          <div className="grid grid-cols-2 gap-8 pt-4 justify-items-center md:justify-items-start">
             <div className="space-y-2">
-              <h4 className="text-6xl font-serif text-secondary tracking-tighter">{content.stat1Value}</h4>
-              <p className="text-secondary/50 text-sm leading-tight uppercase font-medium tracking-wider">
+              <h4 className="text-3xl md:text-6xl font-serif text-secondary tracking-tighter">{content.stat1Value}</h4>
+              <p className="text-secondary/50 text-[10px] md:text-sm leading-tight uppercase font-medium tracking-wider">
                 {content.stat1Label}
               </p>
             </div>
             <div className="space-y-2">
-              <h4 className="text-6xl font-serif text-secondary tracking-tighter">{content.stat2Value}</h4>
-              <p className="text-secondary/50 text-sm leading-tight uppercase font-medium tracking-wider">
+              <h4 className="text-3xl md:text-6xl font-serif text-secondary tracking-tighter">{content.stat2Value}</h4>
+              <p className="text-secondary/50 text-[10px] md:text-sm leading-tight uppercase font-medium tracking-wider">
                 {content.stat2Label}
               </p>
             </div>
