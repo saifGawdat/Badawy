@@ -32,7 +32,7 @@ export const PATCH = withAuth(
     if (file) {
       const { uploadToCloudinary } = await import('@/lib/cloudinary');
       const buffer = Buffer.from(await file.arrayBuffer());
-      body.imageUrl = await uploadToCloudinary(buffer, 'badawy_about');
+      body.imageUrl = await uploadToCloudinary(buffer, 'Badawi_about');
     }
     
     const existing = await db.aboutSection.findFirst();
@@ -52,3 +52,4 @@ export const PATCH = withAuth(
     return NextResponse.json({ success: true, data: updated });
   })
 );
+

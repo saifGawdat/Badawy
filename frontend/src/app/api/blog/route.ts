@@ -70,7 +70,7 @@ export const POST = withAuth(
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    const featuredImage = await uploadToCloudinary(buffer, 'badawy_blog_featured');
+    const featuredImage = await uploadToCloudinary(buffer, 'Badawi_blog_featured');
 
     const readingTimeMinutes = readingTimeFromMarkdown(content);
 
@@ -115,3 +115,4 @@ function readingTimeFromMarkdown(md: string) {
   const words = text.split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.ceil(words / 200));
 }
+

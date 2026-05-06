@@ -9,6 +9,7 @@ import { useLanguage } from "@/context/LanguageContext";
 interface ServiceItem {
   id: string;
   title: string;
+  titleAr?: string;
 }
 
 const DEFAULT_LOC_EN = "Tanta, El Bahr Street, near El-Galaa Mall";
@@ -198,7 +199,7 @@ export const Footer = () => {
           <FooterColumn title={isArabic ? "الخدمات" : "Services"}>
             {services.slice(0, 6).map((service) => (
               <FooterLink key={service.id} href={`/services/${service.id}`}>
-                {service.title}
+                {isArabic && service.titleAr ? service.titleAr : service.title}
               </FooterLink>
             ))}
           </FooterColumn>

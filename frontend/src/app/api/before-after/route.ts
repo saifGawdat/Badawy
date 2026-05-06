@@ -24,8 +24,8 @@ export const POST = withAuth(
     }
 
     const [beforeUrl, afterUrl] = await Promise.all([
-      uploadToCloudinary(Buffer.from(await beforeFile.arrayBuffer()), 'badawy_before_after'),
-      uploadToCloudinary(Buffer.from(await afterFile.arrayBuffer()), 'badawy_before_after')
+      uploadToCloudinary(Buffer.from(await beforeFile.arrayBuffer()), 'Badawi_before_after'),
+      uploadToCloudinary(Buffer.from(await afterFile.arrayBuffer()), 'Badawi_before_after')
     ]);
 
     const entry = await db.beforeAfter.create({
@@ -35,3 +35,4 @@ export const POST = withAuth(
     return NextResponse.json({ success: true, data: entry }, { status: 201 });
   })
 );
+

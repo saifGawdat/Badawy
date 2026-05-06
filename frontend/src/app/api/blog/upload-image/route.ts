@@ -14,7 +14,7 @@ export const POST = withAuth(
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    const url = await uploadToCloudinary(buffer, 'badawy_blog_inline', ["jpg", "png", "jpeg", "webp", "gif"]);
+    const url = await uploadToCloudinary(buffer, 'Badawi_blog_inline', ["jpg", "png", "jpeg", "webp", "gif"]);
 
     return NextResponse.json({
       success: true,
@@ -22,3 +22,4 @@ export const POST = withAuth(
     });
   })
 );
+

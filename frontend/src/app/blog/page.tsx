@@ -7,11 +7,11 @@ export const dynamic = 'force-dynamic';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export const metadata: Metadata = {
-  title: "Blog | Dr. Mostafa Badawy",
+  title: "Blog | Dr. Mostafa Badawi",
   description:
-    "Articles and insights on plastic surgery, recovery, and aesthetic care from Dr. Mostafa Badawy.",
+    "Articles and insights on plastic surgery, recovery, and aesthetic care from Dr. Mostafa Badawi.",
   openGraph: {
-    title: "Blog | Dr. Mostafa Badawy",
+    title: "Blog | Dr. Mostafa Badawi",
     description:
       "Articles and insights on plastic surgery, recovery, and aesthetic care.",
     url: `${siteUrl}/blog`,
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog | Dr. Mostafa Badawy",
+    title: "Blog | Dr. Mostafa Badawi",
     description:
       "Articles and insights on plastic surgery, recovery, and aesthetic care.",
   },
@@ -33,3 +33,4 @@ export default async function BlogPage() {
   const posts = await fetchPublishedBlogPosts();
   return <BlogIndexClient posts={posts} />;
 }
+

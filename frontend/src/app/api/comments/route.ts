@@ -23,7 +23,7 @@ export const POST = withAuth(
       return apiError('Username, description, and profile photo are required', 400);
     }
 
-    const profilePhoto = await uploadToCloudinary(Buffer.from(await file.arrayBuffer()), 'badawy_comments');
+    const profilePhoto = await uploadToCloudinary(Buffer.from(await file.arrayBuffer()), 'Badawi_comments');
 
     const entry = await db.comment.create({
       data: { username, description, descriptionAr, profilePhoto }
@@ -32,3 +32,4 @@ export const POST = withAuth(
     return NextResponse.json({ success: true, data: entry }, { status: 201 });
   })
 );
+

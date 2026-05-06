@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await fetchBlogPostBySlug(slug);
   if (!post) {
-    return { title: "Article | Dr. Mostafa Badawy" };
+    return { title: "Article | Dr. Mostafa Badawi" };
   }
 
   const title = post.metaTitle?.trim() || post.title;
@@ -23,9 +23,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const modified = post.updatedAt;
 
   return {
-    title: `${title} | Dr. Mostafa Badawy`,
+    title: `${title} | Dr. Mostafa Badawi`,
     description,
-    authors: [{ name: "Dr. Mostafa Badawy", url: siteUrl }],
+    authors: [{ name: "Dr. Mostafa Badawi", url: siteUrl }],
     openGraph: {
       title,
       description,
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: post.featuredImage
         ? [{ url: post.featuredImage, width: 1200, height: 630, alt: title }]
         : undefined,
-      siteName: "Dr. Mostafa Badawy",
+      siteName: "Dr. Mostafa Badawi",
     },
     twitter: {
       card: "summary_large_image",
@@ -73,12 +73,12 @@ export default async function BlogArticlePage({ params }: Props) {
     dateModified: post.updatedAt instanceof Date ? post.updatedAt.toISOString() : post.updatedAt,
     author: {
       "@type": "Person",
-      name: "Dr. Mostafa Badawy",
+      name: "Dr. Mostafa Badawi",
       url: siteUrl,
     },
     publisher: {
       "@type": "Organization",
-      name: "Dr. Mostafa Badawy",
+      name: "Dr. Mostafa Badawi",
       url: siteUrl,
     },
     mainEntityOfPage: {

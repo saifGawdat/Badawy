@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 const JWT_SECRET = process.env.JWT_SECRET!;
-const COOKIE_NAME = 'badawy_token';
+const COOKIE_NAME = 'Badawi_token';
 
 export const hashPassword = (plain: string) => bcrypt.hash(plain, 10);
 export const comparePassword = (plain: string, hash: string) => bcrypt.compare(plain, hash);
@@ -58,3 +58,4 @@ export function withAuth<P = Record<string, string>>(handler: AuthedHandler<P>) 
     }
   };
 }
+

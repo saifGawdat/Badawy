@@ -41,9 +41,9 @@ export default function LoginPage() {
         className="w-full max-w-md z-10"
       >
         <div className="text-center mb-8">
-          <h2 className="font-script text-primary text-4xl mb-2 italic">dr.badawy</h2>
+          <h2 className="font-script text-primary text-4xl mb-2 italic">dr.badawi</h2>
           <h1 className="text-3xl font-serif text-secondary tracking-tight uppercase">Admin Login</h1>
-          <p className="text-secondary/50 text-sm mt-2">Manage the Badawy Clinical Dashboard</p>
+          <p className="text-secondary/50 text-sm mt-2">Manage the Badawi Clinical Dashboard</p>
         </div>
 
         <GlassCard className="p-8">

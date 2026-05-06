@@ -21,7 +21,7 @@ export function VisitTracker() {
     if (!pathname) return;
     if (pathname.startsWith("/dashboard") || pathname === "/login") return;
     if (typeof window === "undefined") return;
-    if (sessionStorage.getItem("badawy_visit_tracked") === "1") return;
+    if (sessionStorage.getItem("Badawi_visit_tracked") === "1") return;
     if (sentRef.current) return;
 
     sentRef.current = true;
@@ -36,7 +36,7 @@ export function VisitTracker() {
             userAgent: navigator.userAgent,
           }),
         });
-        if (res.ok) sessionStorage.setItem("badawy_visit_tracked", "1");
+        if (res.ok) sessionStorage.setItem("Badawi_visit_tracked", "1");
         else sentRef.current = false;
       } catch {
         sentRef.current = false;
@@ -48,3 +48,4 @@ export function VisitTracker() {
 
   return null;
 }
+

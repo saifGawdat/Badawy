@@ -57,7 +57,7 @@ export const PUT = withAuth(
 
     if (file) {
       const buffer = Buffer.from(await file.arrayBuffer());
-      updateData.featuredImage = await uploadToCloudinary(buffer, 'badawy_blog_featured');
+      updateData.featuredImage = await uploadToCloudinary(buffer, 'Badawi_blog_featured');
     }
 
     const updatedPost = await db.blogPost.update({

@@ -37,7 +37,7 @@ export const POST = withAuth(
 
     // Upload to Cloudinary
     const buffer = Buffer.from(await file.arrayBuffer());
-    const imageUrl = await uploadToCloudinary(buffer, 'badawy_items');
+    const imageUrl = await uploadToCloudinary(buffer, 'Badawi_items');
 
     const item = await db.item.create({
       data: {
@@ -55,3 +55,4 @@ export const POST = withAuth(
     }, { status: 201 });
   })
 );
+

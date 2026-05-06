@@ -122,7 +122,7 @@ export const Appointment = () => {
             <p className="text-secondary/60 max-w-md">
               {isArabic
                 ? 'جاهزة لبدء رحلتك؟ احجزي استشارة خاصة مع د. بدوي لمناقشة خطة علاجك المناسبة.'
-                : 'Ready to begin your transformation? Schedule a private consultation with Dr. Badawy to discuss your personalized treatment plan.'}
+                : 'Ready to begin your transformation? Schedule a private consultation with Dr. Badawi to discuss your personalized treatment plan.'}
             </p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 justify-items-center lg:justify-items-start">
@@ -132,7 +132,7 @@ export const Appointment = () => {
                 value={phoneDisplay}
                 href={phoneTel ? `tel:${phoneTel}` : undefined}
               />
-              <ContactInfo icon={Mail} label={isArabic ? 'راسلينا' : 'Email Us'} value="info@drbadawy.com" href="mailto:info@drbadawy.com" />
+              <ContactInfo icon={Mail} label={isArabic ? 'راسلينا' : 'Email Us'} value="info@drbadawi.com" href="mailto:info@drbadawi.com" />
               <ContactInfo icon={Calendar} label={isArabic ? 'المواعيد' : 'Hours'} value={isArabic ? 'الإثنين-السبت: 09:00 - 18:00' : 'Mon-Sat: 09:00 - 18:00'} />
               <ContactInfo
                 icon={MapPin}

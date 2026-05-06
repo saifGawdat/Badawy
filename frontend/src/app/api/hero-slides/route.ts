@@ -26,7 +26,7 @@ export const POST = withAuth(
       return apiError('Title, subtitle, and image are required', 400);
     }
 
-    const imageUrl = await uploadToCloudinary(Buffer.from(await file.arrayBuffer()), 'badawy_hero_slides');
+    const imageUrl = await uploadToCloudinary(Buffer.from(await file.arrayBuffer()), 'Badawi_hero_slides');
 
     const entry = await db.heroSlide.create({
       data: { 
@@ -38,3 +38,4 @@ export const POST = withAuth(
     return NextResponse.json({ success: true, data: entry }, { status: 201 });
   })
 );
+

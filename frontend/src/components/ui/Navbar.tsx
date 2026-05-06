@@ -82,7 +82,7 @@ export const Navbar = () => {
             <div className="relative w-12 h-12 transition-transform duration-500 group-hover:scale-110">
               <Image
                 src="/logo9.png"
-                alt="Dr. Mostafa Badawy Logo"
+                alt="Dr. Mostafa Badawi Logo"
                 fill
                 className={cn(
                   "object-contain transition-all duration-500",

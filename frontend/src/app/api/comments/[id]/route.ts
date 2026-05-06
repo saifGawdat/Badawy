@@ -33,7 +33,7 @@ export const PATCH = withAuth(
     if (file) {
       const { uploadToCloudinary } = await import('@/lib/cloudinary');
       const buffer = Buffer.from(await file.arrayBuffer());
-      updates.profilePhoto = await uploadToCloudinary(buffer, 'badawy_comments');
+      updates.profilePhoto = await uploadToCloudinary(buffer, 'Badawi_comments');
     }
 
     const updated = await db.comment.update({
