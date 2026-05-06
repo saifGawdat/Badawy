@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlogArticleClient } from "@/components/blog/BlogArticleClient";
 import { fetchBlogPostBySlug } from "@/lib/blog-server";

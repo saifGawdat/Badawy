@@ -1,4 +1,4 @@
-import imageCompression from "browser-image-compression";
+﻿import imageCompression from "browser-image-compression";
 
 const MAX_SIZE_MB = 2;
 

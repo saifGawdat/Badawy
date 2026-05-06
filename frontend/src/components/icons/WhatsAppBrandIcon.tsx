@@ -1,4 +1,4 @@
-/** Official-style WhatsApp glyph (single-color, currentColor). */
+﻿/** Official-style WhatsApp glyph (single-color, currentColor). */
 export function WhatsAppBrandIcon({ className }: { className?: string }) {
   return (
     <svg

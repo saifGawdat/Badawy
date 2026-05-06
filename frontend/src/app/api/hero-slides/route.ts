@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { withAuth } from '@/lib/auth';
 import { withErrorHandler, apiError } from '@/lib/api-error';
@@ -26,7 +26,7 @@ export const POST = withAuth(
       return apiError('Title, subtitle, and image are required', 400);
     }
 
-    const imageUrl = await uploadToCloudinary(Buffer.from(await file.arrayBuffer()), 'Badawi_hero_slides');
+    const imageUrl = await uploadToCloudinary(Buffer.from(await file.arrayBuffer()), 'badawy_hero_slides');
 
     const entry = await db.heroSlide.create({
       data: { 

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -76,12 +76,12 @@ export const Services = () => {
     <section id="services" className="py-32 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
-          <p className="font-script text-primary text-2xl md:text-4xl mb-4 italic">{isArabic ? 'جمالك' : 'your beauty'}</p>
+          <p className="font-script text-primary text-2xl md:text-4xl mb-4 italic">{isArabic ? 'Ø¬Ù…Ø§Ù„Ùƒ' : 'your beauty'}</p>
           <h2 className="text-3xl md:text-5xl font-serif text-secondary tracking-tight">
             {isArabic ? (
               <>
-                صُممت للأشخاص أصحاب الأهداف الحقيقية، <br />
-                وعلاجاتنا تساعدك أن تشعري بأنك أنتِ.
+                ØµÙÙ…Ù…Øª Ù„Ù„Ø£Ø´Ø®Ø§Øµ Ø£ØµØ­Ø§Ø¨ Ø§Ù„Ø£Ù‡Ø¯Ø§Ù Ø§Ù„Ø­Ù‚ÙŠÙ‚ÙŠØ©ØŒ <br />
+                ÙˆØ¹Ù„Ø§Ø¬Ø§ØªÙ†Ø§ ØªØ³Ø§Ø¹Ø¯Ùƒ Ø£Ù† ØªØ´Ø¹Ø±ÙŠ Ø¨Ø£Ù†Ùƒ Ø£Ù†ØªÙ.
               </>
             ) : (
               <>
@@ -141,7 +141,7 @@ export const Services = () => {
                           href={`/services/${item.id}`}
                           className="w-full bg-white/20 backdrop-blur-md text-white py-3 rounded-xl border border-white/20 hover:bg-white/40 transition-colors flex items-center justify-center space-x-2"
                         >
-                          <span>{isArabic ? 'عرض التفاصيل' : 'View Details'}</span>
+                          <span>{isArabic ? 'Ø¹Ø±Ø¶ Ø§Ù„ØªÙØ§ØµÙŠÙ„' : 'View Details'}</span>
                           <ArrowRight className="w-4 h-4" />
                         </Link>
                       </div>

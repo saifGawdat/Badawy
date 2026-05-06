@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 
 export function apiError(message: string, status = 500) {
   return NextResponse.json({ success: false, error: message }, { status });
@@ -13,7 +13,7 @@ export function withErrorHandler<T extends any[]>(handler: Handler<T>) {
     try {
       return await handler(...args);
     } catch (err: unknown) {
-      console.error('🔥 API Error:', err);
+      console.error('ðŸ”¥ API Error:', err);
 
       const error = err as { code?: string; message?: string; statusCode?: number; meta?: { target?: string[] } };
 

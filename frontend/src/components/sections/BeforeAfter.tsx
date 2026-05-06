@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
@@ -75,7 +75,7 @@ export const BeforeAfter = () => {
         <div className="max-w-6xl mx-auto px-6 text-center">
           <p className="text-[#E3C46A]/80">
             {isArabic
-              ? "جارٍ تحميل حالات قبل وبعد..."
+              ? "Ø¬Ø§Ø±Ù ØªØ­Ù…ÙŠÙ„ Ø­Ø§Ù„Ø§Øª Ù‚Ø¨Ù„ ÙˆØ¨Ø¹Ø¯..."
               : "Loading before and after cases..."}
           </p>
         </div>
@@ -89,7 +89,7 @@ export const BeforeAfter = () => {
         <div className="max-w-6xl mx-auto px-6 text-center">
           <p className="text-[#E3C46A]/80">
             {isArabic
-              ? "لا توجد حالات قبل وبعد حتى الآن."
+              ? "Ù„Ø§ ØªÙˆØ¬Ø¯ Ø­Ø§Ù„Ø§Øª Ù‚Ø¨Ù„ ÙˆØ¨Ø¹Ø¯ Ø­ØªÙ‰ Ø§Ù„Ø¢Ù†."
               : "No before and after cases yet."}
           </p>
         </div>
@@ -106,7 +106,7 @@ export const BeforeAfter = () => {
         {/* Title */}
         <div className="text-center mb-10 relative z-10">
           <p className="text-[#C5A028] uppercase tracking-[0.25em] text-xs mb-3">
-            {isArabic ? "قبل / بعد" : "Before / After"}
+            {isArabic ? "Ù‚Ø¨Ù„ / Ø¨Ø¹Ø¯" : "Before / After"}
           </p>
           <h3 className="text-white font-serif text-3xl md:text-4xl">
             {isArabic && currentSlide.titleAr
@@ -119,7 +119,7 @@ export const BeforeAfter = () => {
         <div className="relative z-10 md:grid md:grid-cols-[auto_1fr_auto] md:items-center md:gap-8">
           {/* Before label */}
           <p className="hidden md:block font-script text-5xl text-[#E3C46A]/90">
-            {isArabic ? "قبل" : "before"}
+            {isArabic ? "Ù‚Ø¨Ù„" : "before"}
           </p>
 
           {/* Slider */}
@@ -197,17 +197,17 @@ export const BeforeAfter = () => {
 
           {/* After label */}
           <p className="hidden md:block font-script text-5xl text-[#E3C46A]/90">
-            {isArabic ? "بعد" : "after"}
+            {isArabic ? "Ø¨Ø¹Ø¯" : "after"}
           </p>
         </div>
 
         {/* Mobile labels */}
         <div className="mt-4 flex md:hidden items-center justify-between text-[#E3C46A]/90 px-1">
-          <p className="font-script text-4xl">{isArabic ? "قبل" : "before"}</p>
-          <p className="font-script text-4xl">{isArabic ? "بعد" : "after"}</p>
+          <p className="font-script text-4xl">{isArabic ? "Ù‚Ø¨Ù„" : "before"}</p>
+          <p className="font-script text-4xl">{isArabic ? "Ø¨Ø¹Ø¯" : "after"}</p>
         </div>
 
-        {/* Controls — dir=ltr keeps arrows consistent in RTL */}
+        {/* Controls â€” dir=ltr keeps arrows consistent in RTL */}
         <div
           dir="ltr"
           className="mt-8 flex items-center justify-center gap-6 text-white relative z-10"

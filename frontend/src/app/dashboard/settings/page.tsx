@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { Save } from "lucide-react";
@@ -110,7 +110,7 @@ export default function SettingsPage() {
               rows={2}
               value={locationAr}
               onChange={(e) => setLocationAr(e.target.value)}
-              placeholder="مثال: طنطا، شارع البحر..."
+              placeholder="Ù…Ø«Ø§Ù„: Ø·Ù†Ø·Ø§ØŒ Ø´Ø§Ø±Ø¹ Ø§Ù„Ø¨Ø­Ø±..."
               className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
             />
             <p className="text-[11px] text-secondary/40">

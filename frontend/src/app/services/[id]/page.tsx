@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -67,9 +67,9 @@ export default function ServiceDetailsPage() {
               className="inline-flex items-center gap-2 text-sm text-secondary/70 hover:text-primary transition-colors mb-8"
             >
               <ArrowLeft className="w-4 h-4" />
-            {isArabic ? "العودة للخدمات" : "Back to Services"}
+            {isArabic ? "Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ø®Ø¯Ù…Ø§Øª" : "Back to Services"}
             </Link>
-            <h1 className="text-3xl font-serif text-secondary">{isArabic ? "الخدمة غير موجودة." : "Service not found."}</h1>
+            <h1 className="text-3xl font-serif text-secondary">{isArabic ? "Ø§Ù„Ø®Ø¯Ù…Ø© ØºÙŠØ± Ù…ÙˆØ¬ÙˆØ¯Ø©." : "Service not found."}</h1>
           </div>
         </main>
         <Footer />
@@ -87,7 +87,7 @@ export default function ServiceDetailsPage() {
             className="inline-flex items-center gap-2 text-sm text-secondary/70 hover:text-primary transition-colors mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
-            {isArabic ? "العودة للخدمات" : "Back to Services"}
+            {isArabic ? "Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ø®Ø¯Ù…Ø§Øª" : "Back to Services"}
           </Link>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
@@ -103,7 +103,7 @@ export default function ServiceDetailsPage() {
             </div>
 
             <div className="pt-2">
-              <p className="font-script text-primary text-3xl italic mb-3">{isArabic ? "تفاصيل الخدمة" : "service details"}</p>
+              <p className="font-script text-primary text-3xl italic mb-3">{isArabic ? "ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø®Ø¯Ù…Ø©" : "service details"}</p>
               <h1 className="text-4xl md:text-5xl font-serif text-secondary leading-tight mb-6">
                 {isArabic && service.titleAr ? service.titleAr : service.title}
               </h1>

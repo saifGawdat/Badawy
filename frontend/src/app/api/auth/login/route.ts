@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { comparePassword, signToken, setAuthCookie } from '@/lib/auth';
 import { withErrorHandler, apiError } from '@/lib/api-error';

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { withAuth } from '@/lib/auth';
 import { withErrorHandler } from '@/lib/api-error';
@@ -32,7 +32,7 @@ export const PATCH = withAuth(
     if (file) {
       const { uploadToCloudinary } = await import('@/lib/cloudinary');
       const buffer = Buffer.from(await file.arrayBuffer());
-      body.imageUrl = await uploadToCloudinary(buffer, 'Badawi_about');
+      body.imageUrl = await uploadToCloudinary(buffer, 'badawy_about');
     }
     
     const existing = await db.aboutSection.findFirst();

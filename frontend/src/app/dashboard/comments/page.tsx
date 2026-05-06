@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -233,7 +233,7 @@ export default function CommentsPage() {
                       onChange={(e) => setDescriptionAr(e.target.value)}
                       rows={4}
                       className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
-                      placeholder="ماذا قالوا؟"
+                      placeholder="Ù…Ø§Ø°Ø§ Ù‚Ø§Ù„ÙˆØ§ØŸ"
                     />
                   </div>
                   <div className="space-y-2">

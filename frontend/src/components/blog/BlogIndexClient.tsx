@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -14,21 +14,21 @@ export function BlogIndexClient({ posts }: { posts: BlogPostListItem[] }) {
     <div className="pt-28 pb-20 px-6 max-w-7xl mx-auto">
       <header className="max-w-2xl mb-16">
         <p className="text-[10px] uppercase tracking-[0.35em] text-primary mb-3">
-          {isArabic ? "المدونة" : "Journal"}
+          {isArabic ? "Ø§Ù„Ù…Ø¯ÙˆÙ†Ø©" : "Journal"}
         </p>
         <h1 className="text-4xl md:text-5xl font-serif text-secondary mb-4">
-          {isArabic ? "مقالات ورؤى" : "Articles & insights"}
+          {isArabic ? "Ù…Ù‚Ø§Ù„Ø§Øª ÙˆØ±Ø¤Ù‰" : "Articles & insights"}
         </h1>
         <p className="text-secondary/55 leading-relaxed">
           {isArabic
-            ? "نصائح ومعلومات حول العناية الجمالية والتعافي والجراحة التجميلية."
+            ? "Ù†ØµØ§Ø¦Ø­ ÙˆÙ…Ø¹Ù„ÙˆÙ…Ø§Øª Ø­ÙˆÙ„ Ø§Ù„Ø¹Ù†Ø§ÙŠØ© Ø§Ù„Ø¬Ù…Ø§Ù„ÙŠØ© ÙˆØ§Ù„ØªØ¹Ø§ÙÙŠ ÙˆØ§Ù„Ø¬Ø±Ø§Ø­Ø© Ø§Ù„ØªØ¬Ù…ÙŠÙ„ÙŠØ©."
             : "Tips and information on aesthetic care, recovery, and plastic surgery."}
         </p>
       </header>
 
       {posts.length === 0 ? (
         <p className="text-secondary/40 font-medium">
-          {isArabic ? "لا توجد مقالات بعد." : "No articles yet. Check back soon."}
+          {isArabic ? "Ù„Ø§ ØªÙˆØ¬Ø¯ Ù…Ù‚Ø§Ù„Ø§Øª Ø¨Ø¹Ø¯." : "No articles yet. Check back soon."}
         </p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -84,7 +84,7 @@ export function BlogIndexClient({ posts }: { posts: BlogPostListItem[] }) {
                     href={`/blog/${post.slug}`}
                     className="mt-5 text-sm font-medium text-primary hover:underline underline-offset-4"
                   >
-                    {isArabic ? "اقرأ المزيد" : "Read article"}
+                    {isArabic ? "Ø§Ù‚Ø±Ø£ Ø§Ù„Ù…Ø²ÙŠØ¯" : "Read article"}
                   </Link>
                 </div>
               </motion.article>

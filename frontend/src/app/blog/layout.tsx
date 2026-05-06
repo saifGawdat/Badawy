@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Navbar } from "@/components/ui/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";

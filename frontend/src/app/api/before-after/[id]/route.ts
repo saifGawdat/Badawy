@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { withAuth } from '@/lib/auth';
 import { withErrorHandler } from '@/lib/api-error';
@@ -34,13 +34,13 @@ export const PATCH = withAuth(
     const beforeFile = formData.get('beforeImage') as File | null;
     if (beforeFile) {
       const buffer = Buffer.from(await beforeFile.arrayBuffer());
-      updates.beforeImageUrl = await uploadToCloudinary(buffer, 'Badawi_before_after');
+      updates.beforeImageUrl = await uploadToCloudinary(buffer, 'badawy_before_after');
     }
 
     const afterFile = formData.get('afterImage') as File | null;
     if (afterFile) {
       const buffer = Buffer.from(await afterFile.arrayBuffer());
-      updates.afterImageUrl = await uploadToCloudinary(buffer, 'Badawi_before_after');
+      updates.afterImageUrl = await uploadToCloudinary(buffer, 'badawy_before_after');
     }
 
     const updated = await db.beforeAfter.update({

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import { Inter, Playfair_Display, Pinyon_Script, Cairo } from 'next/font/google';
 import './globals.css';
 import { Providers } from '@/components/layout/Providers';

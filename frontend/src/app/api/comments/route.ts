@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { withAuth } from '@/lib/auth';
 import { withErrorHandler, apiError } from '@/lib/api-error';
@@ -23,7 +23,7 @@ export const POST = withAuth(
       return apiError('Username, description, and profile photo are required', 400);
     }
 
-    const profilePhoto = await uploadToCloudinary(Buffer.from(await file.arrayBuffer()), 'Badawi_comments');
+    const profilePhoto = await uploadToCloudinary(Buffer.from(await file.arrayBuffer()), 'badawy_comments');
 
     const entry = await db.comment.create({
       data: { username, description, descriptionAr, profilePhoto }

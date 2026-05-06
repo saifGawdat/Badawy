@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { withAuth } from '@/lib/auth';
 import { withErrorHandler, apiError } from '@/lib/api-error';
@@ -24,8 +24,8 @@ export const POST = withAuth(
     }
 
     const [beforeUrl, afterUrl] = await Promise.all([
-      uploadToCloudinary(Buffer.from(await beforeFile.arrayBuffer()), 'Badawi_before_after'),
-      uploadToCloudinary(Buffer.from(await afterFile.arrayBuffer()), 'Badawi_before_after')
+      uploadToCloudinary(Buffer.from(await beforeFile.arrayBuffer()), 'badawy_before_after'),
+      uploadToCloudinary(Buffer.from(await afterFile.arrayBuffer()), 'badawy_before_after')
     ]);
 
     const entry = await db.beforeAfter.create({

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -233,7 +233,7 @@ export default function BeforeAfterPage() {
                       type="text"
                       value={titleAr}
                       onChange={(e) => setTitleAr(e.target.value)}
-                      placeholder="مثال: حالة تجميل أنف"
+                      placeholder="Ù…Ø«Ø§Ù„: Ø­Ø§Ù„Ø© ØªØ¬Ù…ÙŠÙ„ Ø£Ù†Ù"
                       className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
                     />
                   </div>

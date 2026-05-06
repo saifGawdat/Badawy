@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
@@ -183,7 +183,7 @@ export default function DashboardBlogPage() {
       const { data } = await api.post<{ url: string }>("/blog/upload-image", fd);
       const md = `![${file.name.replace(/\.[^.]+$/, "")}](${data.url})`;
       await navigator.clipboard.writeText(md);
-      toast.success("Markdown image copied — paste into content");
+      toast.success("Markdown image copied â€” paste into content");
     } catch (error) {
       toast.error(getErrorMessage(error, "Image upload failed"));
     } finally {
@@ -375,7 +375,7 @@ export default function DashboardBlogPage() {
                               e.target.value = "";
                             }}
                           />
-                          {inlineUploading ? "Uploading…" : "Upload inline image"}
+                          {inlineUploading ? "Uploadingâ€¦" : "Upload inline image"}
                         </label>
                       </div>
                       <textarea
@@ -409,7 +409,7 @@ export default function DashboardBlogPage() {
                         label="SEO meta title"
                         value={form.metaTitle}
                         onChange={(v) => setForm((f) => ({ ...f, metaTitle: v }))}
-                        placeholder="Optional — overrides browser title"
+                        placeholder="Optional â€” overrides browser title"
                       />
                       <div className="space-y-2 sm:col-span-2">
                         <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
@@ -424,7 +424,7 @@ export default function DashboardBlogPage() {
                               metaDescription: e.target.value,
                             }))
                           }
-                          placeholder="Search result snippet (recommended 150–160 characters)"
+                          placeholder="Search result snippet (recommended 150â€“160 characters)"
                           className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary placeholder:text-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
                         />
                       </div>
@@ -432,7 +432,7 @@ export default function DashboardBlogPage() {
 
                     <div className="space-y-2">
                       <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
-                        Featured image {editingId ? "(optional — leave empty to keep current)" : ""}
+                        Featured image {editingId ? "(optional â€” leave empty to keep current)" : ""}
                       </label>
                       <div className="relative group">
                         <input
@@ -477,7 +477,7 @@ export default function DashboardBlogPage() {
                       className="w-full bg-primary text-white py-3 rounded-xl font-medium shadow-lg shadow-primary/20 active:scale-[0.98] transition-all disabled:opacity-50"
                     >
                       {isLoading
-                        ? "Saving…"
+                        ? "Savingâ€¦"
                         : editingId
                           ? "Save changes"
                           : "Create article"}

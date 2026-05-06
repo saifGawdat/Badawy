@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -13,7 +13,7 @@ interface ServiceItem {
 }
 
 const DEFAULT_LOC_EN = "Tanta, El Bahr Street, near El-Galaa Mall";
-const DEFAULT_LOC_AR = "طنطا، شارع البحر، بجوار مول الجلاء";
+const DEFAULT_LOC_AR = "Ø·Ù†Ø·Ø§ØŒ Ø´Ø§Ø±Ø¹ Ø§Ù„Ø¨Ø­Ø±ØŒ Ø¨Ø¬ÙˆØ§Ø± Ù…ÙˆÙ„ Ø§Ù„Ø¬Ù„Ø§Ø¡";
 
 export const Footer = () => {
   const [services, setServices] = React.useState<ServiceItem[]>([]);
@@ -74,22 +74,22 @@ export const Footer = () => {
           {/* Background text */}
           <div className="absolute inset-0 grayscale opacity-10 pointer-events-none">
             <div className="text-[200px] font-script text-white whitespace-nowrap -translate-y-12">
-              {isArabic ? "تواصل" : "contact"}
+              {isArabic ? "ØªÙˆØ§ØµÙ„" : "contact"}
             </div>
           </div>
 
           {/* Left Content */}
           <div className="relative z-10 max-w-xl mx-auto lg:mx-0">
             <h2 className="text-3xl md:text-5xl font-serif text-white mb-6 leading-tight">
-              {isArabic ? "تواصل معنا الآن" : "Get In Touch"} <br />
+              {isArabic ? "ØªÙˆØ§ØµÙ„ Ù…Ø¹Ù†Ø§ Ø§Ù„Ø¢Ù†" : "Get In Touch"} <br />
               <span className="text-primary italic">
-                {isArabic ? "واحجز استشارتك" : "Book Your Consultation"}
+                {isArabic ? "ÙˆØ§Ø­Ø¬Ø² Ø§Ø³ØªØ´Ø§Ø±ØªÙƒ" : "Book Your Consultation"}
               </span>
             </h2>
 
             <p className="text-white/60 text-sm md:text-lg">
               {isArabic
-                ? "تواصل معنا مباشرة عبر الهاتف أو واتساب للحصول على استشارة سريعة ومتابعة فورية."
+                ? "ØªÙˆØ§ØµÙ„ Ù…Ø¹Ù†Ø§ Ù…Ø¨Ø§Ø´Ø±Ø© Ø¹Ø¨Ø± Ø§Ù„Ù‡Ø§ØªÙ Ø£Ùˆ ÙˆØ§ØªØ³Ø§Ø¨ Ù„Ù„Ø­ØµÙˆÙ„ Ø¹Ù„Ù‰ Ø§Ø³ØªØ´Ø§Ø±Ø© Ø³Ø±ÙŠØ¹Ø© ÙˆÙ…ØªØ§Ø¨Ø¹Ø© ÙÙˆØ±ÙŠØ©."
                 : "Reach out directly via phone or WhatsApp for quick consultation and immediate support."}
             </p>
           </div>
@@ -100,7 +100,7 @@ export const Footer = () => {
             <div className="flex items-center justify-between bg-white/10 border border-white/20 rounded-2xl px-6 py-4 backdrop-blur-md">
               <div>
                 <p className="text-white/40 text-xs uppercase tracking-widest">
-                  {isArabic ? "اتصل بنا" : "Call Us"}
+                  {isArabic ? "Ø§ØªØµÙ„ Ø¨Ù†Ø§" : "Call Us"}
                 </p>
                 <p className="text-white font-semibold text-base md:text-lg" dir="ltr">
                   {displayPhone}
@@ -111,7 +111,7 @@ export const Footer = () => {
                 href={`tel:${formatPhone(phone) || formatPhone(whatsappPhone) || formatPhone(displayPhone)}`}
                 className="bg-primary text-secondary px-4 py-2 rounded-full text-sm hover:bg-gold-light transition"
               >
-                {isArabic ? "اتصال" : "Call"}
+                {isArabic ? "Ø§ØªØµØ§Ù„" : "Call"}
               </a>
             </div>
 
@@ -131,14 +131,14 @@ export const Footer = () => {
                 target="_blank"
                 className="bg-green-500 text-white px-4 py-2 rounded-full text-sm hover:bg-green-400 transition"
               >
-                {isArabic ? "رسالة" : "Message"}
+                {isArabic ? "Ø±Ø³Ø§Ù„Ø©" : "Message"}
               </a>
             </div>
 
             {/* Location */}
             <div className="bg-white/10 border border-white/20 rounded-2xl px-6 py-4 backdrop-blur-md">
               <p className="text-white/40 text-xs uppercase tracking-widest mb-1">
-                {isArabic ? "العنوان" : "Location"}
+                {isArabic ? "Ø§Ù„Ø¹Ù†ÙˆØ§Ù†" : "Location"}
               </p>
               <p className="text-white text-sm leading-relaxed whitespace-pre-line">
                 {displayLocation}
@@ -148,11 +148,11 @@ export const Footer = () => {
             {/* Working Hours */}
             <div className="bg-white/10 border border-white/20 rounded-2xl px-6 py-4 backdrop-blur-md">
               <p className="text-white/40 text-xs uppercase tracking-widest mb-1">
-                {isArabic ? "مواعيد العمل" : "Working Hours"}
+                {isArabic ? "Ù…ÙˆØ§Ø¹ÙŠØ¯ Ø§Ù„Ø¹Ù…Ù„" : "Working Hours"}
               </p>
               <p className="text-white text-sm" dir="ltr">
                 {isArabic
-                  ? "السبت - الخميس: 10 ص - 8 م"
+                  ? "Ø§Ù„Ø³Ø¨Øª - Ø§Ù„Ø®Ù…ÙŠØ³: 10 Øµ - 8 Ù…"
                   : "Sat - Thu: 10 AM - 8 PM"}
               </p>
             </div>
@@ -173,7 +173,7 @@ export const Footer = () => {
 
             <p className="text-secondary/60 text-sm leading-relaxed max-w-xs">
               {isArabic
-                ? "نقدم إجراءات دقيقة وفعّالة تحافظ على جمالك الطبيعي."
+                ? "Ù†Ù‚Ø¯Ù… Ø¥Ø¬Ø±Ø§Ø¡Ø§Øª Ø¯Ù‚ÙŠÙ‚Ø© ÙˆÙØ¹Ù‘Ø§Ù„Ø© ØªØ­Ø§ÙØ¸ Ø¹Ù„Ù‰ Ø¬Ù…Ø§Ù„Ùƒ Ø§Ù„Ø·Ø¨ÙŠØ¹ÙŠ."
                 : "Providing subtle, effective procedures designed to preserve your natural beauty."}
             </p>
 
@@ -183,20 +183,20 @@ export const Footer = () => {
             </div>
           </div>
 
-          <FooterColumn title={isArabic ? "التنقل" : "Navigation"}>
+          <FooterColumn title={isArabic ? "Ø§Ù„ØªÙ†Ù‚Ù„" : "Navigation"}>
             <FooterLink href="#home">
-              {isArabic ? "الرئيسية" : "Home"}
+              {isArabic ? "Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©" : "Home"}
             </FooterLink>
             <FooterLink href="#services">
-              {isArabic ? "الخدمات" : "Services"}
+              {isArabic ? "Ø§Ù„Ø®Ø¯Ù…Ø§Øª" : "Services"}
             </FooterLink>
-            <FooterLink href="#about">{isArabic ? "عن" : "About"}</FooterLink>
+            <FooterLink href="#about">{isArabic ? "Ø¹Ù†" : "About"}</FooterLink>
             <FooterLink href="/blog">
-              {isArabic ? "الأخبار" : "Blog"}
+              {isArabic ? "Ø§Ù„Ø£Ø®Ø¨Ø§Ø±" : "Blog"}
             </FooterLink>
           </FooterColumn>
 
-          <FooterColumn title={isArabic ? "الخدمات" : "Services"}>
+          <FooterColumn title={isArabic ? "Ø§Ù„Ø®Ø¯Ù…Ø§Øª" : "Services"}>
             {services.slice(0, 6).map((service) => (
               <FooterLink key={service.id} href={`/services/${service.id}`}>
                 {isArabic && service.titleAr ? service.titleAr : service.title}
@@ -204,7 +204,7 @@ export const Footer = () => {
             ))}
           </FooterColumn>
 
-          <FooterColumn title={isArabic ? "التواصل" : "Contacts"}>
+          <FooterColumn title={isArabic ? "Ø§Ù„ØªÙˆØ§ØµÙ„" : "Contacts"}>
             <div className="flex flex-col items-center md:items-start">
               <p className="text-secondary/60 text-sm whitespace-pre-line">
                 {displayLocation}
@@ -220,16 +220,16 @@ export const Footer = () => {
         <div className="mt-12 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-[0.3em] text-secondary/40 font-bold">
           <p>
             {isArabic
-              ? "© 2026 جميع الحقوق محفوظة."
-              : "© 2026 All rights reserved."}
+              ? "Â© 2026 Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø­Ù‚ÙˆÙ‚ Ù…Ø­ÙÙˆØ¸Ø©."
+              : "Â© 2026 All rights reserved."}
           </p>
 
           <div className="flex space-x-8 mt-4 md:mt-0">
             <Link href="#" className="hover:text-primary">
-              {isArabic ? "سياسة الخصوصية" : "Privacy Policy"}
+              {isArabic ? "Ø³ÙŠØ§Ø³Ø© Ø§Ù„Ø®ØµÙˆØµÙŠØ©" : "Privacy Policy"}
             </Link>
             <Link href="#" className="hover:text-primary">
-              {isArabic ? "الشروط" : "Terms"}
+              {isArabic ? "Ø§Ù„Ø´Ø±ÙˆØ·" : "Terms"}
             </Link>
           </div>
         </div>

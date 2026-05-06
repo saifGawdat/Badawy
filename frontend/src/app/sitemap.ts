@@ -1,4 +1,4 @@
-import type { MetadataRoute } from "next";
+﻿import type { MetadataRoute } from "next";
 
 const getApiBase = () =>
   (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api").replace(

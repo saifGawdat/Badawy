@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { withAuth } from '@/lib/auth';
 import { withErrorHandler } from '@/lib/api-error';
@@ -33,7 +33,7 @@ export const PATCH = withAuth(
     if (file) {
       const { uploadToCloudinary } = await import('@/lib/cloudinary');
       const buffer = Buffer.from(await file.arrayBuffer());
-      updates.profilePhoto = await uploadToCloudinary(buffer, 'Badawi_comments');
+      updates.profilePhoto = await uploadToCloudinary(buffer, 'badawy_comments');
     }
 
     const updated = await db.comment.update({

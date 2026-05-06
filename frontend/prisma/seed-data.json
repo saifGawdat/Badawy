@@ -1,4 +1,4 @@
-{
+﻿{
   "users": [
     {
       "id": "cmo52gf7l0000ekvzfqgdloi8",
@@ -25,17 +25,17 @@
     {
       "id": "cmo67d89j0004ckvzlnmqyc4o",
       "title": "Forehead reduction case ",
-      "titleAr": "حالة تصغير الجبهه",
-      "beforeImageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776629556/Badawi_before_after/vku8if858yofkl7izbl1.jpg",
-      "afterImageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776629556/Badawi_before_after/oxnlmrshrvfkcvufcmk0.jpg",
+      "titleAr": "Ø­Ø§Ù„Ø© ØªØµØºÙŠØ± Ø§Ù„Ø¬Ø¨Ù‡Ù‡",
+      "beforeImageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776629556/badawy_before_after/vku8if858yofkl7izbl1.jpg",
+      "afterImageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776629556/badawy_before_after/oxnlmrshrvfkcvufcmk0.jpg",
       "createdAt": "2026-04-19T20:12:37.783Z"
     },
     {
       "id": "cmo67sh340006ckvzhfto585n",
       "title": "Arm lift case ",
-      "titleAr": "حالة شد الذراع",
-      "beforeImageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776630268/Badawi_before_after/jsfsjawqsbooey1ge0tz.jpg",
-      "afterImageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776630268/Badawi_before_after/qu05upzqmktaftkedbls.jpg",
+      "titleAr": "Ø­Ø§Ù„Ø© Ø´Ø¯ Ø§Ù„Ø°Ø±Ø§Ø¹",
+      "beforeImageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776630268/badawy_before_after/jsfsjawqsbooey1ge0tz.jpg",
+      "afterImageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776630268/badawy_before_after/qu05upzqmktaftkedbls.jpg",
       "createdAt": "2026-04-19T20:24:29.056Z"
     }
   ],
@@ -85,23 +85,23 @@
     {
       "id": "cmo66ocxp0001ckvzzz3mxqxu",
       "title": "Dr.Mostafa Badawi",
-      "titleAr": "د.مصطفي بدوي",
-      "subtitle": "Plastic Surgery Specialist\r\nMember Of The Royal College Of Surgeons (London) 🇬🇧",
-      "subtitleAr": "اخصائي جراحات التجميل \r\nزميل كلية الجراحين الملكية بانجلترا ",
+      "titleAr": "Ø¯.Ù…ØµØ·ÙÙŠ Ø¨Ø¯ÙˆÙŠ",
+      "subtitle": "Plastic Surgery Specialist\r\nMember Of The Royal College Of Surgeons (London) ðŸ‡¬ðŸ‡§",
+      "subtitleAr": "Ø§Ø®ØµØ§Ø¦ÙŠ Ø¬Ø±Ø§Ø­Ø§Øª Ø§Ù„ØªØ¬Ù…ÙŠÙ„ \r\nØ²Ù…ÙŠÙ„ ÙƒÙ„ÙŠØ© Ø§Ù„Ø¬Ø±Ø§Ø­ÙŠÙ† Ø§Ù„Ù…Ù„ÙƒÙŠØ© Ø¨Ø§Ù†Ø¬Ù„ØªØ±Ø§ ",
       "ctaText": "Read More",
-      "ctaTextAr": "اقرا المزيد",
-      "imageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776628395/Badawi_hero_slides/e8jdprynftfsekgiciea.png",
+      "ctaTextAr": "Ø§Ù‚Ø±Ø§ Ø§Ù„Ù…Ø²ÙŠØ¯",
+      "imageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776628395/badawy_hero_slides/e8jdprynftfsekgiciea.png",
       "createdAt": "2026-04-19T19:53:17.437Z"
     },
     {
       "id": "cmo66q8f80002ckvz54h8y3bb",
       "title": "Dr.Mostafa Badawi",
-      "titleAr": "د.مصطفي بدوي ",
-      "subtitle": "Plastic Surgery Specialist\r\nMember Of The Royal College Of Surgeons (London) 🇬🇧",
-      "subtitleAr": "اخصائي جراحات التجميل \r\nزميل كلية الجراحين الملكية بانجلترا ",
+      "titleAr": "Ø¯.Ù…ØµØ·ÙÙŠ Ø¨Ø¯ÙˆÙŠ ",
+      "subtitle": "Plastic Surgery Specialist\r\nMember Of The Royal College Of Surgeons (London) ðŸ‡¬ðŸ‡§",
+      "subtitleAr": "Ø§Ø®ØµØ§Ø¦ÙŠ Ø¬Ø±Ø§Ø­Ø§Øª Ø§Ù„ØªØ¬Ù…ÙŠÙ„ \r\nØ²Ù…ÙŠÙ„ ÙƒÙ„ÙŠØ© Ø§Ù„Ø¬Ø±Ø§Ø­ÙŠÙ† Ø§Ù„Ù…Ù„ÙƒÙŠØ© Ø¨Ø§Ù†Ø¬Ù„ØªØ±Ø§ ",
       "ctaText": "Read More",
-      "ctaTextAr": "اقرا المزيد",
-      "imageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776628483/Badawi_hero_slides/oaxkmoe7pbfjeszv0nam.jpg",
+      "ctaTextAr": "Ø§Ù‚Ø±Ø§ Ø§Ù„Ù…Ø²ÙŠØ¯",
+      "imageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776628483/badawy_hero_slides/oaxkmoe7pbfjeszv0nam.jpg",
       "createdAt": "2026-04-19T19:54:44.900Z"
     }
   ],
@@ -109,19 +109,19 @@
     {
       "id": "cmo673m3p0003ckvzhakekc1g",
       "title": "Forehead reduction",
-      "titleAr": "تصغير الجبهه",
-      "description": "Forehead reduction surgery, also known as hairline lowering, is a specialized cosmetic procedure designed to create a more balanced and harmonious facial appearance. This procedure involves carefully advancing the scalp forward to reduce the height of the forehead, resulting in improved facial proportions and enhanced confidence.\r\n\r\nPerformed with precision and attention to detail, forehead reduction is ideal for individuals with a naturally high hairline or those seeking a more youthful, aesthetically pleasing look. The surgery is tailored to each patient’s unique facial structure, ensuring natural-looking results with minimal visible scarring.\r\n\r\nOur approach prioritizes safety, artistry, and patient satisfaction—combining advanced surgical techniques with personalized care to achieve refined, elegant outcomes.",
-      "descriptionAr": "عملية تصغير الجبهة، والمعروفة أيضًا بخفض خط الشعر، هي إجراء تجميلي متطور يهدف إلى تحسين تناسق ملامح الوجه ومنح مظهر أكثر توازنًا وجاذبية. تعتمد هذه العملية على تحريك فروة الرأس للأمام بشكل دقيق لتقليل ارتفاع الجبهة وتحقيق تناسب أفضل بين مكونات الوجه.\r\nتُعد هذه العملية مثالية للأشخاص الذين يعانون من ارتفاع طبيعي في خط الشعر أو يرغبون في الحصول على مظهر أكثر شبابًا وجمالًا. يتم تصميم الإجراء بما يتناسب مع ملامح كل مريض لضمان نتائج طبيعية مع تقليل ظهور الندبات إلى الحد الأدنى.\r\nنحرص على تقديم أعلى معايير الأمان والدقة، مع التركيز على الجانب الجمالي لتحقيق نتائج راقية تُعزز الثقة بالنفس وتُبرز جمال الملامح بشكل طبيعي.",
-      "imageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776629108/Badawi_items/ajjwdz6n2rpqkbacyphm.jpg",
+      "titleAr": "ØªØµØºÙŠØ± Ø§Ù„Ø¬Ø¨Ù‡Ù‡",
+      "description": "Forehead reduction surgery, also known as hairline lowering, is a specialized cosmetic procedure designed to create a more balanced and harmonious facial appearance. This procedure involves carefully advancing the scalp forward to reduce the height of the forehead, resulting in improved facial proportions and enhanced confidence.\r\n\r\nPerformed with precision and attention to detail, forehead reduction is ideal for individuals with a naturally high hairline or those seeking a more youthful, aesthetically pleasing look. The surgery is tailored to each patientâ€™s unique facial structure, ensuring natural-looking results with minimal visible scarring.\r\n\r\nOur approach prioritizes safety, artistry, and patient satisfactionâ€”combining advanced surgical techniques with personalized care to achieve refined, elegant outcomes.",
+      "descriptionAr": "Ø¹Ù…Ù„ÙŠØ© ØªØµØºÙŠØ± Ø§Ù„Ø¬Ø¨Ù‡Ø©ØŒ ÙˆØ§Ù„Ù…Ø¹Ø±ÙˆÙØ© Ø£ÙŠØ¶Ù‹Ø§ Ø¨Ø®ÙØ¶ Ø®Ø· Ø§Ù„Ø´Ø¹Ø±ØŒ Ù‡ÙŠ Ø¥Ø¬Ø±Ø§Ø¡ ØªØ¬Ù…ÙŠÙ„ÙŠ Ù…ØªØ·ÙˆØ± ÙŠÙ‡Ø¯Ù Ø¥Ù„Ù‰ ØªØ­Ø³ÙŠÙ† ØªÙ†Ø§Ø³Ù‚ Ù…Ù„Ø§Ù…Ø­ Ø§Ù„ÙˆØ¬Ù‡ ÙˆÙ…Ù†Ø­ Ù…Ø¸Ù‡Ø± Ø£ÙƒØ«Ø± ØªÙˆØ§Ø²Ù†Ù‹Ø§ ÙˆØ¬Ø§Ø°Ø¨ÙŠØ©. ØªØ¹ØªÙ…Ø¯ Ù‡Ø°Ù‡ Ø§Ù„Ø¹Ù…Ù„ÙŠØ© Ø¹Ù„Ù‰ ØªØ­Ø±ÙŠÙƒ ÙØ±ÙˆØ© Ø§Ù„Ø±Ø£Ø³ Ù„Ù„Ø£Ù…Ø§Ù… Ø¨Ø´ÙƒÙ„ Ø¯Ù‚ÙŠÙ‚ Ù„ØªÙ‚Ù„ÙŠÙ„ Ø§Ø±ØªÙØ§Ø¹ Ø§Ù„Ø¬Ø¨Ù‡Ø© ÙˆØªØ­Ù‚ÙŠÙ‚ ØªÙ†Ø§Ø³Ø¨ Ø£ÙØ¶Ù„ Ø¨ÙŠÙ† Ù…ÙƒÙˆÙ†Ø§Øª Ø§Ù„ÙˆØ¬Ù‡.\r\nØªÙØ¹Ø¯ Ù‡Ø°Ù‡ Ø§Ù„Ø¹Ù…Ù„ÙŠØ© Ù…Ø«Ø§Ù„ÙŠØ© Ù„Ù„Ø£Ø´Ø®Ø§Øµ Ø§Ù„Ø°ÙŠÙ† ÙŠØ¹Ø§Ù†ÙˆÙ† Ù…Ù† Ø§Ø±ØªÙØ§Ø¹ Ø·Ø¨ÙŠØ¹ÙŠ ÙÙŠ Ø®Ø· Ø§Ù„Ø´Ø¹Ø± Ø£Ùˆ ÙŠØ±ØºØ¨ÙˆÙ† ÙÙŠ Ø§Ù„Ø­ØµÙˆÙ„ Ø¹Ù„Ù‰ Ù…Ø¸Ù‡Ø± Ø£ÙƒØ«Ø± Ø´Ø¨Ø§Ø¨Ù‹Ø§ ÙˆØ¬Ù…Ø§Ù„Ù‹Ø§. ÙŠØªÙ… ØªØµÙ…ÙŠÙ… Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡ Ø¨Ù…Ø§ ÙŠØªÙ†Ø§Ø³Ø¨ Ù…Ø¹ Ù…Ù„Ø§Ù…Ø­ ÙƒÙ„ Ù…Ø±ÙŠØ¶ Ù„Ø¶Ù…Ø§Ù† Ù†ØªØ§Ø¦Ø¬ Ø·Ø¨ÙŠØ¹ÙŠØ© Ù…Ø¹ ØªÙ‚Ù„ÙŠÙ„ Ø¸Ù‡ÙˆØ± Ø§Ù„Ù†Ø¯Ø¨Ø§Øª Ø¥Ù„Ù‰ Ø§Ù„Ø­Ø¯ Ø§Ù„Ø£Ø¯Ù†Ù‰.\r\nÙ†Ø­Ø±Øµ Ø¹Ù„Ù‰ ØªÙ‚Ø¯ÙŠÙ… Ø£Ø¹Ù„Ù‰ Ù…Ø¹Ø§ÙŠÙŠØ± Ø§Ù„Ø£Ù…Ø§Ù† ÙˆØ§Ù„Ø¯Ù‚Ø©ØŒ Ù…Ø¹ Ø§Ù„ØªØ±ÙƒÙŠØ² Ø¹Ù„Ù‰ Ø§Ù„Ø¬Ø§Ù†Ø¨ Ø§Ù„Ø¬Ù…Ø§Ù„ÙŠ Ù„ØªØ­Ù‚ÙŠÙ‚ Ù†ØªØ§Ø¦Ø¬ Ø±Ø§Ù‚ÙŠØ© ØªÙØ¹Ø²Ø² Ø§Ù„Ø«Ù‚Ø© Ø¨Ø§Ù„Ù†ÙØ³ ÙˆØªÙØ¨Ø±Ø² Ø¬Ù…Ø§Ù„ Ø§Ù„Ù…Ù„Ø§Ù…Ø­ Ø¨Ø´ÙƒÙ„ Ø·Ø¨ÙŠØ¹ÙŠ.",
+      "imageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776629108/badawy_items/ajjwdz6n2rpqkbacyphm.jpg",
       "createdAt": "2026-04-19T20:05:09.157Z"
     },
     {
       "id": "cmo67qsya0005ckvz913nzjg2",
       "title": "Arm lift ",
-      "titleAr": "شد الذراع",
-      "description": "Arm lift surgery (brachioplasty) is a cosmetic procedure designed to reshape and contour the upper arms by removing excess skin and fat. It is especially beneficial for individuals who have experienced significant weight loss or natural skin laxity due to aging, resulting in a sagging or “bat wing” appearance.\r\n\r\nDuring the procedure, excess tissue is carefully removed, and the remaining skin is tightened to create a smoother, firmer, and more toned arm contour. The technique is customized to each patient’s anatomy and goals, ensuring balanced, natural-looking results.\r\n\r\nAn arm lift can significantly enhance the overall silhouette, allowing patients to feel more confident in wearing fitted or sleeveless clothing. Our approach combines advanced surgical techniques with meticulous care to achieve safe, refined, and long-lasting outcomes.",
-      "descriptionAr": "شد الذراعين (Brachioplasty) هو إجراء تجميلي يهدف إلى تحسين شكل الذراعين من خلال إزالة الجلد والدهون الزائدة، خاصة في الجزء العلوي من الذراع. يُعد هذا الإجراء مناسبًا للأشخاص الذين فقدوا وزنًا كبيرًا أو يعانون من ترهل الجلد نتيجة التقدم في العمر، مما يؤدي إلى مظهر غير مشدود يُعرف بـ “أجنحة الخفاش”.\r\n\r\nخلال العملية، يتم إزالة الأنسجة الزائدة وشد الجلد المتبقي للحصول على مظهر أكثر نعومة وتناسقًا وشدًا. يتم تصميم الإجراء وفقًا لاحتياجات كل مريض لضمان نتائج طبيعية ومتوازنة.\r\n\r\nيساهم شد الذراعين في تحسين المظهر العام للجسم ويمنح المريض ثقة أكبر عند ارتداء الملابس الضيقة أو بدون أكمام. نحرص على استخدام أحدث التقنيات الجراحية مع أعلى معايير العناية لتحقيق نتائج آمنة ومميزة تدوم لفترة طويلة.",
-      "imageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776630190/Badawi_items/nwebrslo9cwpuev3drtx.jpg",
+      "titleAr": "Ø´Ø¯ Ø§Ù„Ø°Ø±Ø§Ø¹",
+      "description": "Arm lift surgery (brachioplasty) is a cosmetic procedure designed to reshape and contour the upper arms by removing excess skin and fat. It is especially beneficial for individuals who have experienced significant weight loss or natural skin laxity due to aging, resulting in a sagging or â€œbat wingâ€ appearance.\r\n\r\nDuring the procedure, excess tissue is carefully removed, and the remaining skin is tightened to create a smoother, firmer, and more toned arm contour. The technique is customized to each patientâ€™s anatomy and goals, ensuring balanced, natural-looking results.\r\n\r\nAn arm lift can significantly enhance the overall silhouette, allowing patients to feel more confident in wearing fitted or sleeveless clothing. Our approach combines advanced surgical techniques with meticulous care to achieve safe, refined, and long-lasting outcomes.",
+      "descriptionAr": "Ø´Ø¯ Ø§Ù„Ø°Ø±Ø§Ø¹ÙŠÙ† (Brachioplasty) Ù‡Ùˆ Ø¥Ø¬Ø±Ø§Ø¡ ØªØ¬Ù…ÙŠÙ„ÙŠ ÙŠÙ‡Ø¯Ù Ø¥Ù„Ù‰ ØªØ­Ø³ÙŠÙ† Ø´ÙƒÙ„ Ø§Ù„Ø°Ø±Ø§Ø¹ÙŠÙ† Ù…Ù† Ø®Ù„Ø§Ù„ Ø¥Ø²Ø§Ù„Ø© Ø§Ù„Ø¬Ù„Ø¯ ÙˆØ§Ù„Ø¯Ù‡ÙˆÙ† Ø§Ù„Ø²Ø§Ø¦Ø¯Ø©ØŒ Ø®Ø§ØµØ© ÙÙŠ Ø§Ù„Ø¬Ø²Ø¡ Ø§Ù„Ø¹Ù„ÙˆÙŠ Ù…Ù† Ø§Ù„Ø°Ø±Ø§Ø¹. ÙŠÙØ¹Ø¯ Ù‡Ø°Ø§ Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡ Ù…Ù†Ø§Ø³Ø¨Ù‹Ø§ Ù„Ù„Ø£Ø´Ø®Ø§Øµ Ø§Ù„Ø°ÙŠÙ† ÙÙ‚Ø¯ÙˆØ§ ÙˆØ²Ù†Ù‹Ø§ ÙƒØ¨ÙŠØ±Ù‹Ø§ Ø£Ùˆ ÙŠØ¹Ø§Ù†ÙˆÙ† Ù…Ù† ØªØ±Ù‡Ù„ Ø§Ù„Ø¬Ù„Ø¯ Ù†ØªÙŠØ¬Ø© Ø§Ù„ØªÙ‚Ø¯Ù… ÙÙŠ Ø§Ù„Ø¹Ù…Ø±ØŒ Ù…Ù…Ø§ ÙŠØ¤Ø¯ÙŠ Ø¥Ù„Ù‰ Ù…Ø¸Ù‡Ø± ØºÙŠØ± Ù…Ø´Ø¯ÙˆØ¯ ÙŠÙØ¹Ø±Ù Ø¨Ù€ â€œØ£Ø¬Ù†Ø­Ø© Ø§Ù„Ø®ÙØ§Ø´â€.\r\n\r\nØ®Ù„Ø§Ù„ Ø§Ù„Ø¹Ù…Ù„ÙŠØ©ØŒ ÙŠØªÙ… Ø¥Ø²Ø§Ù„Ø© Ø§Ù„Ø£Ù†Ø³Ø¬Ø© Ø§Ù„Ø²Ø§Ø¦Ø¯Ø© ÙˆØ´Ø¯ Ø§Ù„Ø¬Ù„Ø¯ Ø§Ù„Ù…ØªØ¨Ù‚ÙŠ Ù„Ù„Ø­ØµÙˆÙ„ Ø¹Ù„Ù‰ Ù…Ø¸Ù‡Ø± Ø£ÙƒØ«Ø± Ù†Ø¹ÙˆÙ…Ø© ÙˆØªÙ†Ø§Ø³Ù‚Ù‹Ø§ ÙˆØ´Ø¯Ù‹Ø§. ÙŠØªÙ… ØªØµÙ…ÙŠÙ… Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡ ÙˆÙÙ‚Ù‹Ø§ Ù„Ø§Ø­ØªÙŠØ§Ø¬Ø§Øª ÙƒÙ„ Ù…Ø±ÙŠØ¶ Ù„Ø¶Ù…Ø§Ù† Ù†ØªØ§Ø¦Ø¬ Ø·Ø¨ÙŠØ¹ÙŠØ© ÙˆÙ…ØªÙˆØ§Ø²Ù†Ø©.\r\n\r\nÙŠØ³Ø§Ù‡Ù… Ø´Ø¯ Ø§Ù„Ø°Ø±Ø§Ø¹ÙŠÙ† ÙÙŠ ØªØ­Ø³ÙŠÙ† Ø§Ù„Ù…Ø¸Ù‡Ø± Ø§Ù„Ø¹Ø§Ù… Ù„Ù„Ø¬Ø³Ù… ÙˆÙŠÙ…Ù†Ø­ Ø§Ù„Ù…Ø±ÙŠØ¶ Ø«Ù‚Ø© Ø£ÙƒØ¨Ø± Ø¹Ù†Ø¯ Ø§Ø±ØªØ¯Ø§Ø¡ Ø§Ù„Ù…Ù„Ø§Ø¨Ø³ Ø§Ù„Ø¶ÙŠÙ‚Ø© Ø£Ùˆ Ø¨Ø¯ÙˆÙ† Ø£ÙƒÙ…Ø§Ù…. Ù†Ø­Ø±Øµ Ø¹Ù„Ù‰ Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø£Ø­Ø¯Ø« Ø§Ù„ØªÙ‚Ù†ÙŠØ§Øª Ø§Ù„Ø¬Ø±Ø§Ø­ÙŠØ© Ù…Ø¹ Ø£Ø¹Ù„Ù‰ Ù…Ø¹Ø§ÙŠÙŠØ± Ø§Ù„Ø¹Ù†Ø§ÙŠØ© Ù„ØªØ­Ù‚ÙŠÙ‚ Ù†ØªØ§Ø¦Ø¬ Ø¢Ù…Ù†Ø© ÙˆÙ…Ù…ÙŠØ²Ø© ØªØ¯ÙˆÙ… Ù„ÙØªØ±Ø© Ø·ÙˆÙŠÙ„Ø©.",
+      "imageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776630190/badawy_items/nwebrslo9cwpuev3drtx.jpg",
       "createdAt": "2026-04-19T20:23:11.123Z"
     }
   ],
@@ -131,7 +131,7 @@
       "phone": "+201093243293",
       "whatsappPhone": "+201093243293",
       "location": "Cairo, Egypt\nTanta, Egypt",
-      "locationAr": "القاهرة, مصر\nطنطا, مصر",
+      "locationAr": "Ø§Ù„Ù‚Ø§Ù‡Ø±Ø©, Ù…ØµØ±\nØ·Ù†Ø·Ø§, Ù…ØµØ±",
       "facebookUrl": "https://www.facebook.com/dr.moustafabadawi/",
       "instagramUrl": "https://www.instagram.com/dr.moustafa_badawi",
       "updatedAt": "2026-04-19T19:38:57.884Z"
@@ -140,7 +140,7 @@
   "aboutSections": [
     {
       "id": "cmo66arfe0000ckvztd5a6rr0",
-      "imageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776627761/Badawi_about/p8iyvacsomnljojgfncg.jpg",
+      "imageUrl": "https://res.cloudinary.com/dtlowhy8f/image/upload/v1776627761/badawy_about/p8iyvacsomnljojgfncg.jpg",
       "quoteEn": "",
       "quoteAr": "",
       "drNameEn": "",

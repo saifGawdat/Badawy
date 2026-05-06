@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -137,7 +137,7 @@ export const Navbar = () => {
               aria-label={
                 language === "en" ? "Switch to Arabic" : "Switch to English"
               }
-              title={language === "en" ? "العربية" : "English"}
+              title={language === "en" ? "Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©" : "English"}
               className={cn(
                 "inline-flex items-center justify-center rounded-full p-2.5 transition-colors",
                 lightNav

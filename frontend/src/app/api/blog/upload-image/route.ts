@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { withAuth } from '@/lib/auth';
 import { withErrorHandler, apiError } from '@/lib/api-error';
 import { uploadToCloudinary } from '@/lib/cloudinary';
@@ -14,7 +14,7 @@ export const POST = withAuth(
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    const url = await uploadToCloudinary(buffer, 'Badawi_blog_inline', ["jpg", "png", "jpeg", "webp", "gif"]);
+    const url = await uploadToCloudinary(buffer, 'badawy_blog_inline', ["jpg", "png", "jpeg", "webp", "gif"]);
 
     return NextResponse.json({
       success: true,

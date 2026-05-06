@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { withAuth } from '@/lib/auth';
 import { withErrorHandler, apiError } from '@/lib/api-error';
@@ -37,7 +37,7 @@ export const POST = withAuth(
 
     // Upload to Cloudinary
     const buffer = Buffer.from(await file.arrayBuffer());
-    const imageUrl = await uploadToCloudinary(buffer, 'Badawi_items');
+    const imageUrl = await uploadToCloudinary(buffer, 'badawy_items');
 
     const item = await db.item.create({
       data: {
