@@ -101,7 +101,7 @@ export const Footer = () => {
                 <p className="text-white/40 text-xs uppercase tracking-widest">
                   {isArabic ? "اتصل بنا" : "Call Us"}
                 </p>
-                <p className="text-white font-semibold text-lg">
+                <p className="text-white font-semibold text-lg" dir="ltr">
                   {displayPhone}
                 </p>
               </div>
@@ -120,7 +120,7 @@ export const Footer = () => {
                 <p className="text-white/40 text-xs uppercase tracking-widest">
                   WhatsApp
                 </p>
-                <p className="text-white font-semibold text-lg">
+                <p className="text-white font-semibold text-lg" dir="ltr">
                   {displayWhatsapp}
                 </p>
               </div>
@@ -149,7 +149,7 @@ export const Footer = () => {
               <p className="text-white/40 text-xs uppercase tracking-widest mb-1">
                 {isArabic ? "مواعيد العمل" : "Working Hours"}
               </p>
-              <p className="text-white text-sm">
+              <p className="text-white text-sm" dir="ltr">
                 {isArabic
                   ? "السبت - الخميس: 10 ص - 8 م"
                   : "Sat - Thu: 10 AM - 8 PM"}
@@ -207,7 +207,7 @@ export const Footer = () => {
             <p className="text-secondary/60 text-sm whitespace-pre-line">
               {displayLocation}
             </p>
-            <p className="text-primary font-bold pt-2 hover:underline">
+            <p className="text-primary font-bold pt-2 hover:underline" dir="ltr">
               {displayPhone}
             </p>
           </FooterColumn>

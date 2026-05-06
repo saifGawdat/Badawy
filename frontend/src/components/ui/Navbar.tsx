@@ -157,7 +157,7 @@ export const Navbar = () => {
               )}
             >
               <Phone className="w-4 h-4 group-hover:rotate-12 transition-transform shrink-0" />
-              <span className="text-sm font-medium tracking-wide">
+              <span className="text-sm font-medium tracking-wide" dir="ltr">
                 {phoneLabel}
               </span>
             </a>
@@ -247,7 +247,7 @@ export const Navbar = () => {
           className="flex items-center space-x-4 text-secondary/60 pt-8 border-t border-secondary/5 w-64 justify-center"
         >
           <Phone className="w-5 h-5" />
-          <span className="text-lg">{phoneLabel}</span>
+          <span className="text-lg" dir="ltr">{phoneLabel}</span>
         </a>
       </div>
     </>

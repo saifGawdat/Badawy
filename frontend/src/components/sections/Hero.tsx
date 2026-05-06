@@ -5,6 +5,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Star } from "lucide-react";
 import api from "@/lib/api";
+import { cn } from "@/lib/utils";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface HeroSlide {
@@ -96,32 +97,25 @@ export const Hero = () => {
           transition={{ duration: 0.6 }}
         >
           {/* IMAGE LAYER */}
-          <motion.div
-            className="absolute inset-0"
-            initial={{ scale: 1.15 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 3, ease: "linear" }}
-          >
+          <div className="absolute inset-0">
             <Image
               src={activeSlide.imageUrl}
               alt={activeSlide.title}
               fill
               priority
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
-              className="object-cover "
+              className={cn(
+                "object-cover",
+                isArabic && "scale-x-[-1]"
+              )}
             />
 
             <div className="absolute inset-0 bg-black/55" />
-          </motion.div>
+          </div>
 
-          {/* TEXT LAYER (SYNCED WITH SAME KEY) */}
+          {/* TEXT LAYER */}
           <div className="relative z-10 max-w-7xl mx-auto px-6 h-full flex items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -70 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 70 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            >
+            <div>
               {/* STARS */}
               <div className="flex items-center gap-2 mb-6 text-white">
                 {[1, 2, 3, 4, 5].map((s) => (
@@ -144,7 +138,7 @@ export const Hero = () => {
               <button className="border border-white text-white px-8 py-3 hover:bg-white hover:text-black transition">
                 {isArabic && activeSlide.ctaTextAr ? activeSlide.ctaTextAr : activeSlide.ctaText}
               </button>
-            </motion.div>
+            </div>
           </div>
         </motion.div>
       </AnimatePresence>

@@ -245,11 +245,11 @@ const ContactInfo = ({
     <div className="min-w-0">
       <p className="text-[10px] uppercase font-bold tracking-widest text-secondary/40">{label}</p>
       {href ? (
-        <a href={href} className="text-secondary font-serif hover:text-primary transition-colors whitespace-pre-line">
+        <a href={href} className="text-secondary font-serif hover:text-primary transition-colors whitespace-pre-line" dir="ltr">
           {value}
         </a>
       ) : (
-        <p className="text-secondary font-serif whitespace-pre-line">{value}</p>
+        <p className="text-secondary font-serif whitespace-pre-line" dir="ltr">{value}</p>
       )}
     </div>
   </div>
