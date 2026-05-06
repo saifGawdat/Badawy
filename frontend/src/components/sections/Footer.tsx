@@ -69,7 +69,7 @@ export const Footer = () => {
     <footer className="bg-bone pt-24 pb-12 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         {/* Contact Section */}
-        <div className="bg-secondary rounded-[3rem] p-12 lg:p-20 relative overflow-hidden mb-24 lg:flex items-center justify-between">
+        <div className="bg-secondary rounded-[2rem] md:rounded-[3rem] p-4 md:p-20 relative overflow-hidden mb-24 lg:flex items-center justify-between text-center lg:text-start">
           {/* Background text */}
           <div className="absolute inset-0 grayscale opacity-10 pointer-events-none">
             <div className="text-[200px] font-script text-white whitespace-nowrap -translate-y-12">
@@ -78,15 +78,15 @@ export const Footer = () => {
           </div>
 
           {/* Left Content */}
-          <div className="relative z-10 max-w-xl">
-            <h2 className="text-4xl lg:text-5xl font-serif text-white mb-6 leading-tight">
+          <div className="relative z-10 max-w-xl mx-auto lg:mx-0">
+            <h2 className="text-3xl md:text-5xl font-serif text-white mb-6 leading-tight">
               {isArabic ? "تواصل معنا الآن" : "Get In Touch"} <br />
               <span className="text-primary italic">
                 {isArabic ? "واحجز استشارتك" : "Book Your Consultation"}
               </span>
             </h2>
 
-            <p className="text-white/60 text-lg">
+            <p className="text-white/60 text-sm md:text-lg">
               {isArabic
                 ? "تواصل معنا مباشرة عبر الهاتف أو واتساب للحصول على استشارة سريعة ومتابعة فورية."
                 : "Reach out directly via phone or WhatsApp for quick consultation and immediate support."}
@@ -101,7 +101,7 @@ export const Footer = () => {
                 <p className="text-white/40 text-xs uppercase tracking-widest">
                   {isArabic ? "اتصل بنا" : "Call Us"}
                 </p>
-                <p className="text-white font-semibold text-lg" dir="ltr">
+                <p className="text-white font-semibold text-base md:text-lg" dir="ltr">
                   {displayPhone}
                 </p>
               </div>
@@ -120,7 +120,7 @@ export const Footer = () => {
                 <p className="text-white/40 text-xs uppercase tracking-widest">
                   WhatsApp
                 </p>
-                <p className="text-white font-semibold text-lg" dir="ltr">
+                <p className="text-white font-semibold text-base md:text-lg" dir="ltr">
                   {displayWhatsapp}
                 </p>
               </div>

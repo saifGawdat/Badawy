@@ -8,16 +8,10 @@ const Toaster = dynamic(
   { ssr: false }
 );
 
-const VisitTracker = dynamic(
-  () => import('@/components/VisitTracker').then((mod) => mod.VisitTracker),
-  { ssr: false }
-);
-
 export function ClientLayout() {
   return (
     <>
       <Toaster position="top-right" richColors />
-      <VisitTracker />
     </>
   );
 }

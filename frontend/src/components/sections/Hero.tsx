@@ -149,7 +149,7 @@ export const Hero = () => {
           <div className="relative z-10 max-w-7xl mx-auto px-6 h-full flex items-center">
             <div>
               {/* STARS */}
-              <div className="flex items-center gap-2 mb-6 text-white">
+              <div className="hidden md:flex items-center gap-2 mb-6 text-white">
                 {[1, 2, 3, 4, 5].map((s) => (
                   <Star key={s} className="w-4 h-4 fill-[#d1f007]" />
                 ))}

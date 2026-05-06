@@ -13,7 +13,6 @@ const navItems = [
   { name: 'Settings', href: '/dashboard/settings', icon: Settings },
   { name: 'About Section', href: '/dashboard/about', icon: ImageIcon },
   { name: 'Appointments', href: '/dashboard/appointments', icon: CalendarCheck2 },
-  { name: 'Visits', href: '/dashboard/visits', icon: Globe },
   { name: 'Hero Slider', href: '/dashboard/hero', icon: SlidersHorizontal },
   { name: 'Items', href: '/dashboard/items', icon: ImageIcon },
   { name: 'Before & After', href: '/dashboard/before-after', icon: Images },

@@ -10,18 +10,12 @@ const Toaster = dynamic(
   { ssr: false }
 );
 
-const VisitTracker = dynamic(
-  () => import('@/components/VisitTracker').then((mod) => mod.VisitTracker),
-  { ssr: false }
-);
-
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <AuthProvider>
       <LanguageProvider>
         {children}
         <Toaster position="top-right" richColors />
-        <VisitTracker />
       </LanguageProvider>
     </AuthProvider>
   );
