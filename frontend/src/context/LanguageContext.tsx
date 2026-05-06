@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 
 type Language = "en" | "ar";
 
@@ -37,15 +37,33 @@ interface LanguageContextValue {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
+const subscribe = (callback: () => void) => {
+  window.addEventListener("storage", callback);
+  return () => window.removeEventListener("storage", callback);
+};
+
+const getSnapshot = () => {
+  if (typeof window === "undefined") return "en";
+  const saved = localStorage.getItem("language");
+  return saved === "ar" || saved === "en" ? (saved as Language) : "en";
+};
+
+const getServerSnapshot = () => "en" as const;
+
 export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
-  const [language, setLanguage] = useState<Language>(() => {
-    if (typeof window === "undefined") return "en";
-    const saved = localStorage.getItem("language");
-    return saved === "ar" || saved === "en" ? saved : "en";
-  });
+  const language = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setInternalLanguage] = useState<Language>("en");
+
+  // We still need a way to set the language manually
+  const setLanguage = (lang: Language) => {
+    localStorage.setItem("language", lang);
+    setInternalLanguage(lang); // Trigger re-render
+    // Dispatch a storage event so useSyncExternalStore updates in this window
+    window.dispatchEvent(new Event("storage"));
+  };
 
   useEffect(() => {
-    localStorage.setItem("language", language);
     document.documentElement.lang = language;
     document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
   }, [language]);
@@ -65,7 +83,7 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
       language,
       isArabic: language === "ar",
       setLanguage,
-      toggleLanguage: () => setLanguage((prev) => (prev === "en" ? "ar" : "en")),
+      toggleLanguage: () => setLanguage(language === "en" ? "ar" : "en"),
       t,
     };
   }, [language]);

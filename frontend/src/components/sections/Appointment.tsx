@@ -108,7 +108,7 @@ export const Appointment = () => {
         >
           <div className="relative aspect-square w-full max-w-sm mx-auto lg:mx-0 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-bone">
              <Image 
-                src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=1974&auto=format&fit=crop" 
+                src="/Gemini_Generated_Image_jvtzrbjvtzrbjvtz.png" 
                 alt="Clinic Interior" 
                 fill 
                 className="object-cover"
