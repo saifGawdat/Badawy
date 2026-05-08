@@ -1,36 +1,37 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { BlogIndexClient } from "@/components/blog/BlogIndexClient";
 import { fetchPublishedBlogPosts } from "@/lib/blog-server";
+import { buildMetadata, buildBreadcrumbJsonLd, SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/seo";
 
 export const dynamic = 'force-dynamic';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-
-export const metadata: Metadata = {
-  title: "Blog | Dr. Mostafa Badawi",
+export const metadata: Metadata = buildMetadata({
+  title: "مدونة التجميل | د. مصطفى بدوي",
+  titleAr: "مدونة التجميل | د. مصطفى بدوي",
   description:
     "Articles and insights on plastic surgery, recovery, and aesthetic care from Dr. Mostafa Badawi.",
-  openGraph: {
-    title: "Blog | Dr. Mostafa Badawi",
-    description:
-      "Articles and insights on plastic surgery, recovery, and aesthetic care.",
-    url: `${siteUrl}/blog`,
-    type: "website",
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Blog | Dr. Mostafa Badawi",
-    description:
-      "Articles and insights on plastic surgery, recovery, and aesthetic care.",
-  },
-  alternates: {
-    canonical: `${siteUrl}/blog`,
-  },
-};
+  descriptionAr:
+    "مقالات ونصائح حول جراحة التجميل والتعافي والعناية بالمظهر — بقلم د. مصطفى بدوي.",
+  canonical: `${SITE_URL}/blog`,
+  image: DEFAULT_OG_IMAGE,
+});
 
 export default async function BlogPage() {
   const posts = await fetchPublishedBlogPosts();
-  return <BlogIndexClient posts={posts} />;
+
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Home", nameAr: "الرئيسية", url: SITE_URL },
+    { name: "Blog", nameAr: "المدونة", url: `${SITE_URL}/blog` },
+  ]);
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <BlogIndexClient posts={posts} />
+    </>
+  );
 }
 

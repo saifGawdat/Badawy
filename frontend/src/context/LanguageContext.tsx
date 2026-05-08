@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { createContext, useContext, useEffect, useMemo, useState, useSyncExternalStore } from "react";
 
@@ -17,12 +17,12 @@ const dictionary = {
   },
   ar: {
     nav: {
-      home: "Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©",
-      about: "Ù…Ù† Ù†Ø­Ù†",
-      services: "Ø§Ù„Ø®Ø¯Ù…Ø§Øª",
-      blog: "Ø§Ù„Ù…Ø¯ÙˆÙ†Ø©",
-      contacts: "Ø§Ù„ØªÙˆØ§ØµÙ„",
-      bookNow: "Ø§Ø­Ø¬Ø² Ø§Ù„Ø¢Ù†",
+      home: "الرئيسية",
+      about: "من نحن",
+      services: "الخدمات",
+      blog: "المدونة",
+      contacts: "التواصل",
+      bookNow: "احجز الآن",
     },
   },
 } as const;

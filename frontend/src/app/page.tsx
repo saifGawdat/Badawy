@@ -1,32 +1,28 @@
-﻿"use client";
+import type { Metadata } from 'next';
+import { HomeClient } from '@/components/sections/HomeClient';
+import { buildMetadata, buildDoctorJsonLd, SITE_URL } from '@/lib/seo';
 
-import React from 'react';
-import { Navbar } from '@/components/ui/Navbar';
-import { Hero } from '@/components/sections/Hero';
-import { Services } from '@/components/sections/Services';
-import { About } from '@/components/sections/About';
-import { Appointment } from '@/components/sections/Appointment';
-import { Footer } from '@/components/sections/Footer';
-import { Testimonials } from '@/components/sections/Testimonials';
-import { BeforeAfter } from '@/components/sections/BeforeAfter';
-import { SignatureMarquee } from '@/components/sections/SignatureMarquee';
-import { WhatsAppButton } from '@/components/ui/WhatsAppButton';
+export const metadata: Metadata = buildMetadata({
+  title: 'د. مصطفى بدوي | أفضل جراح تجميل',
+  titleAr: 'د. مصطفى بدوي | أفضل جراح تجميل',
+  description:
+    'Dr. Mostafa Badawi — Premium plastic & aesthetic surgery. Rhinoplasty, facelift, liposuction & more.',
+  descriptionAr:
+    'د. مصطفى بدوي — جراح تجميل متخصص في عمليات الأنف، شد الوجه، شفط الدهون وغيرها. احجز استشارتك الآن.',
+  canonical: SITE_URL,
+  image: `${SITE_URL}/og-default.jpg`,
+});
 
 export default function LandingPage() {
+  const jsonLd = buildDoctorJsonLd();
+
   return (
-    <div className="bg-white">
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <SignatureMarquee />
-        <Services />
-        <Testimonials />
-        <Appointment />
-        <BeforeAfter />
-      </main>
-      <Footer />
-      <WhatsAppButton />
-    </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <HomeClient />
+    </>
   );
 }

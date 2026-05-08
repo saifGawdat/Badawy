@@ -1,4 +1,5 @@
-﻿import type { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/seo";
 
 const getApiBase = () =>
   (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api").replace(
@@ -7,10 +8,7 @@ const getApiBase = () =>
   );
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(
-    /\/$/,
-    ""
-  );
+  const base = SITE_URL;
 
   const entries: MetadataRoute.Sitemap = [
     {
@@ -27,6 +25,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
+  // Dynamic blog posts
   try {
     const res = await fetch(`${getApiBase()}/blog/sitemap-data`, {
       next: { revalidate: 300 },
@@ -46,5 +45,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     /* ignore */
   }
 
+  // Dynamic service pages
+  try {
+    const res = await fetch(`${getApiBase()}/items`, {
+      next: { revalidate: 300 },
+    });
+    if (res.ok) {
+      const services: { id: string; updatedAt?: string }[] = await res.json();
+      for (const s of services) {
+        entries.push({
+          url: `${base}/services/${s.id}`,
+          lastModified: s.updatedAt ? new Date(s.updatedAt) : new Date(),
+          changeFrequency: "monthly",
+          priority: 0.8,
+        });
+      }
+    }
+  } catch {
+    /* ignore */
+  }
+
   return entries;
 }
+

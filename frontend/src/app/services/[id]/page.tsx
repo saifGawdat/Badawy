@@ -1,121 +1,73 @@
-﻿"use client";
+import type { Metadata } from "next";
+import { buildMetadata, buildServiceJsonLd, buildBreadcrumbJsonLd, SITE_URL } from "@/lib/seo";
+import { ServiceDetailsClient } from "./ServiceDetailsClient";
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
-import { Navbar } from "@/components/ui/Navbar";
-import { Footer } from "@/components/sections/Footer";
-import api from "@/lib/api";
-import { useLanguage } from "@/context/LanguageContext";
+type Props = { params: Promise<{ id: string }> };
 
-interface ServiceItem {
-  id: string;
-  title: string;
-  titleAr?: string;
-  description: string;
-  descriptionAr?: string;
-  imageUrl: string;
+async function fetchService(id: string) {
+  try {
+    const apiBase = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api").replace(/\/$/, "");
+    const res = await fetch(`${apiBase}/items/${id}`, { next: { revalidate: 60 } });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
 }
 
-export default function ServiceDetailsPage() {
-  const { isArabic } = useLanguage();
-  const params = useParams<{ id: string }>();
-  const [service, setService] = useState<ServiceItem | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchService = async () => {
-      try {
-        if (!params?.id) {
-          setIsLoading(false);
-          return;
-        }
-        const { data } = await api.get(`/items/${params.id}`);
-        setService(data);
-      } catch {
-        setService(null);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchService();
-  }, [params?.id]);
-
-  if (isLoading) {
-    return (
-      <div className="bg-white min-h-screen">
-        <Navbar />
-        <main className="pt-28 pb-20">
-          <div className="max-w-6xl mx-auto px-6 text-secondary/70">Loading service details...</div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  const service = await fetchService(id);
 
   if (!service) {
-    return (
-      <div className="bg-white min-h-screen">
-        <Navbar />
-        <main className="pt-28 pb-20">
-          <div className="max-w-6xl mx-auto px-6">
-            <Link
-              href="/#services"
-              className="inline-flex items-center gap-2 text-sm text-secondary/70 hover:text-primary transition-colors mb-8"
-            >
-              <ArrowLeft className="w-4 h-4" />
-            {isArabic ? "Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ø®Ø¯Ù…Ø§Øª" : "Back to Services"}
-            </Link>
-            <h1 className="text-3xl font-serif text-secondary">{isArabic ? "Ø§Ù„Ø®Ø¯Ù…Ø© ØºÙŠØ± Ù…ÙˆØ¬ÙˆØ¯Ø©." : "Service not found."}</h1>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
+    return buildMetadata({
+      title: "خدمة التجميل | د. مصطفى بدوي",
+      description: "تفاصيل خدمات الجراحة التجميلية لدى د. مصطفى بدوي.",
+      canonical: `${SITE_URL}/services/${id}`,
+    });
   }
 
+  return buildMetadata({
+    title: service.title,
+    titleAr: service.titleAr || service.title,
+    description: service.description,
+    descriptionAr: service.descriptionAr || service.description,
+    canonical: `${SITE_URL}/services/${id}`,
+    image: service.imageUrl,
+  });
+}
+
+export default async function ServiceDetailsPage({ params }: Props) {
+  const { id } = await params;
+  const service = await fetchService(id);
+
+  const serviceJsonLd = service
+    ? buildServiceJsonLd({ ...service, id })
+    : null;
+
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Home", nameAr: "الرئيسية", url: SITE_URL },
+    { name: "Services", nameAr: "الخدمات", url: `${SITE_URL}/#services` },
+    {
+      name: service?.title || "Service",
+      nameAr: service?.titleAr,
+      url: `${SITE_URL}/services/${id}`,
+    },
+  ]);
+
   return (
-    <div className="bg-white min-h-screen">
-      <Navbar />
-      <main className="pt-28 pb-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <Link
-            href="/#services"
-            className="inline-flex items-center gap-2 text-sm text-secondary/70 hover:text-primary transition-colors mb-8"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            {isArabic ? "Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ø®Ø¯Ù…Ø§Øª" : "Back to Services"}
-          </Link>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-            <div className="relative w-full aspect-4/5 rounded-3xl overflow-hidden shadow-xl">
-              <Image
-                src={service.imageUrl}
-                alt={service.title}
-                fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover"
-                priority
-              />
-            </div>
-
-            <div className="pt-2">
-              <p className="font-script text-primary text-3xl italic mb-3">{isArabic ? "ØªÙØ§ØµÙŠÙ„ Ø§Ù„Ø®Ø¯Ù…Ø©" : "service details"}</p>
-              <h1 className="text-4xl md:text-5xl font-serif text-secondary leading-tight mb-6">
-                {isArabic && service.titleAr ? service.titleAr : service.title}
-              </h1>
-              <div className="w-16 h-[2px] bg-primary mb-6" />
-              <p className="text-secondary/80 text-lg leading-relaxed">
-                {isArabic && service.descriptionAr ? service.descriptionAr : service.description}
-              </p>
-            </div>
-          </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+    <>
+      {serviceJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+        />
+      )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <ServiceDetailsClient id={id} initialService={service} />
+    </>
   );
 }

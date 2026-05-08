@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -10,7 +10,7 @@ import { toast } from 'sonner';
 import { useLanguage } from '@/context/LanguageContext';
 
 const DEFAULT_LOC_EN = 'Tanta, El Bahr Street, near El-Galaa Mall';
-const DEFAULT_LOC_AR = 'Ø·Ù†Ø·Ø§ØŒ Ø´Ø§Ø±Ø¹ Ø§Ù„Ø¨Ø­Ø±ØŒ Ø¨Ø¬ÙˆØ§Ø± Ù…ÙˆÙ„ Ø§Ù„Ø¬Ù„Ø§Ø¡';
+const DEFAULT_LOC_AR = 'طنطا، شارع البحر، بجوار مول الجلاء';
 
 function digitsOnly(num: string) {
   return num.replace(/\D/g, '');
@@ -80,7 +80,7 @@ export const Appointment = () => {
     setIsSubmitting(true);
     try {
       await api.post('/appointments', formData);
-      toast.success(isArabic ? 'ØªÙ… Ø¥Ø±Ø³Ø§Ù„ Ø·Ù„Ø¨ Ø§Ù„Ù…ÙˆØ¹Ø¯ Ø¨Ù†Ø¬Ø§Ø­' : 'Appointment request sent successfully');
+      toast.success(isArabic ? 'تم إرسال طلب الموعد بنجاح' : 'Appointment request sent successfully');
       setFormData({
         fullName: '',
         email: '',
@@ -89,7 +89,7 @@ export const Appointment = () => {
         message: '',
       });
     } catch {
-      toast.error(isArabic ? 'ÙØ´Ù„ Ø¥Ø±Ø³Ø§Ù„ Ø§Ù„Ø·Ù„Ø¨' : 'Failed to send appointment request');
+      toast.error(isArabic ? 'فشل إرسال الطلب' : 'Failed to send appointment request');
     } finally {
       setIsSubmitting(false);
     }
@@ -117,26 +117,26 @@ export const Appointment = () => {
           
           <div className="space-y-6">
             <h2 className="text-4xl font-serif text-secondary">
-              {isArabic ? 'Ø§Ø­Ø¬Ø²ÙŠ Ù…ÙˆØ¹Ø¯Ø§Ù‹' : 'Make an Appointment'}
+              {isArabic ? 'احجزي موعداً' : 'Make an Appointment'}
             </h2>
             <p className="text-secondary/60 max-w-md">
               {isArabic
-                ? 'Ø¬Ø§Ù‡Ø²Ø© Ù„Ø¨Ø¯Ø¡ Ø±Ø­Ù„ØªÙƒØŸ Ø§Ø­Ø¬Ø²ÙŠ Ø§Ø³ØªØ´Ø§Ø±Ø© Ø®Ø§ØµØ© Ù…Ø¹ Ø¯. Ø¨Ø¯ÙˆÙŠ Ù„Ù…Ù†Ø§Ù‚Ø´Ø© Ø®Ø·Ø© Ø¹Ù„Ø§Ø¬Ùƒ Ø§Ù„Ù…Ù†Ø§Ø³Ø¨Ø©.'
+                ? 'جاهزة لبدء رحلتك؟ احجزي استشارة خاصة مع د. بدوي لمناقشة خطة علاجك المناسبة.'
                 : 'Ready to begin your transformation? Schedule a private consultation with Dr. Badawi to discuss your personalized treatment plan.'}
             </p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 justify-items-center lg:justify-items-start">
               <ContactInfo
                 icon={Phone}
-                label={isArabic ? 'Ø§ØªØµÙ„ÙŠ Ø¨Ù†Ø§' : 'Call Us'}
+                label={isArabic ? 'اتصلي بنا' : 'Call Us'}
                 value={phoneDisplay}
                 href={phoneTel ? `tel:${phoneTel}` : undefined}
               />
-              <ContactInfo icon={Mail} label={isArabic ? 'Ø±Ø§Ø³Ù„ÙŠÙ†Ø§' : 'Email Us'} value="info@drbadawi.com" href="mailto:info@drbadawi.com" />
-              <ContactInfo icon={Calendar} label={isArabic ? 'Ø§Ù„Ù…ÙˆØ§Ø¹ÙŠØ¯' : 'Hours'} value={isArabic ? 'Ø§Ù„Ø¥Ø«Ù†ÙŠÙ†-Ø§Ù„Ø³Ø¨Øª: 09:00 - 18:00' : 'Mon-Sat: 09:00 - 18:00'} />
+              <ContactInfo icon={Mail} label={isArabic ? 'راسلينا' : 'Email Us'} value="info@drbadawi.com" href="mailto:info@drbadawi.com" />
+              <ContactInfo icon={Calendar} label={isArabic ? 'المواعيد' : 'Hours'} value={isArabic ? 'الإثنين-السبت: 09:00 - 18:00' : 'Mon-Sat: 09:00 - 18:00'} />
               <ContactInfo
                 icon={MapPin}
-                label={isArabic ? 'Ø§Ù„Ù…ÙˆÙ‚Ø¹' : 'Location'}
+                label={isArabic ? 'الموقع' : 'Location'}
                 value={locationDisplay}
               />
             </div>
@@ -154,13 +154,13 @@ export const Appointment = () => {
             <form onSubmit={handleSubmit} className="space-y-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <FormInput
-                  label={isArabic ? 'Ø§Ù„Ø§Ø³Ù… Ø§Ù„ÙƒØ§Ù…Ù„' : 'Full Name'}
+                  label={isArabic ? 'الاسم الكامل' : 'Full Name'}
                   value={formData.fullName}
                   onChange={(value) => onChange('fullName', value)}
-                  placeholder={isArabic ? 'Ø§Ø³Ù…Ùƒ' : 'Your name'}
+                  placeholder={isArabic ? 'اسمك' : 'Your name'}
                 />
                 <FormInput
-                  label={isArabic ? 'Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ' : 'Email Address'}
+                  label={isArabic ? 'البريد الإلكتروني' : 'Email Address'}
                   type="email"
                   value={formData.email}
                   onChange={(value) => onChange('email', value)}
@@ -170,7 +170,7 @@ export const Appointment = () => {
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <FormInput
-                  label={isArabic ? 'Ø±Ù‚Ù… Ø§Ù„Ù‡Ø§ØªÙ' : 'Phone Number'}
+                  label={isArabic ? 'رقم الهاتف' : 'Phone Number'}
                   type="tel"
                   value={formData.phone}
                   onChange={(value) => onChange('phone', value)}
@@ -178,7 +178,7 @@ export const Appointment = () => {
                 />
                 <div className="space-y-2">
                   <label className="text-[10px] uppercase font-bold tracking-widest text-secondary/40 ml-1">
-                    {isArabic ? 'Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡ Ø§Ù„Ù…Ø·Ù„ÙˆØ¨' : 'Preferred Procedure'}
+                    {isArabic ? 'الإجراء المطلوب' : 'Preferred Procedure'}
                   </label>
                   <select
                     required
@@ -186,9 +186,9 @@ export const Appointment = () => {
                     onChange={(e) => onChange('procedure', e.target.value)}
                     className="w-full bg-white border-b border-secondary/10 py-4 focus:outline-none focus:border-primary transition-colors text-secondary appearance-none cursor-pointer"
                   >
-                    <option value="">{isArabic ? 'Ø§Ø®ØªØ§Ø±ÙŠ Ø§Ù„Ø¥Ø¬Ø±Ø§Ø¡' : 'Select Procedure'}</option>
+                    <option value="">{isArabic ? 'اختاري الإجراء' : 'Select Procedure'}</option>
                     <option value="Consultation">
-                      {isArabic ? 'Ø§Ø³ØªØ´Ø§Ø±Ø© Ø¹Ø§Ù…Ø©' : 'General Consultation'}
+                      {isArabic ? 'استشارة عامة' : 'General Consultation'}
                     </option>
                     {services.map((service) => (
                       <option key={service.id} value={service.title}>
@@ -201,13 +201,13 @@ export const Appointment = () => {
 
               <div className="space-y-2">
                 <label className="text-[10px] uppercase font-bold tracking-widest text-secondary/40 ml-1">
-                  {isArabic ? 'Ø±Ø³Ø§Ù„Ø© (Ø§Ø®ØªÙŠØ§Ø±ÙŠ)' : 'Message (Optional)'}
+                  {isArabic ? 'رسالة (اختياري)' : 'Message (Optional)'}
                 </label>
                 <textarea 
                   rows={4}
                   value={formData.message}
                   onChange={(e) => onChange('message', e.target.value)}
-                  placeholder={isArabic ? 'Ø£Ø®Ø¨Ø±ÙŠÙ†Ø§ Ø¹Ù† Ø£Ù‡Ø¯Ø§ÙÙƒ...' : 'Tell us about your goals...'}
+                  placeholder={isArabic ? 'أخبرينا عن أهدافك...' : 'Tell us about your goals...'}
                   className="w-full bg-white border-b border-secondary/10 py-4 focus:outline-none focus:border-primary transition-colors resize-none text-secondary"
                 />
               </div>
@@ -217,7 +217,7 @@ export const Appointment = () => {
                 disabled={isSubmitting}
                 className="w-full bg-secondary text-white py-5 rounded-full font-bold uppercase tracking-[0.2em] text-sm hover:bg-secondary/90 transition-all shadow-xl shadow-secondary/20 disabled:opacity-50"
               >
-                {isSubmitting ? (isArabic ? 'Ø¬Ø§Ø±Ù Ø§Ù„Ø¥Ø±Ø³Ø§Ù„...' : 'Sending...') : (isArabic ? 'Ø¥Ø±Ø³Ø§Ù„ Ø§Ù„Ø·Ù„Ø¨' : 'Send Request')}
+                {isSubmitting ? (isArabic ? 'جارٍ الإرسال...' : 'Sending...') : (isArabic ? 'إرسال الطلب' : 'Send Request')}
               </button>
             </form>
           </GlassCard>

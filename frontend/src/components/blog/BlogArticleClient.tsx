@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -22,7 +22,7 @@ export function BlogArticleClient({ post }: { post: BlogPostPublic }) {
         className="inline-flex items-center gap-2 text-sm text-secondary/50 hover:text-primary transition-colors mb-10"
       >
         <ArrowLeft className="w-4 h-4" />
-        {isArabic ? "Ø§Ù„Ø¹ÙˆØ¯Ø© Ù„Ù„Ù…Ø¯ÙˆÙ†Ø©" : "Back to blog"}
+        {isArabic ? "العودة للمدونة" : "Back to blog"}
       </Link>
 
       <header className="mb-10">
@@ -38,7 +38,7 @@ export function BlogArticleClient({ post }: { post: BlogPostPublic }) {
           {post.readingTimeMinutes ? (
             <span className="inline-flex items-center gap-1">
               <Clock className="w-3.5 h-3.5" />
-              {post.readingTimeMinutes} {isArabic ? "Ø¯Ù‚ÙŠÙ‚Ø© Ù‚Ø±Ø§Ø¡Ø©" : "min read"}
+              {post.readingTimeMinutes} {isArabic ? "دقيقة قراءة" : "min read"}
             </span>
           ) : null}
         </div>

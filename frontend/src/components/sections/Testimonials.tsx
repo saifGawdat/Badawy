@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -59,7 +59,7 @@ export const Testimonials = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-14">
           <h2 className="text-3xl md:text-5xl font-serif tracking-tight text-secondary">
-            {isArabic ? 'Ù…Ø§Ø°Ø§ ÙŠÙ‚ÙˆÙ„ Ù…Ø±Ø¶Ø§Ù†Ø§' : 'What our Patients Say'}
+            {isArabic ? 'ماذا يقول مرضانا' : 'What our Patients Say'}
           </h2>
         </div>
 
@@ -98,7 +98,7 @@ export const Testimonials = () => {
                     </div>
                     <div>
                       <h4 className="text-lg text-secondary">{comment.username}</h4>
-                      <p className="text-secondary/35 text-xs">{isArabic ? 'Ù…Ø±ÙŠØ¶' : 'Patient'}</p>
+                      <p className="text-secondary/35 text-xs">{isArabic ? 'مريض' : 'Patient'}</p>
                     </div>
                   </div>
                 </article>

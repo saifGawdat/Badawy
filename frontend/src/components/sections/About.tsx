@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -44,14 +44,14 @@ export const About = () => {
   const content = {
     image: aboutData?.imageUrl || "https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1964&auto=format&fit=crop",
     quote: isArabic 
-      ? (aboutData?.quoteAr || 'Â«Ø§Ù„Ø¬Ù…Ø§Ù„ ÙŠØ¨Ø¯Ø£ Ø¹Ù†Ø¯Ù…Ø§ ØªÙ„ØªÙ‚ÙŠ Ø§Ù„Ø«Ù‚Ø© Ø¨Ø¯Ù‚Ø© Ø§Ù„Ø£ÙŠØ¯ÙŠ Ø§Ù„Ù…Ø§Ù‡Ø±Ø©. Ù‡Ø¯ÙÙ†Ø§ Ù„ÙŠØ³ Ù…Ø¬Ø±Ø¯ ØªØºÙŠÙŠØ± Ø´ÙƒÙ„ÙŠØŒ Ø¨Ù„ ØªØ­ÙˆÙ„ Ø·Ø¨ÙŠØ¹ÙŠ ÙŠØ¨Ø±Ø² Ø¬Ù…Ø§Ù„Ùƒ Ø§Ù„Ø­Ù‚ÙŠÙ‚ÙŠ.Â»')
-      : (aboutData?.quoteEn || 'Â«Beauty begins when confidence meets the precision of skilled hands. Our goal is not just an aesthetic change, but a natural transformation that celebrates you.Â»'),
-    drName: isArabic ? (aboutData?.drNameAr || 'Ø¯. Ù…ØµØ·ÙÙ‰ Ø¨Ø¯ÙˆÙŠ') : (aboutData?.drNameEn || 'Dr. Mostafa Badawi'),
-    drTitle: isArabic ? (aboutData?.drTitleAr || 'Ø¬Ø±Ø§Ø­ ØªØ¬Ù…ÙŠÙ„ Ù…Ø¤Ø³Ø³') : (aboutData?.drTitleEn || 'Founding Plastic Surgeon'),
+      ? (aboutData?.quoteAr || '«الجمال يبدأ عندما تلتقي الثقة بدقة الأيدي الماهرة. هدفنا ليس مجرد تغيير شكلي، بل تحول طبيعي يبرز جمالك الحقيقي.»')
+      : (aboutData?.quoteEn || '«Beauty begins when confidence meets the precision of skilled hands. Our goal is not just an aesthetic change, but a natural transformation that celebrates you.»'),
+    drName: isArabic ? (aboutData?.drNameAr || 'د. مصطفى بدوي') : (aboutData?.drNameEn || 'Dr. Mostafa Badawi'),
+    drTitle: isArabic ? (aboutData?.drTitleAr || 'جراح تجميل مؤسس') : (aboutData?.drTitleEn || 'Founding Plastic Surgeon'),
     stat1Value: aboutData?.stat1Value || "95%",
-    stat1Label: isArabic ? (aboutData?.stat1LabelAr || 'ØªØ¹Ø§ÙÙ Ø³Ù„Ø³ ÙˆÙ†ØªØ§Ø¦Ø¬ Ø·Ø¨ÙŠØ¹ÙŠØ©') : (aboutData?.stat1LabelEn || 'Smooth recovery and natural results'),
+    stat1Label: isArabic ? (aboutData?.stat1LabelAr || 'تعافٍ سلس ونتائج طبيعية') : (aboutData?.stat1LabelEn || 'Smooth recovery and natural results'),
     stat2Value: aboutData?.stat2Value || "15k+",
-    stat2Label: isArabic ? (aboutData?.stat2LabelAr || 'Ù…Ø±Ø¶Ù‰ Ø±Ø§Ø¶ÙˆÙ† Ø­ÙˆÙ„ Ø§Ù„Ø¹Ø§Ù„Ù…') : (aboutData?.stat2LabelEn || 'Satisfied patients worldwide'),
+    stat2Label: isArabic ? (aboutData?.stat2LabelAr || 'مرضى راضون حول العالم') : (aboutData?.stat2LabelEn || 'Satisfied patients worldwide'),
   };
 
   return (

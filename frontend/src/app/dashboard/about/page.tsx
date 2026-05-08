@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -139,7 +139,7 @@ export default function AboutManagementPage() {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-[10px] uppercase tracking-widest text-secondary/60 text-right block">Ø§Ù„Ø¥Ø³Ù… (AR)</label>
+                <label className="text-[10px] uppercase tracking-widest text-secondary/60 text-right block">الإسم (AR)</label>
                 <input
                   type="text"
                   dir="rtl"
@@ -163,7 +163,7 @@ export default function AboutManagementPage() {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-[10px] uppercase tracking-widest text-secondary/60 text-right block">Ø§Ù„Ù…Ø³Ù…Ù‰ Ø§Ù„ÙˆØ¸ÙŠÙÙŠ (AR)</label>
+                <label className="text-[10px] uppercase tracking-widest text-secondary/60 text-right block">المسمى الوظيفي (AR)</label>
                 <input
                   type="text"
                   dir="rtl"
@@ -187,7 +187,7 @@ export default function AboutManagementPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] uppercase tracking-widest text-secondary/60 text-right block">Ø§Ù„Ø¥Ù‚ØªØ¨Ø§Ø³ (AR)</label>
+              <label className="text-[10px] uppercase tracking-widest text-secondary/60 text-right block">الإقتباس (AR)</label>
               <textarea
                 name="quoteAr"
                 dir="rtl"

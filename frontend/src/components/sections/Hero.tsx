@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -32,21 +32,21 @@ const mobileSlides: HeroSlide[] = [
   {
     id: "mobile-1",
     title: "Surgery Refined by Professionals",
-    titleAr: "Ø¬Ø±Ø§Ø­Ø© Ù…ØªÙ‚Ù†Ø© Ø¨Ø£ÙŠØ¯ÙŠ Ù…Ø­ØªØ±ÙÙŠÙ†",
+    titleAr: "جراحة متقنة بأيدي محترفين",
     subtitle: "Enhance your confidence restore your youth and elevate your everyday.",
-    subtitleAr: "Ø¹Ø²Ø²ÙŠ Ø«Ù‚ØªÙƒ ÙˆØ§Ø³ØªØ¹ÙŠØ¯ÙŠ Ø´Ø¨Ø§Ø¨Ùƒ ÙˆØ§Ø±ØªÙ‚ÙŠ Ø¨Ø¥Ø·Ù„Ø§Ù„ØªÙƒ Ø§Ù„ÙŠÙˆÙ…ÙŠØ©.",
+    subtitleAr: "عززي ثقتك واستعيدي شبابك وارتقي بإطلالتك اليومية.",
     ctaText: "Read More",
-    ctaTextAr: "Ø§Ù‚Ø±Ø¦ÙŠ Ø§Ù„Ù…Ø²ÙŠØ¯",
+    ctaTextAr: "اقرئي المزيد",
     imageUrl: "/soraBelTool.jpg",
   },
   {
     id: "mobile-3",
     title: "Surgery Refined by Professionals",
-    titleAr: "Ø¬Ø±Ø§Ø­Ø© Ù…ØªÙ‚Ù†Ø© Ø¨Ø£ÙŠØ¯ÙŠ Ù…Ø­ØªØ±ÙÙŠÙ†",
+    titleAr: "جراحة متقنة بأيدي محترفين",
     subtitle: "Enhance your confidence restore your youth and elevate your everyday.",
-    subtitleAr: "Ø¹Ø²Ø²ÙŠ Ø«Ù‚ØªÙƒ ÙˆØ§Ø³ØªØ¹ÙŠØ¯ÙŠ Ø´Ø¨Ø§Ø¨Ùƒ ÙˆØ§Ø±ØªÙ‚ÙŠ Ø¨Ø¥Ø·Ù„Ø§Ù„ØªÙƒ Ø§Ù„ÙŠÙˆÙ…ÙŠØ©.",
+    subtitleAr: "عززي ثقتك واستعيدي شبابك وارتقي بإطلالتك اليومية.",
     ctaText: "Read More",
-    ctaTextAr: "Ø§Ù‚Ø±Ø¦ÙŠ Ø§Ù„Ù…Ø²ÙŠØ¯",
+    ctaTextAr: "اقرئي المزيد",
     imageUrl: "/soraBelTool3.jpg",
   },
 ];
@@ -84,9 +84,9 @@ export const Hero = () => {
   const localizedFallbackSlide: HeroSlide = isArabic
     ? {
         ...fallbackSlide,
-        title: "Ø¬Ø±Ø§Ø­Ø© Ù…ØªÙ‚Ù†Ø© Ø¨Ø£ÙŠØ¯ÙŠ Ù…Ø­ØªØ±ÙÙŠÙ†",
-        subtitle: "Ø¹Ø²Ø²ÙŠ Ø«Ù‚ØªÙƒ ÙˆØ§Ø³ØªØ¹ÙŠØ¯ÙŠ Ø´Ø¨Ø§Ø¨Ùƒ ÙˆØ§Ø±ØªÙ‚ÙŠ Ø¨Ø¥Ø·Ù„Ø§Ù„ØªÙƒ Ø§Ù„ÙŠÙˆÙ…ÙŠØ©.",
-        ctaText: "Ø§Ù‚Ø±Ø¦ÙŠ Ø§Ù„Ù…Ø²ÙŠØ¯",
+        title: "جراحة متقنة بأيدي محترفين",
+        subtitle: "عززي ثقتك واستعيدي شبابك وارتقي بإطلالتك اليومية.",
+        ctaText: "اقرئي المزيد",
       }
     : fallbackSlide;
   const activeSlide = hasSlides ? activeSlides[index] : localizedFallbackSlide;
@@ -153,7 +153,7 @@ export const Hero = () => {
                 {[1, 2, 3, 4, 5].map((s) => (
                   <Star key={s} className="w-4 h-4 fill-[#d1f007]" />
                 ))}
-                <span className="text-sm ml-2">{isArabic ? "4.95 ØªÙ‚ÙŠÙŠÙ… Ø¬ÙˆØ¬Ù„" : "4.95 Google rating"}</span>
+                <span className="text-sm ml-2">{isArabic ? "4.95 تقييم جوجل" : "4.95 Google rating"}</span>
               </div>
 
               {/* TITLE */}
