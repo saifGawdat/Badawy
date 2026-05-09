@@ -46,6 +46,10 @@ model Item {
   description   String   @db.Text
   descriptionAr String   @default("") @db.Text
   imageUrl      String
+  metaTitle       String   @default("")
+  metaTitleAr     String   @default("")
+  metaDescription String   @default("")
+  metaDescriptionAr String @default("")
   createdAt     DateTime @default(now())
 }
 

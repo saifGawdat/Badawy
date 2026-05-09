@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useEffect, useState } from 'react';
 import { Plus, Trash2, Edit3, Image as ImageIcon, X } from 'lucide-react';
@@ -16,6 +16,10 @@ interface Item {
   description: string;
   descriptionAr?: string;
   imageUrl: string;
+  metaTitle?: string;
+  metaTitleAr?: string;
+  metaDescription?: string;
+  metaDescriptionAr?: string;
 }
 
 export default function ItemsPage() {
@@ -29,6 +33,10 @@ export default function ItemsPage() {
   const [titleAr, setTitleAr] = useState('');
   const [description, setDescription] = useState('');
   const [descriptionAr, setDescriptionAr] = useState('');
+  const [metaTitle, setMetaTitle] = useState('');
+  const [metaTitleAr, setMetaTitleAr] = useState('');
+  const [metaDescription, setMetaDescription] = useState('');
+  const [metaDescriptionAr, setMetaDescriptionAr] = useState('');
   const [file, setFile] = useState<File | null>(null);
 
   const fetchItems = async () => {
@@ -50,6 +58,10 @@ export default function ItemsPage() {
     setTitleAr('');
     setDescription('');
     setDescriptionAr('');
+    setMetaTitle('');
+    setMetaTitleAr('');
+    setMetaDescription('');
+    setMetaDescriptionAr('');
     setFile(null);
     setIsModalOpen(true);
   };
@@ -60,6 +72,10 @@ export default function ItemsPage() {
     setTitleAr(item.titleAr || '');
     setDescription(item.description);
     setDescriptionAr(item.descriptionAr || '');
+    setMetaTitle(item.metaTitle || '');
+    setMetaTitleAr(item.metaTitleAr || '');
+    setMetaDescription(item.metaDescription || '');
+    setMetaDescriptionAr(item.metaDescriptionAr || '');
     setFile(null);
     setIsModalOpen(true);
   };
@@ -88,6 +104,10 @@ export default function ItemsPage() {
     formData.append('titleAr', titleAr);
     formData.append('description', description);
     formData.append('descriptionAr', descriptionAr);
+    formData.append('metaTitle', metaTitle);
+    formData.append('metaTitleAr', metaTitleAr);
+    formData.append('metaDescription', metaDescription);
+    formData.append('metaDescriptionAr', metaDescriptionAr);
     if (imageFile) formData.append('image', imageFile);
 
     try {
@@ -234,6 +254,48 @@ export default function ItemsPage() {
                       rows={4}
                       className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20"
                     />
+                  </div>
+
+                  <div className="pt-4 border-t border-secondary/10">
+                    <h3 className="text-sm font-serif text-secondary mb-4 italic">SEO Settings</h3>
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Meta Title</label>
+                          <input 
+                            type="text" value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)}
+                            placeholder="Optional"
+                            className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Meta Title (Ar)</label>
+                          <input 
+                            type="text" value={metaTitleAr} onChange={(e) => setMetaTitleAr(e.target.value)}
+                            placeholder="Optional"
+                            className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Meta Description</label>
+                          <textarea 
+                            value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} rows={2}
+                            placeholder="Optional"
+                            className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Meta Description (Ar)</label>
+                          <textarea 
+                            value={metaDescriptionAr} onChange={(e) => setMetaDescriptionAr(e.target.value)} rows={2}
+                            placeholder="Optional"
+                            className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Image {editingItem && '(Optional)'}</label>

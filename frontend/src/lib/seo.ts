@@ -52,15 +52,17 @@ export function buildMetadata({
   publishedTime,
   modifiedTime,
   noIndex = false,
-}: BuildMetadataOptions): Metadata {
+  locale = "ar", // Default to Arabic
+}: BuildMetadataOptions & { locale?: "ar" | "en" }): Metadata {
   const ogImage = image || DEFAULT_OG_IMAGE;
-  // Prefer Arabic title for OG since audience is Arab-first
-  const ogTitle = titleAr || title;
-  const ogDesc = descriptionAr || description;
+  
+  // Use localized versions based on current locale
+  const finalTitle = locale === "ar" ? (titleAr || title) : title;
+  const finalDesc = locale === "ar" ? (descriptionAr || description) : description;
 
   return {
-    title,
-    description,
+    title: finalTitle,
+    description: finalDesc,
     keywords: GLOBAL_KEYWORDS,
     authors: [{ name: "Dr. Mostafa Badawi", url: SITE_URL }],
     creator: "Dr. Mostafa Badawi",
@@ -69,26 +71,26 @@ export function buildMetadata({
     alternates: {
       canonical,
       languages: {
-        "ar": canonical,
-        "en": canonical,
+        "ar": `${canonical}?lang=ar`,
+        "en": `${canonical}?lang=en`,
         "x-default": canonical,
       },
     },
     openGraph: {
-      title: ogTitle,
-      description: ogDesc,
+      title: finalTitle,
+      description: finalDesc,
       url: canonical,
       siteName: SITE_NAME,
       type,
-      locale: "ar_EG",
-      alternateLocale: "en_US",
-      images: [{ url: ogImage, width: 1200, height: 630, alt: ogTitle }],
+      locale: locale === "ar" ? "ar_EG" : "en_US",
+      alternateLocale: locale === "ar" ? "en_US" : "ar_EG",
+      images: [{ url: ogImage, width: 1200, height: 630, alt: finalTitle }],
       ...(type === "article" && { publishedTime, modifiedTime }),
     },
     twitter: {
       card: "summary_large_image",
-      title: ogTitle,
-      description: ogDesc,
+      title: finalTitle,
+      description: finalDesc,
       images: [ogImage],
       creator: "@mostafabadawi",
     },

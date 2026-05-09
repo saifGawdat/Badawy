@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { withAuth } from '@/lib/auth';
 import { withErrorHandler, apiError } from '@/lib/api-error';
@@ -40,6 +40,10 @@ export const PUT = withAuth(
     const titleAr = formData.get('titleAr') as string | null;
     const description = formData.get('description') as string | null;
     const descriptionAr = formData.get('descriptionAr') as string | null;
+    const metaTitle = formData.get('metaTitle') as string | null;
+    const metaTitleAr = formData.get('metaTitleAr') as string | null;
+    const metaDescription = formData.get('metaDescription') as string | null;
+    const metaDescriptionAr = formData.get('metaDescriptionAr') as string | null;
     const file = formData.get('image') as File | null;
 
     const updateData: Record<string, unknown> = {};
@@ -47,6 +51,10 @@ export const PUT = withAuth(
     if (titleAr !== null) updateData.titleAr = titleAr;
     if (description !== null) updateData.description = description;
     if (descriptionAr !== null) updateData.descriptionAr = descriptionAr;
+    if (metaTitle !== null) updateData.metaTitle = metaTitle;
+    if (metaTitleAr !== null) updateData.metaTitleAr = metaTitleAr;
+    if (metaDescription !== null) updateData.metaDescription = metaDescription;
+    if (metaDescriptionAr !== null) updateData.metaDescriptionAr = metaDescriptionAr;
 
     if (file) {
       const buffer = Buffer.from(await file.arrayBuffer());

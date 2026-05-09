@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { withAuth } from '@/lib/auth';
 import { withErrorHandler, apiError } from '@/lib/api-error';
@@ -25,6 +25,10 @@ export const POST = withAuth(
     const titleAr = String(formData.get('titleAr') || '');
     const description = String(formData.get('description') || '');
     const descriptionAr = String(formData.get('descriptionAr') || '');
+    const metaTitle = String(formData.get('metaTitle') || '');
+    const metaTitleAr = String(formData.get('metaTitleAr') || '');
+    const metaDescription = String(formData.get('metaDescription') || '');
+    const metaDescriptionAr = String(formData.get('metaDescriptionAr') || '');
     const file = formData.get('image') as File | null;
 
     if (!title || !description) {
@@ -46,6 +50,10 @@ export const POST = withAuth(
         description,
         descriptionAr,
         imageUrl,
+        metaTitle,
+        metaTitleAr,
+        metaDescription,
+        metaDescriptionAr,
       }
     });
 
