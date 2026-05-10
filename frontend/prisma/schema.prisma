@@ -88,14 +88,31 @@ model HeroSlide {
 
 // ─── Appointments ────────────────────────────────────────────────────────
 model Appointment {
-  id        String            @id @default(cuid())
-  fullName  String
-  email     String
-  phone     String
-  procedure String
-  message   String            @default("")
-  status    AppointmentStatus @default(new)
-  createdAt DateTime          @default(now())
+  id         String            @id @default(cuid())
+  fullName   String
+  email      String
+  phone      String
+  procedure  String
+  message    String            @default("")
+  status     AppointmentStatus @default(new)
+  locationId String?
+  location   Location?         @relation(fields: [locationId], references: [id])
+  createdAt  DateTime          @default(now())
+}
+
+model Location {
+  id             String        @id @default(cuid())
+  name           String
+  nameAr         String        @default("")
+  address        String
+  addressAr      String        @default("")
+  googleMapsUrl  String        @db.Text
+  phone          String
+  workingHours   String        @db.Text
+  workingHoursAr String        @default("") @db.Text
+  appointments   Appointment[]
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
 }
 
 enum AppointmentStatus {

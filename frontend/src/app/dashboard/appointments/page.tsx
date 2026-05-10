@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import { Trash2, Phone, Mail, CalendarDays } from "lucide-react";
@@ -14,6 +14,7 @@ interface Appointment {
   procedure: string;
   message: string;
   status: "new" | "contacted";
+  location?: { name: string; nameAr: string };
   createdAt: string;
 }
 
@@ -79,7 +80,7 @@ export default function AppointmentsPage() {
               <div>
                 <h3 className="text-xl font-serif text-secondary">{appointment.fullName}</h3>
                 <p className="text-xs uppercase tracking-widest text-primary mt-1">
-                  {appointment.procedure}
+                  {appointment.procedure} {appointment.location ? `• ${appointment.location.name}` : ''}
                 </p>
                 <span
                   className={`inline-flex mt-3 px-3 py-1 rounded-full text-[10px] uppercase tracking-widest ${

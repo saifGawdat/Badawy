@@ -1,11 +1,11 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { withAuth } from '@/lib/auth';
 import { withErrorHandler, apiError } from '@/lib/api-error';
 
 // POST /api/appointments - Create new appointment (Public)
 export const POST = withErrorHandler(async (req: NextRequest) => {
-  const { fullName, email, phone, procedure, message } = await req.json();
+  const { fullName, email, phone, procedure, message, locationId } = await req.json();
 
   if (!fullName || !email || !phone || !procedure) {
     return apiError('Please fill all required fields', 400);
@@ -18,6 +18,7 @@ export const POST = withErrorHandler(async (req: NextRequest) => {
       phone,
       procedure,
       message: message || "",
+      locationId: locationId || null,
     }
   });
 
@@ -28,6 +29,7 @@ export const POST = withErrorHandler(async (req: NextRequest) => {
 export const GET = withAuth(
   withErrorHandler(async () => {
     const appointments = await db.appointment.findMany({
+      include: { location: true },
       orderBy: { createdAt: 'desc' }
     });
     

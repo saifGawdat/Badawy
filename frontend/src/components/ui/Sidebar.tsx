@@ -1,9 +1,9 @@
-﻿"use client";
+"use client";
 
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Image as ImageIcon, MessageSquare, LogOut, Images, SlidersHorizontal, CalendarCheck2, Settings, Globe, Newspaper, X } from 'lucide-react';
+import { LayoutDashboard, Image as ImageIcon, MessageSquare, LogOut, Images, SlidersHorizontal, CalendarCheck2, Settings, Globe, Newspaper, X, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
@@ -13,6 +13,7 @@ const navItems = [
   { name: 'Settings', href: '/dashboard/settings', icon: Settings },
   { name: 'About Section', href: '/dashboard/about', icon: ImageIcon },
   { name: 'Appointments', href: '/dashboard/appointments', icon: CalendarCheck2 },
+  { name: 'Locations', href: '/dashboard/locations', icon: MapPin },
   { name: 'Hero Slider', href: '/dashboard/hero', icon: SlidersHorizontal },
   { name: 'Items', href: '/dashboard/items', icon: ImageIcon },
   { name: 'Before & After', href: '/dashboard/before-after', icon: Images },

@@ -50,25 +50,31 @@ export const Appointment = () => {
     locationLine || (isArabic ? DEFAULT_LOC_AR : DEFAULT_LOC_EN);
 
   const [services, setServices] = useState<{ id: string; title: string; titleAr: string }[]>([]);
+  const [locations, setLocations] = useState<{ id: string; name: string; nameAr: string }[]>([]);
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phone: '',
     procedure: '',
+    locationId: '',
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    const fetchServices = async () => {
+    const fetchData = async () => {
       try {
-        const { data } = await api.get('/items');
-        setServices(data);
+        const [servicesRes, locationsRes] = await Promise.all([
+          api.get('/items'),
+          api.get('/locations'),
+        ]);
+        setServices(servicesRes.data);
+        setLocations(locationsRes.data);
       } catch (error) {
-        console.error('Failed to fetch services:', error);
+        console.error('Failed to fetch form data:', error);
       }
     };
-    fetchServices();
+    fetchData();
   }, []);
 
   const onChange = (field: keyof typeof formData, value: string) => {
@@ -86,6 +92,7 @@ export const Appointment = () => {
         email: '',
         phone: '',
         procedure: '',
+        locationId: '',
         message: '',
       });
     } catch {
@@ -197,6 +204,25 @@ export const Appointment = () => {
                     ))}
                   </select>
                 </div>
+              </div>
+              
+              <div className="space-y-2">
+                <label className="text-[10px] uppercase font-bold tracking-widest text-secondary/40 ml-1">
+                  {isArabic ? 'الفرع المفضل' : 'Preferred Branch'}
+                </label>
+                <select
+                  required
+                  value={formData.locationId}
+                  onChange={(e) => onChange('locationId', e.target.value)}
+                  className="w-full bg-white border-b border-secondary/10 py-4 focus:outline-none focus:border-primary transition-colors text-secondary appearance-none cursor-pointer"
+                >
+                  <option value="">{isArabic ? 'اختاري الفرع' : 'Select Branch'}</option>
+                  {locations.map((loc) => (
+                    <option key={loc.id} value={loc.id}>
+                      {isArabic ? loc.nameAr : loc.name}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="space-y-2">
