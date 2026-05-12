@@ -11,14 +11,12 @@ import { Testimonials } from '@/components/sections/Testimonials';
 import { BeforeAfter } from '@/components/sections/BeforeAfter';
 import { Locations } from '@/components/sections/Locations';
 import { SignatureMarquee } from '@/components/sections/SignatureMarquee';
-import { LocalSeoIntro } from '@/components/sections/LocalSeoIntro';
 import { WhatsAppButton } from '@/components/ui/WhatsAppButton';
 
 export function HomeClient() {
   return (
     <div className="bg-white">
       <Navbar />
-      <LocalSeoIntro />
       <main id="main-content">
         <Hero />
         <About />
