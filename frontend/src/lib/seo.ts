@@ -19,18 +19,6 @@ export const GLOBAL_KEYWORDS = [
   "جراح تجميل طنطا",
   "عمليات تجميل مصر",
   "دكتور مصطفى بدوي",
-  /* Egyptian colloquial / search phrasing */
-  "أشطر دكتور تجميل في طنطا",
-  "اشطر دكتور تجميل في طنطا",
-  "أشطر دكتور تجميل في القاهرة",
-  "أشطر دكتور تجميل في مصر",
-  "أشطر جراح تجميل في طنطا",
-  "أحسن دكتور تجميل في طنطا",
-  "أحسن دكتور تجميل في القاهرة",
-  "أحسن دكتور تجميل في مصر",
-  "دكتور تجميل كويس في طنطا",
-  "دكتور تجميل في طنطا",
-  "دكتور تجميل في القاهرة",
   "تجميل مصر",
   "شد الوجه",
   "تكبير الصدر",
@@ -141,7 +129,7 @@ export function buildDoctorJsonLd() {
         jobTitle: "Plastic & Aesthetic Surgeon",
         medicalSpecialty: "PlasticSurgery",
         description:
-          "Plastic and aesthetic surgeon in Cairo, Tanta, and Egypt. لو بتدور على أشطر دكتور تجميل في طنطا أو القاهرة — د. مصطفى بدوي: جراحة تجميل وترميم بخبرة في مصر والدلتا.",
+          "Plastic and aesthetic surgeon serving patients in Cairo, Tanta, and across Egypt. جراح تجميل يستقبل المرضى في القاهرة وطنطا وجميع أنحاء مصر.",
         image: `${SITE_URL}/og-default.jpg`,
         knowsAbout: [
           "Plastic surgery",
@@ -149,9 +137,6 @@ export function buildDoctorJsonLd() {
           "Cosmetic surgery Egypt",
           "جراحة تجميل",
           "عمليات الأنف",
-          "أشطر دكتور تجميل في طنطا",
-          "أشطر دكتور تجميل في القاهرة",
-          "أحسن دكتور تجميل في مصر",
         ],
         areaServed: [
           { "@type": "City", name: "Cairo", containedInPlace: EGYPT_PLACE },
@@ -168,7 +153,7 @@ export function buildDoctorJsonLd() {
         alternateName: "Dr. Mostafa Badawi Plastic Surgery",
         url: SITE_URL,
         description:
-          "عيادة تجميل في القاهرة وطنطا والدلتا — أحسن عناية لمرضى يبحثون عن أشطر دكتور تجميل في مصر.",
+          "عيادة متخصصة في جراحة التجميل والعمليات الترميمية في مصر (القاهرة، طنطا، والدلتا) — أعلى معايير الرعاية الطبية.",
         logo: `${SITE_URL}/logo9.png`,
         image: `${SITE_URL}/og-default.jpg`,
         medicalSpecialty: "PlasticSurgery",

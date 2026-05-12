@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     template: `%s | د. مصطفى بدوي`,
   },
   description:
-    'د. مصطفى بدوي — أشطر دكتور تجميل في طنطا والقاهرة: تجميل الأنف، شد الوجه، شفط الدهون وعمليات التجميل في مصر. احجز استشارتك.',
+    'د. مصطفى بدوي — جراح تجميل في القاهرة وطنطا ومصر: تجميل الأنف، شد الوجه، شفط الدهون والمزيد. احجز استشارتك.',
   keywords: GLOBAL_KEYWORDS,
   authors: [{ name: 'Dr. Mostafa Badawi', url: SITE_URL }],
   creator: SITE_NAME_EN,

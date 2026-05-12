@@ -11,13 +11,11 @@ export function LocalSeoIntro() {
       <p className="mx-auto max-w-3xl px-6 py-3 text-center text-sm leading-relaxed text-secondary/75">
         {isArabic ? (
           <>
-            لو بتدور على{" "}
-            <strong className="font-semibold text-secondary/90">أشطر دكتور تجميل في طنطا</strong>
-            {" "}أو القاهرة — د. مصطفى بدوي جراح تجميل يستقبل مرضاه في{" "}
-            <strong className="font-semibold text-secondary/90">طنطا</strong> و
-            <strong className="font-semibold text-secondary/90"> القاهرة</strong> وفي أنحاء{" "}
-            <strong className="font-semibold text-secondary/90">مصر</strong>، بتركيز على نتائج
-            طبيعية وخطة علاج واضحة لكل مريض.
+            د. مصطفى بدوي — جراح تجميل يستقبل مرضاه في{" "}
+            <strong className="font-semibold text-secondary/90">القاهرة</strong> و
+            <strong className="font-semibold text-secondary/90"> طنطا</strong> وفي أنحاء{" "}
+            <strong className="font-semibold text-secondary/90">مصر</strong>، مع تركيز على
+            نتائج طبيعية وخطة علاج واضحة لكل مريض.
           </>
         ) : (
           <>
