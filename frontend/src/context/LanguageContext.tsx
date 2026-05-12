@@ -43,17 +43,17 @@ const subscribe = (callback: () => void) => {
 };
 
 const getSnapshot = () => {
-  if (typeof window === "undefined") return "en";
+  if (typeof window === "undefined") return "ar";
   const saved = localStorage.getItem("language");
-  return saved === "ar" || saved === "en" ? (saved as Language) : "en";
+  return saved === "ar" || saved === "en" ? (saved as Language) : "ar";
 };
 
-const getServerSnapshot = () => "en" as const;
+const getServerSnapshot = () => "ar" as const;
 
 export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
   const language = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setInternalLanguage] = useState<Language>("en");
+  const [_, setInternalLanguage] = useState<Language>("ar");
 
   // We still need a way to set the language manually
   const setLanguage = (lang: Language) => {
@@ -96,8 +96,8 @@ export const useLanguage = () => {
   if (!context) {
     // Fallback for build-time rendering or error states
     return {
-      language: "en" as const,
-      isArabic: false,
+      language: "ar" as const,
+      isArabic: true,
       setLanguage: () => {},
       toggleLanguage: () => {},
       t: (key: string) => key,

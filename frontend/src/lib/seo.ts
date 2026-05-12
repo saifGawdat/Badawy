@@ -9,10 +9,15 @@ export const SITE_NAME_EN = "Dr. Mostafa Badawi | Plastic Surgeon";
 
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.jpg`;
 
-/** Shared keywords for all pages */
+/** Shared keywords for all pages — EN + AR local intent (Egypt / Cairo / Tanta) */
 export const GLOBAL_KEYWORDS = [
   "جراح تجميل",
-  "عمليات تجميل",
+  "أفضل جراح تجميل في مصر",
+  "أفضل دكتور تجميل في القاهرة",
+  "أفضل دكتور تجميل في طنطا",
+  "جراح تجميل القاهرة",
+  "جراح تجميل طنطا",
+  "عمليات تجميل مصر",
   "دكتور مصطفى بدوي",
   "تجميل مصر",
   "شد الوجه",
@@ -21,6 +26,12 @@ export const GLOBAL_KEYWORDS = [
   "تجميل الأنف",
   "رينوبلاستي",
   "plastic surgeon Egypt",
+  "best plastic surgeon Egypt",
+  "best plastic surgeon Cairo",
+  "best plastic surgeon Tanta",
+  "plastic surgeon Cairo",
+  "plastic surgeon Tanta",
+  "cosmetic surgeon Egypt",
   "aesthetic surgery",
   "rhinoplasty Egypt",
   "cosmetic surgery Cairo",
@@ -102,21 +113,37 @@ export function buildMetadata({
 
 // ─── JSON-LD Builders ────────────────────────────────────────────────────────
 
-/** MedicalBusiness + Person structured data for the homepage */
+const EGYPT_PLACE = { "@type": "Country" as const, name: "Egypt" };
+
+/** MedicalBusiness + Physician structured data for the homepage */
 export function buildDoctorJsonLd() {
   return {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Person",
+        "@type": "Physician",
         "@id": `${SITE_URL}/#person`,
         name: "Dr. Mostafa Badawi",
-        alternateName: "د. مصطفى بدوي",
+        alternateName: ["د. مصطفى بدوي", "Mostafa Badawi"],
         url: SITE_URL,
         jobTitle: "Plastic & Aesthetic Surgeon",
+        medicalSpecialty: "PlasticSurgery",
         description:
-          "جراح تجميل متخصص في العمليات التجميلية والترميمية بخبرة واسعة في مصر والشرق الأوسط.",
+          "Plastic and aesthetic surgeon serving patients in Cairo, Tanta, and across Egypt. جراح تجميل يستقبل المرضى في القاهرة وطنطا وجميع أنحاء مصر.",
         image: `${SITE_URL}/og-default.jpg`,
+        knowsAbout: [
+          "Plastic surgery",
+          "Rhinoplasty",
+          "Cosmetic surgery Egypt",
+          "جراحة تجميل",
+          "عمليات الأنف",
+        ],
+        areaServed: [
+          { "@type": "City", name: "Cairo", containedInPlace: EGYPT_PLACE },
+          { "@type": "City", name: "Tanta", containedInPlace: EGYPT_PLACE },
+          { "@type": "City", name: "Giza", containedInPlace: EGYPT_PLACE },
+          EGYPT_PLACE,
+        ],
         sameAs: [],
       },
       {
@@ -126,15 +153,16 @@ export function buildDoctorJsonLd() {
         alternateName: "Dr. Mostafa Badawi Plastic Surgery",
         url: SITE_URL,
         description:
-          "عيادة متخصصة في جراحة التجميل والعمليات الترميمية، تقدم أعلى معايير الرعاية الطبية.",
+          "عيادة متخصصة في جراحة التجميل والعمليات الترميمية في مصر (القاهرة، طنطا، والدلتا) — أعلى معايير الرعاية الطبية.",
         logo: `${SITE_URL}/logo9.png`,
         image: `${SITE_URL}/og-default.jpg`,
         medicalSpecialty: "PlasticSurgery",
         priceRange: "$$$$",
-        areaServed: {
-          "@type": "Country",
-          name: "Egypt",
-        },
+        areaServed: [
+          { "@type": "City", name: "Cairo", containedInPlace: EGYPT_PLACE },
+          { "@type": "City", name: "Tanta", containedInPlace: EGYPT_PLACE },
+          EGYPT_PLACE,
+        ],
         hasMap: "",
         contactPoint: {
           "@type": "ContactPoint",

@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     template: `%s | د. مصطفى بدوي`,
   },
   description:
-    'د. مصطفى بدوي — جراح تجميل متخصص في عمليات التجميل والترميم. احجز استشارتك الآن.',
+    'د. مصطفى بدوي — جراح تجميل في القاهرة وطنطا ومصر: تجميل الأنف، شد الوجه، شفط الدهون والمزيد. احجز استشارتك.',
   keywords: GLOBAL_KEYWORDS,
   authors: [{ name: 'Dr. Mostafa Badawi', url: SITE_URL }],
   creator: SITE_NAME_EN,
@@ -82,7 +82,8 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="ar"
+      dir="rtl"
       className={`${inter.variable} ${playfair.variable} ${pinyon.variable} ${cairo.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-bone text-secondary selection:bg-primary/20">
