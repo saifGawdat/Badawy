@@ -6,11 +6,13 @@ import { MapPin, Phone, Clock, ExternalLink } from 'lucide-react';
 import { GlassCard } from '../ui/GlassCard';
 import api from '@/lib/api';
 import { useLanguage } from '@/context/LanguageContext';
+import { buildLocationJsonLd } from '@/lib/seo';
 
 interface Location {
   id: string;
   name: string;
   nameAr: string;
+  slug: string;
   address: string;
   addressAr: string;
   googleMapsUrl: string;
@@ -39,6 +41,28 @@ export const Locations = () => {
 
   return (
     <section id="locations" className="py-24 bg-bone/30 relative overflow-hidden">
+      {/* Location JSON-LD structured data for SEO */}
+      {locations.map((loc) => (
+        <script
+          key={loc.id}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              buildLocationJsonLd({
+                name: loc.name,
+                nameAr: loc.nameAr,
+                address: loc.address,
+                addressAr: loc.addressAr,
+                phone: loc.phone,
+                googleMapsUrl: loc.googleMapsUrl,
+                workingHours: loc.workingHours,
+                workingHoursAr: loc.workingHoursAr,
+              })
+            ),
+          }}
+        />
+      ))}
+
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <motion.h2 
@@ -129,7 +153,7 @@ export const Locations = () => {
                       </div>
                     </div>
 
-                    <div className="mt-8">
+                    <div className="mt-8 flex flex-col sm:flex-row gap-4 items-center justify-between">
                       <a 
                         href={loc.googleMapsUrl}
                         target="_blank"
@@ -139,6 +163,16 @@ export const Locations = () => {
                         <span>{isArabic ? 'فتح في خرائط جوجل' : 'Open in Google Maps'}</span>
                         <ExternalLink className="w-4 h-4" />
                       </a>
+
+                      {loc.slug && (
+                        <a 
+                          href={`/locations/${loc.slug}${isArabic ? '?lang=ar' : '?lang=en'}`}
+                          className="inline-flex items-center gap-2 bg-secondary/5 text-secondary px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-secondary hover:text-white transition-all"
+                        >
+                          <span>{isArabic ? 'تفاصيل الفرع' : 'Branch Details'}</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -151,15 +185,11 @@ export const Locations = () => {
   );
 };
 
-// Helper to attempt to convert a standard Google Maps URL to an embed URL
-// Note: In a real app, users should probably paste the embed URL, 
-// but we'll try to handle basic link formats.
-function convertToEmbedUrl(url: string) {
+/**
+ * Convert a standard Google Maps share URL to an embed URL.
+ * Best practice: Admins should paste the "Embed a map" iframe src directly.
+ */
+function convertToEmbedUrl(url: string): string {
   if (url.includes('google.com/maps/embed')) return url;
-  
-  // Basic fallback: if it's just a link, we might need a more robust conversion 
-  // or ask the user for the embed snippet. For now, let's assume it might be an ID 
-  // or we just return it.
-  // Best practice: Admin should paste the "Embed a map" iframe src.
   return url;
 }

@@ -66,10 +66,11 @@ export function buildMetadata({
   locale = "ar", // Default to Arabic
 }: BuildMetadataOptions & { locale?: "ar" | "en" }): Metadata {
   const ogImage = image || DEFAULT_OG_IMAGE;
-  
+
   // Use localized versions based on current locale
-  const finalTitle = locale === "ar" ? (titleAr || title) : title;
-  const finalDesc = locale === "ar" ? (descriptionAr || description) : description;
+  const finalTitle = locale === "ar" ? titleAr || title : title;
+  const finalDesc =
+    locale === "ar" ? descriptionAr || description : description;
 
   return {
     title: finalTitle,
@@ -82,8 +83,8 @@ export function buildMetadata({
     alternates: {
       canonical,
       languages: {
-        "ar": `${canonical}?lang=ar`,
-        "en": `${canonical}?lang=en`,
+        ar: `${canonical}?lang=ar`,
+        en: `${canonical}?lang=en`,
         "x-default": canonical,
       },
     },
@@ -220,9 +221,46 @@ export function buildServiceJsonLd(service: {
   };
 }
 
+/** MedicalBusiness structured data for a specific location branch */
+export function buildLocationJsonLd(location: {
+  name: string;
+  nameAr?: string;
+  address: string;
+  addressAr?: string;
+  phone: string;
+  googleMapsUrl: string;
+  workingHours: string;
+  workingHoursAr?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    "@id": `${SITE_URL}/locations/${location.name.toLowerCase().replace(/\s+/g, "-")}`,
+    name: location.nameAr || location.name,
+    alternateName: location.name,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: location.addressAr || location.address,
+      addressLocality:
+        location.name.includes("Tanta") ||
+        (location.nameAr && location.nameAr.includes("طنطا"))
+          ? "Tanta"
+          : "Cairo",
+      addressCountry: "EG",
+    },
+    telephone: location.phone,
+    url: `${SITE_URL}/locations/${location.name.toLowerCase().replace(/\s+/g, "-")}`,
+    hasMap: location.googleMapsUrl,
+    openingHours: location.workingHours,
+    parentOrganization: {
+      "@id": `${SITE_URL}/#business`,
+    },
+  };
+}
+
 /** BreadcrumbList JSON-LD helper */
 export function buildBreadcrumbJsonLd(
-  crumbs: { name: string; nameAr?: string; url: string }[]
+  crumbs: { name: string; nameAr?: string; url: string }[],
 ) {
   return {
     "@context": "https://schema.org",

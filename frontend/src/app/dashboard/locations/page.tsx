@@ -1,22 +1,27 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import { Plus, Trash2, Edit3, MapPin, X, Phone, Clock } from 'lucide-react';
-import api, { getErrorMessage } from '@/lib/api';
-import { GlassCard } from '@/components/ui/GlassCard';
-import { motion, AnimatePresence } from 'framer-motion';
-import { toast } from 'sonner';
+import React, { useEffect, useState } from "react";
+import { Plus, Trash2, Edit3, MapPin, X, Phone, Clock } from "lucide-react";
+import api, { getErrorMessage } from "@/lib/api";
+import { GlassCard } from "@/components/ui/GlassCard";
+import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "sonner";
 
 interface Location {
   id: string;
   name: string;
   nameAr: string;
+  slug: string;
   address: string;
   addressAr: string;
   googleMapsUrl: string;
   phone: string;
   workingHours: string;
   workingHoursAr: string;
+  metaTitle: string;
+  metaTitleAr: string;
+  metaDescription: string;
+  metaDescriptionAr: string;
 }
 
 export default function LocationsPage() {
@@ -24,23 +29,28 @@ export default function LocationsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingLocation, setEditingLocation] = useState<Location | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   // Form State
-  const [name, setName] = useState('');
-  const [nameAr, setNameAr] = useState('');
-  const [address, setAddress] = useState('');
-  const [addressAr, setAddressAr] = useState('');
-  const [googleMapsUrl, setGoogleMapsUrl] = useState('');
-  const [phone, setPhone] = useState('');
-  const [workingHours, setWorkingHours] = useState('');
-  const [workingHoursAr, setWorkingHoursAr] = useState('');
+  const [name, setName] = useState("");
+  const [nameAr, setNameAr] = useState("");
+  const [slug, setSlug] = useState("");
+  const [address, setAddress] = useState("");
+  const [addressAr, setAddressAr] = useState("");
+  const [googleMapsUrl, setGoogleMapsUrl] = useState("");
+  const [phone, setPhone] = useState("");
+  const [workingHours, setWorkingHours] = useState("");
+  const [workingHoursAr, setWorkingHoursAr] = useState("");
+  const [metaTitle, setMetaTitle] = useState("");
+  const [metaTitleAr, setMetaTitleAr] = useState("");
+  const [metaDescription, setMetaDescription] = useState("");
+  const [metaDescriptionAr, setMetaDescriptionAr] = useState("");
 
   const fetchLocations = async () => {
     try {
-      const { data } = await api.get('/locations');
+      const { data } = await api.get("/locations");
       setLocations(data);
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to load locations'));
+      toast.error(getErrorMessage(error, "Failed to load locations"));
     }
   };
 
@@ -50,27 +60,37 @@ export default function LocationsPage() {
 
   const openAddModal = () => {
     setEditingLocation(null);
-    setName('');
-    setNameAr('');
-    setAddress('');
-    setAddressAr('');
-    setGoogleMapsUrl('');
-    setPhone('');
-    setWorkingHours('');
-    setWorkingHoursAr('');
+    setName("");
+    setNameAr("");
+    setSlug("");
+    setAddress("");
+    setAddressAr("");
+    setGoogleMapsUrl("");
+    setPhone("");
+    setWorkingHours("");
+    setWorkingHoursAr("");
+    setMetaTitle("");
+    setMetaTitleAr("");
+    setMetaDescription("");
+    setMetaDescriptionAr("");
     setIsModalOpen(true);
   };
 
   const openEditModal = (loc: Location) => {
     setEditingLocation(loc);
     setName(loc.name);
-    setNameAr(loc.nameAr || '');
+    setNameAr(loc.nameAr || "");
+    setSlug(loc.slug || "");
     setAddress(loc.address);
-    setAddressAr(loc.addressAr || '');
+    setAddressAr(loc.addressAr || "");
     setGoogleMapsUrl(loc.googleMapsUrl);
     setPhone(loc.phone);
     setWorkingHours(loc.workingHours);
-    setWorkingHoursAr(loc.workingHoursAr || '');
+    setWorkingHoursAr(loc.workingHoursAr || "");
+    setMetaTitle(loc.metaTitle || "");
+    setMetaTitleAr(loc.metaTitleAr || "");
+    setMetaDescription(loc.metaDescription || "");
+    setMetaDescriptionAr(loc.metaDescriptionAr || "");
     setIsModalOpen(true);
   };
 
@@ -81,39 +101,51 @@ export default function LocationsPage() {
     const payload = {
       name,
       nameAr,
+      slug,
       address,
       addressAr,
       googleMapsUrl,
       phone,
       workingHours,
       workingHoursAr,
+      metaTitle,
+      metaTitleAr,
+      metaDescription,
+      metaDescriptionAr,
     };
 
     try {
       if (editingLocation) {
         await api.patch(`/locations/${editingLocation.id}`, payload);
-        toast.success('Location updated successfully');
+        toast.success("Location updated successfully");
       } else {
-        await api.post('/locations', payload);
-        toast.success('Location added successfully');
+        await api.post("/locations", payload);
+        toast.success("Location added successfully");
       }
       setIsModalOpen(false);
       fetchLocations();
     } catch (error) {
-      toast.error(getErrorMessage(error, editingLocation ? 'Failed to update location' : 'Failed to add location'));
+      toast.error(
+        getErrorMessage(
+          error,
+          editingLocation
+            ? "Failed to update location"
+            : "Failed to add location",
+        ),
+      );
     } finally {
       setIsLoading(false);
     }
   };
 
   const deleteLocation = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this location?')) return;
+    if (!confirm("Are you sure you want to delete this location?")) return;
     try {
       await api.delete(`/locations/${id}`);
-      toast.success('Location removed');
+      toast.success("Location removed");
       fetchLocations();
     } catch (error) {
-      toast.error(getErrorMessage(error, 'Failed to delete location'));
+      toast.error(getErrorMessage(error, "Failed to delete location"));
     }
   };
 
@@ -121,10 +153,14 @@ export default function LocationsPage() {
     <div className="space-y-8">
       <header className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-serif text-secondary">Clinic Locations</h1>
-          <p className="text-secondary/50 font-medium">Manage your practice branches and contact details.</p>
+          <h1 className="text-3xl font-serif text-secondary">
+            Clinic Locations
+          </h1>
+          <p className="text-secondary/50 font-medium">
+            Manage your practice branches and contact details.
+          </p>
         </div>
-        <button 
+        <button
           onClick={openAddModal}
           className="bg-primary text-white px-6 py-3 rounded-xl flex items-center space-x-2 shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
         >
@@ -149,13 +185,13 @@ export default function LocationsPage() {
                     <MapPin className="w-6 h-6" />
                   </div>
                   <div className="flex space-x-2">
-                    <button 
+                    <button
                       onClick={() => openEditModal(loc)}
                       className="p-2 text-secondary/40 hover:text-secondary hover:bg-white/50 rounded-lg transition-colors"
                     >
                       <Edit3 className="w-5 h-5" />
                     </button>
-                    <button 
+                    <button
                       onClick={() => deleteLocation(loc.id)}
                       className="p-2 text-red-500/40 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
                     >
@@ -163,10 +199,14 @@ export default function LocationsPage() {
                     </button>
                   </div>
                 </div>
-                
-                <h3 className="text-xl font-serif text-secondary mb-1">{loc.name}</h3>
-                <p className="text-xs text-primary font-medium tracking-widest uppercase mb-4">{loc.nameAr}</p>
-                
+
+                <h3 className="text-xl font-serif text-secondary mb-1">
+                  {loc.name}
+                </h3>
+                <p className="text-xs text-primary font-medium tracking-widest uppercase mb-4">
+                  {loc.nameAr}
+                </p>
+
                 <div className="space-y-3 flex-1">
                   <div className="flex items-start space-x-3 text-sm text-secondary/70">
                     <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
@@ -183,9 +223,9 @@ export default function LocationsPage() {
                 </div>
 
                 <div className="mt-6 pt-4 border-t border-secondary/5">
-                  <a 
-                    href={loc.googleMapsUrl} 
-                    target="_blank" 
+                  <a
+                    href={loc.googleMapsUrl}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="text-xs font-bold text-primary hover:underline flex items-center space-x-1"
                   >
@@ -204,106 +244,229 @@ export default function LocationsPage() {
         {isModalOpen && (
           <div className="fixed inset-0 z-50 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-6 py-10">
-            <motion.div 
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              onClick={() => setIsModalOpen(false)}
-              className="fixed inset-0 bg-secondary/80 backdrop-blur-sm"
-            />
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative z-10 w-full max-w-2xl rounded-2xl"
-            >
-              <GlassCard className="p-8 bg-bone border-none shadow-2xl overflow-y-auto max-h-[90vh]">
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl font-serif text-secondary">{editingLocation ? 'Edit Branch' : 'New Branch'}</h2>
-                  <button onClick={() => setIsModalOpen(false)} className="text-secondary/40 hover:text-secondary">
-                    <X className="w-6 h-6" />
-                  </button>
-                </div>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Branch Name</label>
-                      <input 
-                        type="text" required value={name} onChange={(e) => setName(e.target.value)}
-                        className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Branch Name (Arabic)</label>
-                      <input
-                        type="text" required value={nameAr} onChange={(e) => setNameAr(e.target.value)}
-                        className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 text-right"
-                        dir="rtl"
-                      />
-                    </div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setIsModalOpen(false)}
+                className="fixed inset-0 bg-secondary/80 backdrop-blur-sm"
+              />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                className="relative z-10 w-full max-w-2xl rounded-2xl"
+              >
+                <GlassCard className="p-8 bg-bone border-none shadow-2xl overflow-y-auto max-h-[90vh]">
+                  <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-2xl font-serif text-secondary">
+                      {editingLocation ? "Edit Branch" : "New Branch"}
+                    </h2>
+                    <button
+                      onClick={() => setIsModalOpen(false)}
+                      className="text-secondary/40 hover:text-secondary"
+                    >
+                      <X className="w-6 h-6" />
+                    </button>
                   </div>
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      <div className="space-y-2">
+                        <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+                          Branch Name
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+                          Branch Name (Arabic)
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={nameAr}
+                          onChange={(e) => setNameAr(e.target.value)}
+                          className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 text-right"
+                          dir="rtl"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+                          URL Slug (e.g. tanta)
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={slug}
+                          onChange={(e) =>
+                            setSlug(
+                              e.target.value.toLowerCase().replace(/\s+/g, "-"),
+                            )
+                          }
+                          className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                        />
+                      </div>
+                    </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Address</label>
-                      <input 
-                        type="text" required value={address} onChange={(e) => setAddress(e.target.value)}
-                        className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                      />
+                    <div className="pt-4 border-t border-secondary/5">
+                      <h3 className="text-xs font-bold uppercase tracking-widest text-primary mb-4">
+                        SEO Settings
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                          <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+                            Meta Title
+                          </label>
+                          <input
+                            type="text"
+                            value={metaTitle}
+                            onChange={(e) => setMetaTitle(e.target.value)}
+                            className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+                            Meta Title (Arabic)
+                          </label>
+                          <input
+                            type="text"
+                            value={metaTitleAr}
+                            onChange={(e) => setMetaTitleAr(e.target.value)}
+                            className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 text-right"
+                            dir="rtl"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+                            Meta Description
+                          </label>
+                          <textarea
+                            value={metaDescription}
+                            onChange={(e) => setMetaDescription(e.target.value)}
+                            rows={2}
+                            className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+                            Meta Description (Arabic)
+                          </label>
+                          <textarea
+                            value={metaDescriptionAr}
+                            onChange={(e) =>
+                              setMetaDescriptionAr(e.target.value)
+                            }
+                            rows={2}
+                            className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 text-right"
+                            dir="rtl"
+                          />
+                        </div>
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Address (Arabic)</label>
-                      <input
-                        type="text" required value={addressAr} onChange={(e) => setAddressAr(e.target.value)}
-                        className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 text-right"
-                        dir="rtl"
-                      />
-                    </div>
-                  </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Phone Number</label>
-                      <input 
-                        type="text" required value={phone} onChange={(e) => setPhone(e.target.value)}
-                        className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                      />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+                          Address
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={address}
+                          onChange={(e) => setAddress(e.target.value)}
+                          className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+                          Address (Arabic)
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={addressAr}
+                          onChange={(e) => setAddressAr(e.target.value)}
+                          className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 text-right"
+                          dir="rtl"
+                        />
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Google Maps URL</label>
-                      <input 
-                        type="url" required value={googleMapsUrl} onChange={(e) => setGoogleMapsUrl(e.target.value)}
-                        placeholder="https://goo.gl/maps/..."
-                        className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                      />
-                    </div>
-                  </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Working Hours</label>
-                      <textarea 
-                        required value={workingHours} onChange={(e) => setWorkingHours(e.target.value)} rows={4}
-                        className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                      />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+                          Phone Number
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+                          Google Maps URL
+                        </label>
+                        <input
+                          type="url"
+                          required
+                          value={googleMapsUrl}
+                          onChange={(e) => setGoogleMapsUrl(e.target.value)}
+                          placeholder="https://goo.gl/maps/..."
+                          className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                        />
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">Working Hours (Arabic)</label>
-                      <textarea
-                        required value={workingHoursAr} onChange={(e) => setWorkingHoursAr(e.target.value)} rows={4}
-                        className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 text-right"
-                        dir="rtl"
-                      />
-                    </div>
-                  </div>
 
-                  <button 
-                    disabled={isLoading}
-                    className="w-full bg-primary text-white py-4 rounded-xl font-medium shadow-lg shadow-primary/20 active:scale-[0.98] transition-all disabled:opacity-50"
-                  >
-                    {isLoading ? "Saving..." : editingLocation ? "Update Branch" : "Add Branch"}
-                  </button>
-                </form>
-              </GlassCard>
-            </motion.div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+                          Working Hours
+                        </label>
+                        <textarea
+                          required
+                          value={workingHours}
+                          onChange={(e) => setWorkingHours(e.target.value)}
+                          rows={4}
+                          className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] uppercase tracking-widest text-secondary/60 ml-1">
+                          Working Hours (Arabic)
+                        </label>
+                        <textarea
+                          required
+                          value={workingHoursAr}
+                          onChange={(e) => setWorkingHoursAr(e.target.value)}
+                          rows={4}
+                          className="w-full bg-white/50 border border-secondary/10 rounded-xl px-4 py-3 text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 text-right"
+                          dir="rtl"
+                        />
+                      </div>
+                    </div>
+
+                    <button
+                      disabled={isLoading}
+                      className="w-full bg-primary text-white py-4 rounded-xl font-medium shadow-lg shadow-primary/20 active:scale-[0.98] transition-all disabled:opacity-50"
+                    >
+                      {isLoading
+                        ? "Saving..."
+                        : editingLocation
+                          ? "Update Branch"
+                          : "Add Branch"}
+                    </button>
+                  </form>
+                </GlassCard>
+              </motion.div>
             </div>
           </div>
         )}

@@ -101,18 +101,23 @@ model Appointment {
 }
 
 model Location {
-  id             String        @id @default(cuid())
-  name           String
-  nameAr         String        @default("")
-  address        String
-  addressAr      String        @default("")
-  googleMapsUrl  String        @db.Text
-  phone          String
-  workingHours   String        @db.Text
-  workingHoursAr String        @default("") @db.Text
-  appointments   Appointment[]
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+  id                String        @id @default(cuid())
+  name              String
+  nameAr            String        @default("")
+  slug              String        @unique @default("")
+  address           String
+  addressAr         String        @default("")
+  googleMapsUrl     String        @db.Text
+  phone             String
+  workingHours      String        @db.Text
+  workingHoursAr    String        @default("") @db.Text
+  metaTitle         String        @default("")
+  metaTitleAr       String        @default("")
+  metaDescription   String        @default("")
+  metaDescriptionAr String        @default("")
+  appointments      Appointment[]
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
 }
 
 enum AppointmentStatus {
