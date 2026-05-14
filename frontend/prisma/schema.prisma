@@ -97,7 +97,9 @@ model Appointment {
   status     AppointmentStatus @default(new)
   locationId String?
   location   Location?         @relation(fields: [locationId], references: [id])
-  createdAt  DateTime          @default(now())
+  preferredDate  String            @default("")
+  preferredTime  String            @default("")
+  createdAt      DateTime          @default(now())
 }
 
 model Location {
