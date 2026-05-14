@@ -7,14 +7,8 @@ const nextConfig: NextConfig = {
   turbopack: undefined,
   images: {
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "**",
-      },
-      {
-        protocol: "http",
-        hostname: "**",
-      },
+      
+      ,
       {
         protocol: "https",
         hostname: "res.cloudinary.com",

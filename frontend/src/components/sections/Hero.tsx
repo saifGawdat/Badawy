@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -25,28 +25,28 @@ const fallbackSlide: HeroSlide = {
   subtitle:
     "Enhance your confidence restore your youth and elevate your everyday.",
   ctaText: "Read More",
-  imageUrl: "https://res.cloudinary.com/dydw5y96g/image/upload/v1745153730/Badawi_hero_slides/1745153729941.jpg",
+  imageUrl: "/soraBelTool.jpg",
 };
 
 const mobileSlides: HeroSlide[] = [
   {
     id: "mobile-1",
     title: "Surgery Refined by Professionals",
-    titleAr: "جراحة متقنة بأيدي محترفين",
+    titleAr: "Ø¬Ø±Ø§Ø­Ø© Ù…ØªÙ‚Ù†Ø© Ø¨Ø£ÙŠØ¯ÙŠ Ù…Ø­ØªØ±ÙÙŠÙ†",
     subtitle: "Enhance your confidence restore your youth and elevate your everyday.",
-    subtitleAr: "عززي ثقتك واستعيدي شبابك وارتقي بإطلالتك اليومية.",
+    subtitleAr: "Ø¹Ø²Ø²ÙŠ Ø«Ù‚ØªÙƒ ÙˆØ§Ø³ØªØ¹ÙŠØ¯ÙŠ Ø´Ø¨Ø§Ø¨Ùƒ ÙˆØ§Ø±ØªÙ‚ÙŠ Ø¨Ø¥Ø·Ù„Ø§Ù„ØªÙƒ Ø§Ù„ÙŠÙˆÙ…ÙŠØ©.",
     ctaText: "Read More",
-    ctaTextAr: "اقرئي المزيد",
+    ctaTextAr: "Ø§Ù‚Ø±Ø¦ÙŠ Ø§Ù„Ù…Ø²ÙŠØ¯",
     imageUrl: "/soraBelTool.jpg",
   },
   {
     id: "mobile-3",
     title: "Surgery Refined by Professionals",
-    titleAr: "جراحة متقنة بأيدي محترفين",
+    titleAr: "Ø¬Ø±Ø§Ø­Ø© Ù…ØªÙ‚Ù†Ø© Ø¨Ø£ÙŠØ¯ÙŠ Ù…Ø­ØªØ±ÙÙŠÙ†",
     subtitle: "Enhance your confidence restore your youth and elevate your everyday.",
-    subtitleAr: "عززي ثقتك واستعيدي شبابك وارتقي بإطلالتك اليومية.",
+    subtitleAr: "Ø¹Ø²Ø²ÙŠ Ø«Ù‚ØªÙƒ ÙˆØ§Ø³ØªØ¹ÙŠØ¯ÙŠ Ø´Ø¨Ø§Ø¨Ùƒ ÙˆØ§Ø±ØªÙ‚ÙŠ Ø¨Ø¥Ø·Ù„Ø§Ù„ØªÙƒ Ø§Ù„ÙŠÙˆÙ…ÙŠØ©.",
     ctaText: "Read More",
-    ctaTextAr: "اقرئي المزيد",
+    ctaTextAr: "Ø§Ù‚Ø±Ø¦ÙŠ Ø§Ù„Ù…Ø²ÙŠØ¯",
     imageUrl: "/soraBelTool3.jpg",
   },
 ];
@@ -84,9 +84,9 @@ export const Hero = () => {
   const localizedFallbackSlide: HeroSlide = isArabic
     ? {
         ...fallbackSlide,
-        title: "جراحة متقنة بأيدي محترفين",
-        subtitle: "عززي ثقتك واستعيدي شبابك وارتقي بإطلالتك اليومية.",
-        ctaText: "اقرئي المزيد",
+        title: "Ø¬Ø±Ø§Ø­Ø© Ù…ØªÙ‚Ù†Ø© Ø¨Ø£ÙŠØ¯ÙŠ Ù…Ø­ØªØ±ÙÙŠÙ†",
+        subtitle: "Ø¹Ø²Ø²ÙŠ Ø«Ù‚ØªÙƒ ÙˆØ§Ø³ØªØ¹ÙŠØ¯ÙŠ Ø´Ø¨Ø§Ø¨Ùƒ ÙˆØ§Ø±ØªÙ‚ÙŠ Ø¨Ø¥Ø·Ù„Ø§Ù„ØªÙƒ Ø§Ù„ÙŠÙˆÙ…ÙŠØ©.",
+        ctaText: "Ø§Ù‚Ø±Ø¦ÙŠ Ø§Ù„Ù…Ø²ÙŠØ¯",
       }
     : fallbackSlide;
   const activeSlide = hasSlides ? activeSlides[index] : localizedFallbackSlide;
@@ -153,7 +153,7 @@ export const Hero = () => {
                 {[1, 2, 3, 4, 5].map((s) => (
                   <Star key={s} className="w-4 h-4 fill-[#d1f007]" />
                 ))}
-                <span className="text-sm ml-2">{isArabic ? "4.95 تقييم جوجل" : "4.95 Google rating"}</span>
+                <span className="text-sm ml-2">{isArabic ? "4.95 ØªÙ‚ÙŠÙŠÙ… Ø¬ÙˆØ¬Ù„" : "4.95 Google rating"}</span>
               </div>
 
               {/* TITLE */}
@@ -175,7 +175,7 @@ export const Hero = () => {
         </motion.div>
       </AnimatePresence>
 
-      {/* CONTROLS â€” dir=ltr keeps prev/next arrows pointing outward in RTL layouts */}
+      {/* CONTROLS Ã¢â‚¬â€ dir=ltr keeps prev/next arrows pointing outward in RTL layouts */}
       <div
         dir="ltr"
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-6 text-white z-20"
@@ -195,4 +195,5 @@ export const Hero = () => {
     </section>
   );
 };
+
 

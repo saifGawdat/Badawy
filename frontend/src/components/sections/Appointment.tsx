@@ -1,25 +1,25 @@
-"use client";
+﻿"use client";
 
-import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { Mail, Phone, Calendar, MapPin } from 'lucide-react';
-import { GlassCard } from '../ui/GlassCard';
-import api from '@/lib/api';
-import { toast } from 'sonner';
-import { useLanguage } from '@/context/LanguageContext';
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { Mail, Phone, Calendar, MapPin } from "lucide-react";
+import { GlassCard } from "../ui/GlassCard";
+import api from "@/lib/api";
+import { useLanguage } from "@/context/LanguageContext";
+import { WizardContainer } from "./AppointmentWizard";
 
-const DEFAULT_LOC_EN = 'Tanta, El Bahr Street, near El-Galaa Mall';
-const DEFAULT_LOC_AR = 'طنطا، شارع البحر، بجوار مول الجلاء';
+const DEFAULT_LOC_EN = "Tanta, El Bahr Street, near El-Galaa Mall";
+const DEFAULT_LOC_AR = "طنطا، شارع البحر، بجوار مول الجلاء";
 
 function digitsOnly(num: string) {
-  return num.replace(/\D/g, '');
+  return num.replace(/\D/g, "");
 }
 
 export const Appointment = () => {
   const { isArabic } = useLanguage();
-  const [officePhone, setOfficePhone] = useState('');
-  const [locationLine, setLocationLine] = useState('');
+  const [officePhone, setOfficePhone] = useState("");
+  const [locationLine, setLocationLine] = useState("");
 
   useEffect(() => {
     const load = async () => {
@@ -29,78 +29,25 @@ export const Appointment = () => {
           whatsappPhone?: string;
           location?: string;
           locationAr?: string;
-        }>('/site-settings');
-        const p = (data.phone || data.whatsappPhone || '').trim();
+        }>("/site-settings");
+        const p = (data.phone || data.whatsappPhone || "").trim();
         setOfficePhone(p);
         const loc = isArabic
-          ? (data.locationAr || data.location || '').trim()
-          : (data.location || data.locationAr || '').trim();
+          ? (data.locationAr || data.location || "").trim()
+          : (data.location || data.locationAr || "").trim();
         setLocationLine(loc);
       } catch {
-        setOfficePhone('');
-        setLocationLine('');
+        setOfficePhone("");
+        setLocationLine("");
       }
     };
     load();
   }, [isArabic]);
 
-  const phoneDisplay = officePhone || '+20 100 123 4567';
+  const phoneDisplay = officePhone || "+20 100 123 4567";
   const phoneTel = digitsOnly(officePhone) || digitsOnly(phoneDisplay);
   const locationDisplay =
     locationLine || (isArabic ? DEFAULT_LOC_AR : DEFAULT_LOC_EN);
-
-  const [services, setServices] = useState<{ id: string; title: string; titleAr: string }[]>([]);
-  const [locations, setLocations] = useState<{ id: string; name: string; nameAr: string }[]>([]);
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    procedure: '',
-    locationId: '',
-    message: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [servicesRes, locationsRes] = await Promise.all([
-          api.get('/items'),
-          api.get('/locations'),
-        ]);
-        setServices(servicesRes.data);
-        setLocations(locationsRes.data);
-      } catch (error) {
-        console.error('Failed to fetch form data:', error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  const onChange = (field: keyof typeof formData, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    try {
-      await api.post('/appointments', formData);
-      toast.success(isArabic ? 'تم إرسال طلب الموعد بنجاح' : 'Appointment request sent successfully');
-      setFormData({
-        fullName: '',
-        email: '',
-        phone: '',
-        procedure: '',
-        locationId: '',
-        message: '',
-      });
-    } catch {
-      toast.error(isArabic ? 'فشل إرسال الطلب' : 'Failed to send appointment request');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <section id="contacts" className="py-24 bg-white relative overflow-hidden">
@@ -114,43 +61,43 @@ export const Appointment = () => {
           className="space-y-12 text-center lg:text-start"
         >
           <div className="relative aspect-square w-full max-w-sm mx-auto lg:mx-0 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border-4 md:border-8 border-bone">
-             <Image 
-                src="/Gemini_Generated_Image_jvtzrbjvtzrbjvtz.png" 
-                alt="Clinic Interior" 
-                fill 
+             <Image
+                src="/Gemini_Generated_Image_jvtzrbjvtzrbjvtz.png"
+                alt="Clinic Interior"
+                fill
                 className="object-cover"
              />
           </div>
-          
+
           <div className="space-y-6">
             <h2 className="text-4xl font-serif text-secondary">
-              {isArabic ? 'احجزي موعداً' : 'Make an Appointment'}
+              {isArabic ? "احجزي موعداً" : "Make an Appointment"}
             </h2>
             <p className="text-secondary/60 max-w-md">
               {isArabic
-                ? 'جاهزة لبدء رحلتك؟ احجزي استشارة خاصة مع د. بدوي لمناقشة خطة علاجك المناسبة.'
-                : 'Ready to begin your transformation? Schedule a private consultation with Dr. Badawi to discuss your personalized treatment plan.'}
+                ? "جاهزة لبدء رحلتك؟ احجزي استشارة خاصة مع د. بدوي لمناقشة خطة علاجك المناسبة."
+                : "Ready to begin your transformation? Schedule a private consultation with Dr. Badawi to discuss your personalized treatment plan."}
             </p>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 justify-items-center lg:justify-items-start">
               <ContactInfo
                 icon={Phone}
-                label={isArabic ? 'اتصلي بنا' : 'Call Us'}
+                label={isArabic ? "اتصلي بنا" : "Call Us"}
                 value={phoneDisplay}
                 href={phoneTel ? `tel:${phoneTel}` : undefined}
               />
-              <ContactInfo icon={Mail} label={isArabic ? 'راسلينا' : 'Email Us'} value="info@drbadawi.com" href="mailto:info@drbadawi.com" />
-              <ContactInfo icon={Calendar} label={isArabic ? 'المواعيد' : 'Hours'} value={isArabic ? 'الإثنين-السبت: 09:00 - 18:00' : 'Mon-Sat: 09:00 - 18:00'} />
+              <ContactInfo icon={Mail} label={isArabic ? "راسلينا" : "Email Us"} value="info@drbadawi.com" href="mailto:info@drbadawi.com" />
+              <ContactInfo icon={Calendar} label={isArabic ? "المواعيد" : "Hours"} value={isArabic ? "الإثنين-السبت: 09:00 - 18:00" : "Mon-Sat: 09:00 - 18:00"} />
               <ContactInfo
                 icon={MapPin}
-                label={isArabic ? 'الموقع' : 'Location'}
+                label={isArabic ? "الموقع" : "Location"}
                 value={locationDisplay}
               />
             </div>
           </div>
         </motion.div>
 
-        {/* Right Side: Simple Appointment Form Inspired by Screenshots */}
+        {/* Right Side: Multi-Step Booking Wizard */}
         <motion.div
            initial={{ opacity: 0, y: 30 }}
            whileInView={{ opacity: 1, y: 0 }}
@@ -158,94 +105,7 @@ export const Appointment = () => {
            transition={{ duration: 0.8 }}
         >
           <GlassCard className="p-6 md:p-10 border-none bg-bone/50 shadow-2xl">
-            <form onSubmit={handleSubmit} className="space-y-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <FormInput
-                  label={isArabic ? 'الاسم الكامل' : 'Full Name'}
-                  value={formData.fullName}
-                  onChange={(value) => onChange('fullName', value)}
-                  placeholder={isArabic ? 'اسمك' : 'Your name'}
-                />
-                <FormInput
-                  label={isArabic ? 'البريد الإلكتروني' : 'Email Address'}
-                  type="email"
-                  value={formData.email}
-                  onChange={(value) => onChange('email', value)}
-                  placeholder="email@example.com"
-                />
-              </div>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <FormInput
-                  label={isArabic ? 'رقم الهاتف' : 'Phone Number'}
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(value) => onChange('phone', value)}
-                  placeholder="+20..."
-                />
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase font-bold tracking-widest text-secondary/40 ml-1">
-                    {isArabic ? 'الإجراء المطلوب' : 'Preferred Procedure'}
-                  </label>
-                  <select
-                    required
-                    value={formData.procedure}
-                    onChange={(e) => onChange('procedure', e.target.value)}
-                    className="w-full bg-white border-b border-secondary/10 py-4 focus:outline-none focus:border-primary transition-colors text-secondary appearance-none cursor-pointer"
-                  >
-                    <option value="">{isArabic ? 'اختاري الإجراء' : 'Select Procedure'}</option>
-                    <option value="Consultation">
-                      {isArabic ? 'استشارة عامة' : 'General Consultation'}
-                    </option>
-                    {services.map((service) => (
-                      <option key={service.id} value={service.title}>
-                        {isArabic ? service.titleAr || service.title : service.title}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <label className="text-[10px] uppercase font-bold tracking-widest text-secondary/40 ml-1">
-                  {isArabic ? 'الفرع المفضل' : 'Preferred Branch'}
-                </label>
-                <select
-                  required
-                  value={formData.locationId}
-                  onChange={(e) => onChange('locationId', e.target.value)}
-                  className="w-full bg-white border-b border-secondary/10 py-4 focus:outline-none focus:border-primary transition-colors text-secondary appearance-none cursor-pointer"
-                >
-                  <option value="">{isArabic ? 'اختاري الفرع' : 'Select Branch'}</option>
-                  {locations.map((loc) => (
-                    <option key={loc.id} value={loc.id}>
-                      {isArabic ? loc.nameAr : loc.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-[10px] uppercase font-bold tracking-widest text-secondary/40 ml-1">
-                  {isArabic ? 'رسالة (اختياري)' : 'Message (Optional)'}
-                </label>
-                <textarea 
-                  rows={4}
-                  value={formData.message}
-                  onChange={(e) => onChange('message', e.target.value)}
-                  placeholder={isArabic ? 'أخبرينا عن أهدافك...' : 'Tell us about your goals...'}
-                  className="w-full bg-white border-b border-secondary/10 py-4 focus:outline-none focus:border-primary transition-colors resize-none text-secondary"
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-secondary text-white py-5 rounded-full font-bold uppercase tracking-[0.2em] text-sm hover:bg-secondary/90 transition-all shadow-xl shadow-secondary/20 disabled:opacity-50"
-              >
-                {isSubmitting ? (isArabic ? 'جارٍ الإرسال...' : 'Sending...') : (isArabic ? 'إرسال الطلب' : 'Send Request')}
-              </button>
-            </form>
+            <WizardContainer />
           </GlassCard>
         </motion.div>
       </div>
@@ -278,31 +138,5 @@ const ContactInfo = ({
         <p className="text-secondary font-serif whitespace-pre-line" dir="ltr">{value}</p>
       )}
     </div>
-  </div>
-);
-
-const FormInput = ({
-  label,
-  type = "text",
-  placeholder,
-  value,
-  onChange,
-}: {
-  label: string;
-  type?: string;
-  placeholder: string;
-  value: string;
-  onChange: (value: string) => void;
-}) => (
-  <div className="space-y-2">
-    <label className="text-[10px] uppercase font-bold tracking-widest text-secondary/40 ml-1">{label}</label>
-    <input 
-      required
-      type={type}
-      placeholder={placeholder}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      className="w-full bg-white border-b border-secondary/10 py-4 focus:outline-none focus:border-primary transition-colors text-secondary placeholder:text-secondary/20"
-    />
   </div>
 );
