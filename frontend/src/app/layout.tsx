@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, Playfair_Display, Pinyon_Script, Cairo } from 'next/font/google';
 import './globals.css';
 import { Providers } from '@/components/layout/Providers';
@@ -74,6 +74,14 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
   },
 };
+export const viewport: Viewport = {
+  themeColor: '#c5a028',
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+};
+
+
 
 export default function RootLayout({
   children,

@@ -25,6 +25,33 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
+  // Location pages
+  try {
+    const apiBase = getApiBase();
+    const res = await fetch(`${apiBase}/locations`, {
+      next: { revalidate: 300 },
+    });
+    if (res.ok) {
+      const locationsRes = await res.json();
+      // Handle both envelope { success, data } and direct array responses
+      const locations: { slug: string; updatedAt?: string }[] = Array.isArray(locationsRes)
+        ? locationsRes
+        : locationsRes.data ?? [];
+      for (const loc of locations) {
+        if (loc.slug) {
+          entries.push({
+            url: `${base}/locations/${loc.slug}`,
+            lastModified: loc.updatedAt ? new Date(loc.updatedAt) : new Date(),
+            changeFrequency: "monthly",
+            priority: 0.75,
+          });
+        }
+      }
+    }
+  } catch {
+    /* ignore */
+  }
+
   // Dynamic blog posts
   try {
     const res = await fetch(`${getApiBase()}/blog/sitemap-data`, {
