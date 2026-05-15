@@ -1,21 +1,21 @@
 "use client";
 
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  CheckCircle2,
+  AlertTriangle,
+} from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import api from "@/lib/api";
-import { toast } from "sonner";
 import { ProgressBar } from "./ProgressBar";
 import { StepPersonalInfo } from "./StepPersonalInfo";
 import { StepProcedure } from "./StepProcedure";
 import { StepSchedule } from "./StepSchedule";
 import { StepConfirm } from "./StepConfirm";
-import {
-  wizardReducer,
-  INITIAL_WIZARD_STATE,
-  type WizardStep,
-} from "./types";
+import { wizardReducer, INITIAL_WIZARD_STATE, type WizardStep } from "./types";
 
 const slideVariants = {
   enter: (direction: number) => ({
@@ -32,14 +32,14 @@ const slideVariants = {
   }),
 };
 
-export const WizardContainer = ({
-  onSuccess,
-}: {
-  onSuccess?: () => void;
-}) => {
+export const WizardContainer = ({ onSuccess }: { onSuccess?: () => void }) => {
   const { isArabic } = useLanguage();
   const [state, dispatch] = useReducer(wizardReducer, INITIAL_WIZARD_STATE);
-  const [[currentStep, direction], setDirection] = React.useState<[number, number]>([0, 0]);
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [[currentStep, direction], setDirection] = React.useState<
+    [number, number]
+  >([0, 0]);
 
   const totalSteps = 4;
 
@@ -56,7 +56,9 @@ export const WizardContainer = ({
   const canGoNext = (): boolean => {
     switch (state.step) {
       case 1:
-        return state.fullName.trim().length > 0 && state.phone.trim().length > 0;
+        return (
+          state.fullName.trim().length > 0 && state.phone.trim().length > 0
+        );
       case 2:
         return state.procedureId !== null;
       case 3:
@@ -70,6 +72,9 @@ export const WizardContainer = ({
 
   const handleSubmit = async () => {
     dispatch({ type: "SET_SUBMITTING", payload: true });
+    setSuccessMessage("");
+    setErrorMessage("");
+
     try {
       await api.post("/appointments", {
         fullName: state.fullName,
@@ -79,19 +84,19 @@ export const WizardContainer = ({
         locationId: state.locationId,
         message: state.notes || "",
       });
-      toast.success(
+      setSuccessMessage(
         isArabic
           ? "تم إرسال طلب الموعد بنجاح! سنتواصل معك قريباً."
-          : "Appointment request sent successfully! We'll contact you soon."
+          : "Appointment request sent successfully! We'll contact you soon.",
       );
       dispatch({ type: "RESET" });
       setDirection([0, 0]);
       onSuccess?.();
     } catch {
-      toast.error(
+      setErrorMessage(
         isArabic
           ? "فشل إرسال الطلب. حاولي مرة أخرى."
-          : "Failed to send request. Please try again."
+          : "Failed to send request. Please try again.",
       );
     } finally {
       dispatch({ type: "SET_SUBMITTING", payload: false });
@@ -132,11 +137,35 @@ export const WizardContainer = ({
     <div>
       {/* Progress Bar */}
       <div className="mb-10">
-        <ProgressBar currentStep={state.step as WizardStep} totalSteps={totalSteps} />
+        <ProgressBar
+          currentStep={state.step as WizardStep}
+          totalSteps={totalSteps}
+        />
       </div>
 
+      {successMessage && (
+        <div className="mb-4 rounded-3xl border border-emerald-200 bg-emerald-50/90 p-4 text-emerald-900 shadow-sm">
+          <div className="flex items-start gap-3">
+            <div className="mt-0.5 shrink-0 text-emerald-600">
+              <CheckCircle2 className="w-6 h-6" />
+            </div>
+            <p className="text-sm leading-6 font-medium">{successMessage}</p>
+          </div>
+        </div>
+      )}
+      {errorMessage && (
+        <div className="mb-4 rounded-3xl border border-rose-200 bg-rose-50/90 p-4 text-rose-900 shadow-sm">
+          <div className="flex items-start gap-3">
+            <div className="mt-0.5 shrink-0 text-rose-600">
+              <AlertTriangle className="w-6 h-6" />
+            </div>
+            <p className="text-sm leading-6 font-medium">{errorMessage}</p>
+          </div>
+        </div>
+      )}
+
       {/* Step Content */}
-      <div className="min-h-[320px]">{renderStep()}</div>
+      <div className="min-h-80">{renderStep()}</div>
 
       {/* Navigation Buttons */}
       <div className="flex items-center justify-between mt-10 pt-6 border-t border-secondary/5">
@@ -178,8 +207,8 @@ export const WizardContainer = ({
                 ? "جارٍ الإرسال..."
                 : "Sending..."
               : isArabic
-              ? "تأكيد الحجز"
-              : "Confirm Booking"}
+                ? "تأكيد الحجز"
+                : "Confirm Booking"}
           </button>
         )}
       </div>

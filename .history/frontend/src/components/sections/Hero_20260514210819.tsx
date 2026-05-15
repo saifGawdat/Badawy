@@ -23,7 +23,7 @@ const fallbackSlide: HeroSlide = {
   id: "fallback",
   title: "Surgery Refined by Professionals",
   subtitle:
-    "Enhance your confidence, restore your youth, and elevate your everyday.",
+    "Enhance your confidence restore your youth and elevate your everyday.",
   ctaText: "Read More",
   imageUrl: "/soraBelTool.jpg",
 };
@@ -32,30 +32,27 @@ const mobileSlides: HeroSlide[] = [
   {
     id: "mobile-1",
     title: "Surgery Refined by Professionals",
-    titleAr: "جراحة متقنة بأيدي محترفين",
-    subtitle:
-      "Enhance your confidence, restore your youth, and elevate your everyday.",
-    subtitleAr: "عززي ثقتك واستعيدي شبابك وارتقي بإطلالتك اليومية.",
+    titleAr: "Ø¬Ø±Ø§Ø­Ø© Ù…ØªÙ‚Ù†Ø© Ø¨Ø£ÙŠØ¯ÙŠ Ù…Ø­ØªØ±ÙÙŠÙ†",
+    subtitle: "Enhance your confidence restore your youth and elevate your everyday.",
+    subtitleAr: "Ø¹Ø²Ø²ÙŠ Ø«Ù‚ØªÙƒ ÙˆØ§Ø³ØªØ¹ÙŠØ¯ÙŠ Ø´Ø¨Ø§Ø¨Ùƒ ÙˆØ§Ø±ØªÙ‚ÙŠ Ø¨Ø¥Ø·Ù„Ø§Ù„ØªÙƒ Ø§Ù„ÙŠÙˆÙ…ÙŠØ©.",
     ctaText: "Read More",
-    ctaTextAr: "اقرئي المزيد",
+    ctaTextAr: "Ø§Ù‚Ø±Ø¦ÙŠ Ø§Ù„Ù…Ø²ÙŠØ¯",
     imageUrl: "/soraBelTool.jpg",
   },
   {
     id: "mobile-3",
     title: "Surgery Refined by Professionals",
-    titleAr: "جراحة متقنة بأيدي محترفين",
-    subtitle:
-      "Enhance your confidence, restore your youth, and elevate your everyday.",
-    subtitleAr: "عززي ثقتك واستعيدي شبابك وارتقي بإطلالتك اليومية.",
+    titleAr: "Ø¬Ø±Ø§Ø­Ø© Ù…ØªÙ‚Ù†Ø© Ø¨Ø£ÙŠØ¯ÙŠ Ù…Ø­ØªØ±ÙÙŠÙ†",
+    subtitle: "Enhance your confidence restore your youth and elevate your everyday.",
+    subtitleAr: "Ø¹Ø²Ø²ÙŠ Ø«Ù‚ØªÙƒ ÙˆØ§Ø³ØªØ¹ÙŠØ¯ÙŠ Ø´Ø¨Ø§Ø¨Ùƒ ÙˆØ§Ø±ØªÙ‚ÙŠ Ø¨Ø¥Ø·Ù„Ø§Ù„ØªÙƒ Ø§Ù„ÙŠÙˆÙ…ÙŠØ©.",
     ctaText: "Read More",
-    ctaTextAr: "اقرئي المزيد",
+    ctaTextAr: "Ø§Ù‚Ø±Ø¦ÙŠ Ø§Ù„Ù…Ø²ÙŠØ¯",
     imageUrl: "/soraBelTool3.jpg",
   },
 ];
 
 export const Hero = () => {
   const { isArabic } = useLanguage();
-
   const [slides, setSlides] = React.useState<HeroSlide[]>([]);
   const [index, setIndex] = React.useState(0);
   const [paused, setPaused] = React.useState(false);
@@ -77,31 +74,24 @@ export const Hero = () => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-
     checkMobile();
-
     window.addEventListener("resize", checkMobile);
-
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-    };
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   const activeSlides = isMobile ? mobileSlides : slides;
   const hasSlides = activeSlides.length > 0;
-
   const localizedFallbackSlide: HeroSlide = isArabic
     ? {
         ...fallbackSlide,
-        title: "جراحة متقنة بأيدي محترفين",
-        subtitle: "عززي ثقتك واستعيدي شبابك وارتقي بإطلالتك اليومية.",
-        ctaText: "اقرئي المزيد",
+        title: "Ø¬Ø±Ø§Ø­Ø© Ù…ØªÙ‚Ù†Ø© Ø¨Ø£ÙŠØ¯ÙŠ Ù…Ø­ØªØ±ÙÙŠÙ†",
+        subtitle: "Ø¹Ø²Ø²ÙŠ Ø«Ù‚ØªÙƒ ÙˆØ§Ø³ØªØ¹ÙŠØ¯ÙŠ Ø´Ø¨Ø§Ø¨Ùƒ ÙˆØ§Ø±ØªÙ‚ÙŠ Ø¨Ø¥Ø·Ù„Ø§Ù„ØªÙƒ Ø§Ù„ÙŠÙˆÙ…ÙŠØ©.",
+        ctaText: "Ø§Ù‚Ø±Ø¦ÙŠ Ø§Ù„Ù…Ø²ÙŠØ¯",
       }
     : fallbackSlide;
-
   const activeSlide = hasSlides ? activeSlides[index] : localizedFallbackSlide;
 
-  // AUTOPLAY
+  // AUTOPLAY (SYNC SAFE)
   React.useEffect(() => {
     if (!hasSlides || paused) return;
 
@@ -114,13 +104,11 @@ export const Hero = () => {
 
   const goNext = () => {
     if (!hasSlides) return;
-
     setIndex((prev) => (prev + 1) % activeSlides.length);
   };
 
   const goPrev = () => {
     if (!hasSlides) return;
-
     setIndex((prev) => (prev === 0 ? activeSlides.length - 1 : prev - 1));
   };
 
@@ -130,7 +118,7 @@ export const Hero = () => {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* SLIDE WRAPPER */}
+      {/* SLIDE WRAPPER (SYNC POINT) */}
       <AnimatePresence mode="wait">
         <motion.div
           key={activeSlide.id}
@@ -148,7 +136,10 @@ export const Hero = () => {
               fill
               priority
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
-              className={cn("object-cover", isArabic && "scale-x-[-1]")}
+              className={cn(
+                "object-cover",
+                isArabic && "scale-x-[-1]"
+              )}
             />
 
             <div className="absolute inset-0 bg-black/55" />
@@ -156,57 +147,35 @@ export const Hero = () => {
 
           {/* TEXT LAYER */}
           <div className="relative z-10 max-w-7xl mx-auto px-6 h-full flex items-center">
-            <div className={cn("max-w-2xl", isArabic && "text-right ml-auto")}>
+            <div>
               {/* STARS */}
-              <div
-                className={cn(
-                  "hidden md:flex items-center gap-2 mb-6 text-white",
-                  isArabic && "flex-row-reverse justify-end",
-                )}
-              >
+              <div className="hidden md:flex items-center gap-2 mb-6 text-white">
                 {[1, 2, 3, 4, 5].map((s) => (
-                  <Star
-                    key={s}
-                    className="w-4 h-4 fill-[#d1f007] text-[#d1f007]"
-                  />
+                  <Star key={s} className="w-4 h-4 fill-[#d1f007]" />
                 ))}
-
-                <span className="text-sm">
-                  {isArabic ? "تقييم 4.95 على جوجل" : "4.95 Google rating"}
-                </span>
+                <span className="text-sm ml-2">{isArabic ? "4.95 ØªÙ‚ÙŠÙŠÙ… Ø¬ÙˆØ¬Ù„" : "4.95 Google rating"}</span>
               </div>
 
               {/* TITLE */}
-              <h1
-                className={cn(
-                  "text-3xl md:text-6xl lg:text-7xl font-serif text-white leading-tight mb-6",
-                  isArabic && "font-bold",
-                )}
-              >
-                {isArabic && activeSlide.titleAr
-                  ? activeSlide.titleAr
-                  : activeSlide.title}
+              <h1 className="text-3xl md:text-6xl lg:text-7xl font-serif text-white leading-tight max-w-2xl mb-6">
+                {isArabic && activeSlide.titleAr ? activeSlide.titleAr : activeSlide.title}
               </h1>
 
               {/* SUBTITLE */}
-              <p className="text-white/80 max-w-md mb-10 text-base md:text-lg leading-relaxed">
-                {isArabic && activeSlide.subtitleAr
-                  ? activeSlide.subtitleAr
-                  : activeSlide.subtitle}
+              <p className="text-white/80 max-w-md mb-10">
+                {isArabic && activeSlide.subtitleAr ? activeSlide.subtitleAr : activeSlide.subtitle}
               </p>
 
               {/* CTA */}
-              <button className="border border-white text-white px-8 py-3 hover:bg-white hover:text-black transition duration-300">
-                {isArabic && activeSlide.ctaTextAr
-                  ? activeSlide.ctaTextAr
-                  : activeSlide.ctaText}
+              <button className="border border-white text-white px-8 py-3 hover:bg-white hover:text-black transition">
+                {isArabic && activeSlide.ctaTextAr ? activeSlide.ctaTextAr : activeSlide.ctaText}
               </button>
             </div>
           </div>
         </motion.div>
       </AnimatePresence>
 
-      {/* CONTROLS */}
+      {/* CONTROLS Ã¢â‚¬â€ dir=ltr keeps prev/next arrows pointing outward in RTL layouts */}
       <div
         dir="ltr"
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-6 text-white z-20"
@@ -226,3 +195,5 @@ export const Hero = () => {
     </section>
   );
 };
+
+
