@@ -9,33 +9,22 @@ export const SITE_NAME_EN = "Dr. Mostafa Badawi | Plastic Surgeon";
 
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.jpg`;
 
-/** Shared keywords for all pages — EN + AR local intent (Egypt / Cairo / Tanta) */
+/** Essential Arabic keywords to avoid stuffing */
 export const GLOBAL_KEYWORDS = [
-  "جراح تجميل",
   "أفضل جراح تجميل في مصر",
-  "أفضل دكتور تجميل في القاهرة",
-  "أفضل دكتور تجميل في طنطا",
-  "جراح تجميل القاهرة",
+  "دكتور تجميل في القاهرة",
   "جراح تجميل طنطا",
-  "عمليات تجميل مصر",
   "دكتور مصطفى بدوي",
-  "تجميل مصر",
-  "شد الوجه",
-  "تكبير الصدر",
-  "شفط الدهون",
-  "تجميل الأنف",
-  "رينوبلاستي",
-  "plastic surgeon Egypt",
+  "عمليات تجميل",
+];
+
+/** Essential English keywords to avoid stuffing */
+export const GLOBAL_KEYWORDS_EN = [
   "best plastic surgeon Egypt",
-  "best plastic surgeon Cairo",
-  "best plastic surgeon Tanta",
   "plastic surgeon Cairo",
   "plastic surgeon Tanta",
-  "cosmetic surgeon Egypt",
-  "aesthetic surgery",
-  "rhinoplasty Egypt",
-  "cosmetic surgery Cairo",
   "Dr. Mostafa Badawi",
+  "cosmetic surgery",
 ];
 
 interface BuildMetadataOptions {
@@ -49,6 +38,7 @@ interface BuildMetadataOptions {
   publishedTime?: string;
   modifiedTime?: string;
   noIndex?: boolean;
+  keywords?: string[];
 }
 
 /** Build a full Next.js Metadata object following SEO best practices */
@@ -64,6 +54,7 @@ export function buildMetadata({
   modifiedTime,
   noIndex = false,
   locale = "ar", // Default to Arabic
+  keywords,
 }: BuildMetadataOptions & { locale?: "ar" | "en" }): Metadata {
   const ogImage = image || DEFAULT_OG_IMAGE;
 
@@ -72,26 +63,36 @@ export function buildMetadata({
   const finalDesc =
     locale === "ar" ? descriptionAr || description : description;
 
+  const finalKeywords = keywords || (locale === "ar" ? GLOBAL_KEYWORDS : GLOBAL_KEYWORDS_EN);
+
+  // If locale is EN, append ?lang=en to correctly canonicalize the English version
+  // Only append if it's not already there
+  const actualCanonical = (locale === "en" && !canonical.includes("lang=en")) 
+    ? `${canonical}?lang=en` 
+    : canonical;
+    
+  const baseCanonical = canonical.split('?')[0];
+
   return {
     title: finalTitle,
     description: finalDesc,
-    keywords: GLOBAL_KEYWORDS,
+    keywords: finalKeywords,
     authors: [{ name: "Dr. Mostafa Badawi", url: SITE_URL }],
     creator: "Dr. Mostafa Badawi",
     publisher: SITE_NAME_EN,
     metadataBase: new URL(SITE_URL),
     alternates: {
-      canonical,
+      canonical: actualCanonical,
       languages: {
-        ar: `${canonical}?lang=ar`,
-        en: `${canonical}?lang=en`,
-        "x-default": canonical,
+        ar: baseCanonical,
+        en: `${baseCanonical}?lang=en`,
+        "x-default": baseCanonical,
       },
     },
     openGraph: {
       title: finalTitle,
       description: finalDesc,
-      url: canonical,
+      url: actualCanonical,
       siteName: SITE_NAME,
       type,
       locale: locale === "ar" ? "ar_EG" : "en_US",
@@ -270,6 +271,24 @@ export function buildBreadcrumbJsonLd(
       position: i + 1,
       name: c.nameAr || c.name,
       item: c.url,
+    })),
+  };
+}
+
+/** FAQ JSON-LD Helper */
+export function buildFaqJsonLd(
+  faqs: { question: string; answer: string }[]
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
     })),
   };
 }

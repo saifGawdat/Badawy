@@ -5,16 +5,26 @@ import { buildMetadata, buildBreadcrumbJsonLd, SITE_URL, DEFAULT_OG_IMAGE } from
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = buildMetadata({
-  title: "مدونة التجميل | د. مصطفى بدوي",
-  titleAr: "مدونة التجميل | د. مصطفى بدوي",
-  description:
-    "Articles and insights on plastic surgery, recovery, and aesthetic care from Dr. Mostafa Badawi.",
-  descriptionAr:
-    "مقالات ونصائح حول جراحة التجميل والتعافي والعناية بالمظهر — بقلم د. مصطفى بدوي.",
-  canonical: `${SITE_URL}/blog`,
-  image: DEFAULT_OG_IMAGE,
-});
+type Props = {
+  searchParams: Promise<{ lang?: string }>;
+};
+
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const { lang } = await searchParams;
+  const locale = lang === 'en' ? 'en' : 'ar';
+  
+  return buildMetadata({
+    title: "Plastic Surgery Blog | Dr. Mostafa Badawi",
+    titleAr: "مدونة التجميل | د. مصطفى بدوي",
+    description:
+      "Articles and insights on plastic surgery, recovery, and aesthetic care from Dr. Mostafa Badawi.",
+    descriptionAr:
+      "مقالات ونصائح حول جراحة التجميل والتعافي والعناية بالمظهر — بقلم د. مصطفى بدوي.",
+    canonical: `${SITE_URL}/blog`,
+    image: DEFAULT_OG_IMAGE,
+    locale,
+  });
+}
 
 export default async function BlogPage() {
   const posts = await fetchPublishedBlogPosts();
